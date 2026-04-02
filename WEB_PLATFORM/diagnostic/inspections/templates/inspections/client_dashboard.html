@@ -1,0 +1,427 @@
+{% extends "inspections/client_base.html" %}
+
+{% block extra_css %}
+<style>
+    .dashboard-container {
+        padding: 3rem 0;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .hero-section {
+        margin-bottom: 4rem;
+        position: relative;
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        padding: 0.5rem 1.2rem;
+        border-radius: 100px;
+        color: var(--accent-light);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        letter-spacing: -2px;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        max-width: 600px;
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 4rem;
+    }
+
+    .metric-card {
+        padding: 2rem;
+        transition: 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .metric-card:hover {
+        border-color: rgba(59, 130, 246, 0.3);
+        transform: translateY(-5px);
+    }
+
+    .metric-value {
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin: 0.5rem 0;
+        color: white;
+    }
+
+    .metric-label {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .metric-icon {
+        position: absolute;
+        right: -10px;
+        bottom: -10px;
+        font-size: 5rem;
+        opacity: 0.03;
+        transform: rotate(-15deg);
+    }
+
+    /* Section Headers */
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: white;
+    }
+
+    /* Booking Cards */
+    .booking-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .booking-card {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        overflow: hidden;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .booking-card:hover {
+        border-color: rgba(59, 130, 246, 0.4);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .booking-image {
+        height: 100%;
+        position: relative;
+    }
+
+    .booking-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .status-overlay {
+        position: absolute;
+        top: 1.5rem;
+        left: 1.5rem;
+    }
+
+    .booking-content {
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .booking-brand {
+        font-size: 0.8rem;
+        color: var(--accent-light);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .booking-model {
+        font-size: 1.6rem;
+        font-weight: 800;
+        margin: 0.4rem 0 1rem;
+    }
+
+    .booking-meta {
+        display: flex;
+        gap: 2rem;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .options-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+
+    .option-tag {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #cbd5e1;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Sidebar Components */
+    .side-panel {
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .report-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.2rem;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        text-decoration: none;
+        transition: 0.3s;
+        margin-bottom: 1rem;
+    }
+
+    .report-item:hover {
+        background: rgba(59, 130, 246, 0.08);
+        border-color: rgba(59, 130, 246, 0.2);
+        transform: translateX(8px);
+    }
+
+    .report-info h5 {
+        color: white;
+        font-weight: 700;
+        font-size: 0.95rem;
+        margin: 0;
+    }
+
+    .report-info p {
+        color: var(--text-secondary);
+        font-size: 0.75rem;
+        margin: 0.2rem 0 0;
+    }
+
+    .quick-action-card {
+        background: var(--premium-gradient);
+        padding: 2rem;
+        border-radius: 25px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .action-btn {
+        background: white;
+        color: var(--accent-client);
+        padding: 0.8rem 1.5rem;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 0.85rem;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 1.5rem;
+        transition: 0.3s;
+    }
+
+    .action-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 1024px) {
+        .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        .booking-card { grid-template-columns: 1fr; }
+        .booking-image { height: 240px; }
+        .main-content { grid-template-columns: 1fr !important; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container fade-in">
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="hero-badge">
+            <span>✨</span> {% if user.profile.role == 'admin' %}ADMINISTRATEUR{% else %}Client Certifié{% endif %}
+        </div>
+        <h1 class="hero-title">
+            Ravi de vous revoir,<br>
+            <span style="background: linear-gradient(to right, #fff, #3b82f6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">{{ request.user.username }}</span>
+        </h1>
+        <p class="hero-subtitle">Votre espace personnel pour gérer vos locations et voir vos rapports de sécurité.</p>
+    </header>
+
+    <!-- Metrics Grid -->
+    <div class="metrics-grid">
+        <div class="metric-card glass">
+            <div class="metric-label">Mes Locations</div>
+            <div class="metric-value">{{ total_bookings }}</div>
+            <div class="metric-label" style="opacity: 0.6;">Locations en cours</div>
+            <div class="metric-icon">🚗</div>
+        </div>
+        <div class="metric-card glass">
+            <div class="metric-label">Mes Points</div>
+            <div class="metric-value">1,250</div>
+            <div class="metric-label" style="color: #10b981;">+12% ce mois</div>
+            <div class="metric-icon">💎</div>
+        </div>
+        <div class="metric-card glass">
+            <div class="metric-label">Niveau Sécurité</div>
+            <div class="metric-value">99.8%</div>
+            <div class="metric-label" style="opacity: 0.6;">Vérifié par le système</div>
+            <div class="metric-icon">🛡️</div>
+        </div>
+        <div class="metric-card glass">
+            <div class="metric-label">Niveau du Compte</div>
+            <div class="metric-value" style="font-size: 1.5rem; margin-top: 1.2rem;">OR CLIENT</div>
+            <div class="metric-label" style="opacity: 0.6;">Depuis 180 jours</div>
+            <div class="metric-icon">✨</div>
+        </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="main-content" style="display: grid; grid-template-columns: 1fr 380px; gap: 4rem; align-items: start;">
+        
+        <!-- Left: Activity & Fleet -->
+        <section>
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Dernièrement</h2>
+                    <p style="color: var(--text-secondary); margin-top: 0.5rem;">Un aperçu de vos activités récentes.</p>
+                </div>
+                <a href="{% url 'inspections:client_bookings' %}" style="color: var(--accent-light); font-weight: 700; text-decoration: none; font-size: 0.9rem;">Historique Complet →</a>
+            </div>
+
+            <div class="booking-grid">
+                {% for booking in bookings %}
+                <div class="booking-card glass">
+                    <div class="booking-image">
+                        {% if booking.car.image %}
+                        <img src="{{ booking.car.image.url }}" alt="{{ booking.car.model_name }}">
+                        {% endif %}
+                        <div class="status-overlay">
+                            <span class="badge-status status-{{ booking.status }}" style="padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 0.65rem;">
+                                {{ booking.get_status_display }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="booking-content">
+                        <div>
+                            <div class="booking-brand">{{ booking.car.brand }}</div>
+                            <h3 class="booking-model">{{ booking.car.model_name }}</h3>
+                            
+                            <div class="booking-meta">
+                                <div class="meta-item">
+                                    <span>📅</span>
+                                    <span>{{ booking.start_date|date:"d M Y" }}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span>⏳</span>
+                                    <span>{{ booking.duration_days }} Jours</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                             <a href="{% url 'inspections:car_analyze' car_id=booking.car.id %}" style="font-weight: 700; color: var(--accent-light); text-decoration: none; font-size: 0.75rem; background: rgba(59, 130, 246, 0.1); padding: 0.6rem 1.2rem; border-radius: 10px;">
+                                Scanner <span>⚡</span>
+                             </a>
+                             <div style="font-size: 0.75rem; color: var(--text-secondary);">Réf: #{{ booking.id }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="glass" style="padding: 4rem; text-align: center; border: 1px dashed rgba(255,255,255,0.1);">
+                    <h3 style="font-weight: 800; margin-bottom: 1rem;">Prêt pour une nouvelle aventure ?</h3>
+                    <a href="{% url 'inspections:car_fleet' %}" class="action-btn">Voir la Flotte</a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        <!-- Right: AI Tools & Quick Access -->
+        <aside>
+            <!-- AI Reports -->
+            <div class="side-panel glass" id="mes-rapports">
+                <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 1.5rem;">📋 Mes Dossiers Sécurité</h3>
+                <p style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 2rem;">Vérification automatique de l'état de vos voitures.</p>
+                
+                <div class="reports-list">
+                    {% for inspection in inspections %}
+                    <a href="{% url 'inspections:report_detail' inspection.pk %}" class="report-item">
+                        <div class="report-info">
+                            <h5>{{ inspection.car.brand }} {{ inspection.car.model_name }}</h5>
+                            <p>Analyse du {{ inspection.created_at|date:"d M, H:i" }}</p>
+                        </div>
+                        <div style="color: var(--accent-light); font-weight: 800;">→</div>
+                    </a>
+                    {% empty %}
+                    <div style="text-align: center; padding: 2rem; color: var(--text-secondary); font-size: 0.85rem;">
+                        Aucun rapport disponible.
+                    </div>
+                    {% endfor %}
+                    
+                    {% if inspections %}
+                    <a href="{% url 'inspections:client_reports' %}" style="display: block; text-align: right; color: var(--accent-client); font-size: 0.75rem; font-weight: 800; text-decoration: none; margin-top: 1.5rem; text-transform: uppercase; letter-spacing: 1px;">
+                        Voir tout l'historique →
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Promotion / Action -->
+            <div class="quick-action-card">
+                <div style="position: relative; z-index: 2;">
+                    <div style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem;">Offre Limitée</div>
+                    <h4 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem;">Invitez des amis et gagnez des points</h4>
+                    <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 1.5rem;">Partagez l'expérience EliteRent avec vos proches et profitez de -15% sur votre prochaine location.</p>
+                    <a href="{% url 'inspections:invite_friend' %}" class="action-btn">Inviter un Ami</a>
+                </div>
+                <div style="position: absolute; right: -20px; top: -20px; font-size: 8rem; opacity: 0.1; z-index: 1;">🎁</div>
+            </div>
+
+            <!-- Support Status -->
+            <div class="glass" style="margin-top: 2rem; padding: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="width: 12px; height: 12px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981;"></div>
+                <div style="flex: 1;">
+                    <div style="font-size: 0.85rem; font-weight: 700;">Aide en ligne : Disponible</div>
+                    <div style="font-size: 0.7rem; color: var(--text-secondary);">Temps de réponse estimé : 2 min</div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+</div>
+
+<style>
+    /* Status Badges */
+    .status-pending { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-validated { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .status-cancelled { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+</style>
+{% endblock %}
+

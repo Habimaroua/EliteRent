@@ -1,0 +1,115 @@
+{% extends "inspections/admin_base.html" %}
+
+{% block extra_css %}
+<style>
+    .admin-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 25px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .admin-card:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(59, 130, 246, 0.3);
+        transform: translateY(-5px);
+    }
+
+    .status-badge {
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .status-excellent { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+    .status-good { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
+    .status-damaged { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+    .status-maintenance { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
+
+    .action-btn {
+        padding: 0.6rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.03);
+        color: white;
+        text-decoration: none;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .action-btn:hover {
+        background: rgba(255,255,255,0.08);
+        border-color: white;
+    }
+
+    .btn-delete:hover {
+        background: rgba(239, 68, 68, 0.1);
+        border-color: #ef4444;
+        color: #ef4444;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="padding: 4rem 3%;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4rem;">
+        <div>
+            <h1 style="font-size: 3rem; font-weight: 800; color: white; margin-bottom: 0.5rem;">Gérer les <span style="color: var(--accent-color);">Voitures</span></h1>
+            <p style="color: var(--text-secondary);">Ajoutez ou modifiez vos voitures de luxe ici.</p>
+        </div>
+        <a href="{% url 'inspections:car_create' %}" class="btn" style="padding: 1rem 2.5rem; border-radius: 15px; font-size: 1rem; display: flex; align-items: center; gap: 0.8rem;">
+            <span>➕</span> Ajouter une voiture
+        </a>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+        {% for car in cars %}
+        <div class="admin-card">
+            <div style="position: relative; height: 180px; border-radius: 20px; overflow: hidden; margin-bottom: 1.5rem;">
+                {% if car.image %}
+                <img src="{{ car.image.url }}" style="width: 100%; height: 100%; object-fit: cover;">
+                {% else %}
+                <div style="width: 100%; height: 100%; background: #0c0e12; display: flex; align-items: center; justify-content: center; font-size: 3rem;">🏎️</div>
+                {% endif %}
+                <div style="position: absolute; top: 1rem; right: 1rem;">
+                    <span class="status-badge status-{{ car.status }}">
+                        {{ car.get_status_display }}
+                    </span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                <div>
+                    <h3 style="font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: 0.2rem;">{{ car.brand }} {{ car.model_name }}</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">{{ car.license_plate }} · {{ car.year }}</p>
+                </div>
+                <div style="text-align: right;">
+                    <p style="font-size: 1.1rem; font-weight: 800; color: white;">{{ car.price_per_day }}€</p>
+                    <p style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase;">Par jour</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                <a href="{% url 'inspections:car_edit' car.pk %}" class="action-btn" style="flex: 1; gap: 0.5rem; font-weight: 600;">
+                    <span>✏️</span> Modifier
+                </a>
+                <a href="{% url 'inspections:car_delete' car.pk %}" class="action-btn btn-delete" style="flex: 0 0 50px;">
+                    <span>🗑️</span>
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div style="grid-column: 1 / -1; text-align: center; padding: 6rem; background: rgba(255,255,255,0.02); border-radius: 30px; border: 1px dashed rgba(255,255,255,0.1);">
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">Aucune voiture disponible pour le moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

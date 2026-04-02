@@ -1,0 +1,49 @@
+{% extends "inspections/client_base.html" %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 4rem auto;">
+    <div style="background: var(--card-bg); padding: 3.5rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+        <h1 style="margin-bottom: 1rem; text-align: center;">Réserver {{ car.brand }} {{ car.model_name }}</h1>
+        <p style="color: var(--text-secondary); text-align: center; margin-bottom: 3rem;">Veuillez remplir les informations ci-dessous pour confirmer votre location.</p>
+
+        <form method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            {% csrf_token %}
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div>
+                    <label style="display: block; color: var(--text-secondary); margin-bottom: 0.5rem;">Nom complet</label>
+                    <input type="text" name="customer_name" required style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white;">
+                </div>
+                <div>
+                    <label style="display: block; color: var(--text-secondary); margin-bottom: 0.5rem;">Numéro de téléphone</label>
+                    <input type="tel" name="phone" required style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white;">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div>
+                    <label style="display: block; color: var(--text-secondary); margin-bottom: 0.5rem;">Date de début</label>
+                    <input type="date" name="start_date" required style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white;">
+                </div>
+                <div>
+                    <label style="display: block; color: var(--text-secondary); margin-bottom: 0.5rem;">Durée (jours)</label>
+                    <input type="number" name="duration" min="1" value="1" required style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white;">
+                </div>
+            </div>
+
+            <div>
+                <label style="display: block; color: var(--text-secondary); margin-bottom: 0.5rem;">Photo de la carte d'identité</label>
+                <div style="position: relative; border: 2px dashed rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; text-align: center; cursor: pointer;">
+                    <input type="file" name="id_card" accept="image/*" required style="position: absolute; inset: 0; opacity: 0; cursor: pointer;">
+                    <span style="font-size: 2rem;">🆔</span>
+                    <p style="margin: 0.5rem 0 0; color: var(--text-secondary);">Cliquez pour uploader une photo nette</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <button type="submit" class="btn" style="width: 100%; padding: 1.2rem;">Confirmer la réservation</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

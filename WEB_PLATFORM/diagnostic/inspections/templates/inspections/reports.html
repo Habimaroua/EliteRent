@@ -1,0 +1,57 @@
+{% extends "inspections/admin_base.html" %}
+
+{% block content %}
+<div class="cockpit-container">
+    <div class="cockpit-header">
+        <div>
+            <h1 class="cockpit-title">Rapports <span style="color: var(--accent-color);">Analytiques</span></h1>
+            <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 1.1rem;">Analyse profonde des performances de votre flotte et de l'IA.</p>
+        </div>
+    </div>
+
+    <!-- Stats Review -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 4rem;">
+        <div class="stat-card">
+            <h3 style="color: white; margin-bottom: 2rem; font-size: 1.2rem;">🏆 Top 5 Véhicules Populaires</h3>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                {% for car in popular_cars %}
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 15px;">
+                    <span style="color: white; font-weight: 700;">{{ car.brand }} {{ car.model_name }}</span>
+                    <span style="background: var(--accent-color); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 800;">{{ car.booking_count }} locations</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <h3 style="color: white; margin-bottom: 2rem; font-size: 1.2rem;">🤖 Performance IA - Scans</h3>
+            <canvas id="aiStatsChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ctxAi = document.getElementById('aiStatsChart').getContext('2d');
+    new Chart(ctxAi, {
+        type: 'bar',
+        data: {
+            labels: ['Pickup (Départ)', 'Return (Retour)'],
+            datasets: [{
+                label: 'Nombre de Scans',
+                data: [45, 38], // Simulation
+                backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                borderColor: '#3b82f6',
+                borderWidth: 2,
+                borderRadius: 10
+            }]
+        },
+        options: {
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
+                x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+            }
+        }
+    });
+</script>
+{% endblock %}

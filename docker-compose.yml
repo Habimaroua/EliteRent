@@ -1,0 +1,148 @@
+services:
+  # 1. API Gateway (Portier principal)
+  api_gateway:
+    image: nginx:alpine
+    container_name: api_gateway
+    ports:
+      - "80:80"
+    volumes:
+      - ./NGINX/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: unless-stopped
+    depends_on:
+      - web_platform
+      - ai_service
+
+  # 2. Service Registry
+  service_registry:
+    image: hashicorp/consul:latest
+    container_name: service_registry
+    ports:
+      - "8500:8500"
+    restart: unless-stopped
+
+  # 3. Service Layer (Plateforme Web & IA)
+  ai_service:
+    build: ./AI_SERVICE
+    container_name: ai_diagnostic
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    depends_on:
+      - rabbitmq
+      - redis_cache
+
+  web_platform:
+    build: ./WEB_PLATFORM
+    container_name: web_diagnostic
+    ports:
+      - "8001:8001"
+    environment:
+      - AI_SERVICE_URL=http://ai_service:8000
+      - DJANGO_SECRET_KEY=change-me-in-production-use-env
+      - DATABASE_URL=postgres://user:password@db_primary:5432/eliterent
+      - CACHE_URL=redis://redis_cache:6379/0
+      - BROKER_URL=amqp://user:password@rabbitmq:5672/
+    volumes:
+      - media_data:/app/media
+    depends_on:
+      - ai_service
+      - db_primary
+      - redis_cache
+      - rabbitmq
+    restart: unless-stopped
+
+  celery_worker:
+    build: ./WEB_PLATFORM
+    container_name: celery_worker
+    command: celery -A diagnostic worker --loglevel=info
+    environment:
+      - AI_SERVICE_URL=http://ai_service:8000
+      - DJANGO_SECRET_KEY=change-me-in-production-use-env
+      - DATABASE_URL=postgres://user:password@db_primary:5432/eliterent
+      - CACHE_URL=redis://redis_cache:6379/0
+      - BROKER_URL=amqp://user:password@rabbitmq:5672/
+    volumes:
+      - media_data:/app/media
+    depends_on:
+      - rabbitmq
+      - redis_cache
+      - db_primary
+    restart: unless-stopped
+
+  # 4. Authorization Server
+  auth_server:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: auth_server
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    command: start-dev
+    ports:
+      - "8080:8080"
+
+  # 5. Database Layer
+  db_primary:
+    image: postgres:15
+    container_name: db_primary
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: eliterent
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  db_replica:
+    image: postgres:15
+    container_name: db_replica
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    command: postgres -c hot_standby=on
+    depends_on:
+      - db_primary
+
+  # 6. Distributed Cache
+  redis_cache:
+    image: redis:alpine
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+
+  # 7. Distributed Messaging
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  # 8. Metrics (Monitoring)
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./PROMETHEUS/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+  # # 9. Logs (ELK) - Désactivé temporairement pour économiser de la connexion
+  # elasticsearch:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
+  #   ...
+
+volumes:
+  media_data:
+  db_data:

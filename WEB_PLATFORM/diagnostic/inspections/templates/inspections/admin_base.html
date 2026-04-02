@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Cockpit Administrateur - EliteRent AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-admin: #080a0d;
+            --sidebar-admin: #111418;
+            --accent-admin: #3b82f6;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-admin);
+            color: var(--text-primary);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Fixe Admin */
+        .admin-sidebar {
+            width: 280px;
+            background: var(--sidebar-admin);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-main {
+            margin-left: 280px;
+            flex: 1;
+            padding: 3rem 5%;
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.03), transparent 800px);
+        }
+
+        .admin-logo {
+            padding: 2.5rem 2rem;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent-admin);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            flex-shrink: 0;
+        }
+
+        .admin-nav {
+            padding: 2rem 1.5rem;
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.1) transparent;
+        }
+
+        .admin-nav::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .admin-nav::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+
+        .admin-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.9rem 1.2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .admin-link:hover, .admin-link.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .admin-link svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .section-title {
+            font-size: 0.65rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 2rem 1.2rem 1rem;
+        }
+
+        .admin-footer {
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            flex-shrink: 0;
+        }
+
+        .btn-logout {
+            width: 100%;
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 1rem;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            text-decoration: none;
+        }
+
+        .btn-logout:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .badge-pending {
+            background: #ef4444;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 0.65rem;
+            font-weight: 800;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <aside class="admin-sidebar">
+        <a href="{% url 'inspections:admin_dashboard' %}" class="admin-logo">
+            <span>ELITE<span style="color:white">RENT</span>.AI</span>
+            <span style="font-size: 0.55rem; color: var(--text-secondary); letter-spacing: 3px; font-weight: 800; opacity: 0.5; margin-top: 4px;">COCKPIT CENTRAL</span>
+        </a>
+
+        <nav class="admin-nav">
+            <div class="section-title">Accueil</div>
+            <a href="{% url 'inspections:admin_dashboard' %}" class="admin-link">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Tableau de Bord
+            </a>
+            <a href="{% url 'inspections:car_fleet' %}" class="admin-link" style="color: var(--accent-admin);">
+                <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                Voir le Site Public
+            </a>
+
+            <div class="section-title">Voitures</div>
+            <a href="{% url 'inspections:car_management' %}" class="admin-link">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                Les Voitures
+            </a>
+            <a href="{% url 'inspections:booking_management' %}" class="admin-link">
+                <svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                Les Locations
+                {% if pending_count > 0 %}
+                <span class="badge-pending">{{ pending_count }}</span>
+                {% endif %}
+            </a>
+
+            <div class="section-title">Intelligence Artificielle</div>
+            <a href="{% url 'inspections:ia_monitor' %}" class="admin-link">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg>
+                Suivi des Scans
+            </a>
+            <a href="{% url 'inspections:upload_image' %}" class="admin-link">
+                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                Lancer un Scan IA
+            </a>
+
+            <div class="section-title">Utilisateurs</div>
+            <a href="{% url 'inspections:user_management' %}" class="admin-link">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                Tous les Clients
+            </a>
+
+            <div class="section-title">Analyses & Business</div>
+            <a href="{% url 'inspections:admin_reports' %}" class="admin-link">
+                <svg viewBox="0 0 24 24"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+                Rapports
+            </a>
+            <a href="{% url 'inspections:admin_notifications' %}" class="admin-link">
+                <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                Alertes
+            </a>
+
+            <div class="section-title">Configuration</div>
+            <a href="{% url 'inspections:admin_settings' %}" class="admin-link">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+                Paramètres
+            </a>
+            </nav>
+
+        <div class="admin-footer">
+            <a href="{% url 'inspections:logout' %}" class="btn-logout">
+                <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 01-2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                Se Déconnecter
+            </a>
+        </div>
+    </aside>
+
+    <main class="admin-main">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

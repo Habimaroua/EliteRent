@@ -1,0 +1,38 @@
+{% extends "inspections/admin_base.html" %}
+
+{% block content %}
+<div class="cockpit-container">
+    <div class="cockpit-header">
+        <h1 class="cockpit-title">Alertes <span style="color: var(--accent-color);">Système</span></h1>
+        <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 1.1rem;">Flux d'activités en temps réel de votre plateforme.</p>
+    </div>
+
+    <div style="max-width: 800px; display: flex; flex-direction: column; gap: 1rem;">
+        {% for booking in recent_bookings %}
+        <div style="background: rgba(255,255,255,0.02); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(245, 158, 11, 0.1); display: flex; gap: 1.5rem; align-items: center;">
+            <div style="width: 40px; height: 40px; background: rgba(245, 158, 11, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #f59e0b;">
+                📅
+            </div>
+            <div style="flex: 1;">
+                <div style="color: white; font-weight: 700;">Nouvelle Réservation</div>
+                <div style="color: var(--text-secondary); font-size: 0.85rem;">{{ booking.customer_name }} a réservé la {{ booking.car.brand }} {{ booking.car.model_name }}.</div>
+            </div>
+            <div style="color: var(--text-secondary); font-size: 0.75rem;">{{ booking.created_at|timesince }}</div>
+        </div>
+        {% endfor %}
+
+        {% for inspection in recent_inspections %}
+        <div style="background: rgba(255,255,255,0.02); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(16, 185, 129, 0.1); display: flex; gap: 1.5rem; align-items: center;">
+            <div style="width: 40px; height: 40px; background: rgba(16, 185, 129, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #10b981;">
+                🤖
+            </div>
+            <div style="flex: 1;">
+                <div style="color: white; font-weight: 700;">Scan IA Terminé</div>
+                <div style="color: var(--text-secondary); font-size: 0.85rem;">Analyse terminée pour {{ inspection.car.brand }} (Scan #{{ inspection.id }}).</div>
+            </div>
+            <div style="color: var(--text-secondary); font-size: 0.75rem;">{{ inspection.created_at|timesince }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

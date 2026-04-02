@@ -1,0 +1,38 @@
+{% extends "inspections/admin_base.html" %}
+
+{% block content %}
+<div class="cockpit-container">
+    <div class="cockpit-header">
+        <h1 class="cockpit-title">Paramètres <span style="color: var(--accent-color);">Utilisateur</span></h1>
+        <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 1.1rem;">Gérez vos informations personnelles et les configurations système.</p>
+    </div>
+
+    <!-- Edit Profile Form -->
+    <div class="stat-card" style="max-width: 600px; padding: 3rem;">
+        <h3 style="color: white; margin-bottom: 2rem; font-size: 1.5rem; font-weight: 700;">Mon Profil Administrateur</h3>
+        
+        {% if messages %}
+            {% for message in messages %}
+            <div style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 1rem; border-radius: 12px; margin-bottom: 2rem; font-size: 0.9rem; font-weight: 600; border: 1px solid rgba(16, 185, 129, 0.2);">
+                ✅ {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div style="margin-bottom: 2rem;">
+                <label style="display: block; color: var(--text-secondary); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.8rem;">Nom d'utilisateur</label>
+                <input type="text" value="{{ user.username }}" disabled style="width: 100%; height: 55px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0 1.5rem; color: #94a3b8; font-family: 'Outfit'; font-weight: 600;">
+            </div>
+
+            <div style="margin-bottom: 3rem;">
+                <label style="display: block; color: var(--text-secondary); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.8rem;">Adresse Email Professionnelle</label>
+                <input type="email" name="email" value="{{ user.email }}" required style="width: 100%; height: 55px; background: rgba(255,255,255,0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 0 1.5rem; color: white; font-family: 'Outfit'; font-weight: 600; transition: 0.3s; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.1);">
+            </div>
+
+            <button type="submit" style="width: 100%; height: 55px; background: var(--accent-color); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);">Sauvegarder les modifications</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

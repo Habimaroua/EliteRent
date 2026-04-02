@@ -1,0 +1,175 @@
+{% extends "inspections/client_base.html" %}
+
+{% block extra_css %}
+<style>
+    .profile-container {
+        padding: 4rem 0;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .profile-card {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(40px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 40px;
+        padding: 4rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .profile-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 70%);
+        pointer-events: none;
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+        margin-bottom: 4rem;
+    }
+
+    .large-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 35px;
+        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        font-weight: 800;
+        color: white;
+        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+    }
+
+    .profile-info h1 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin: 0;
+        letter-spacing: -1px;
+    }
+
+    .role-badge {
+        display: inline-block;
+        padding: 0.5rem 1.2rem;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        color: var(--accent-light);
+        border-radius: 100px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: 1rem;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+        margin-top: 3rem;
+    }
+
+    .info-item {
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .info-label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-value {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: white;
+    }
+
+    .security-section {
+        margin-top: 4rem;
+        padding: 2.5rem;
+        background: rgba(255, 255, 255, 0.01);
+        border-radius: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .btn-edit-profile {
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 15px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: 0.3s;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: inline-block;
+    }
+
+    .btn-edit-profile:hover {
+        background: var(--accent-client);
+        border-color: var(--accent-client);
+        transform: translateY(-3px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="profile-container fade-in">
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="large-avatar">{{ user.username|first|upper }}</div>
+            <div class="profile-info">
+                <h1 style="color: white;">{{ user.username }}</h1>
+                <div class="role-badge">Client Certifié</div>
+                <p style="color: var(--text-secondary); margin-top: 1rem;">Compte créé en {{ user.date_joined|date:"F Y" }}</p>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Nom d'utilisateur</div>
+                <div class="info-value">@{{ user.username }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Mon Email</div>
+                <div class="info-value">{{ user.email }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Type</div>
+                <div class="info-value">{{ user.profile.get_role_display }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Vérification</div>
+                <div class="info-value" style="color: #10b981;">✓ Compte Vérifié</div>
+            </div>
+        </div>
+
+        <div class="security-section">
+            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 1.5rem; color: white;">🛡️ Mon Compte</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 2rem;">Vos informations sont en sécurité. Pour changer vos données, utilisez les boutons ci-dessous.</p>
+            <div style="display: flex; gap: 1.5rem;">
+                <a href="#" class="btn-edit-profile">Changer mes infos</a>
+                <a href="{% url 'inspections:logout' %}" class="btn-edit-profile" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.2);">Quitter</a>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 3rem; text-align: center; color: var(--text-secondary); font-size: 0.8rem;">
+        Numéro Client: #ELITE-{{ user.id }}-{{ user.date_joined|date:"Y" }}
+    </div>
+</div>
+{% endblock %}

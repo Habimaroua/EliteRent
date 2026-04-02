@@ -1,0 +1,247 @@
+{% extends "inspections/client_base.html" %}
+
+{% block extra_css %}
+<style>
+    .bookings-container {
+        padding: 3rem 0;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        margin-bottom: 4rem;
+    }
+
+    .page-title {
+        font-size: 3rem;
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        margin-bottom: 1rem;
+    }
+
+    /* Filters bar */
+    .filters-bar {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        padding: 0.7rem 1.8rem;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: 0.3s;
+        border: 1px solid var(--glass-border);
+        color: var(--text-secondary);
+        background: rgba(255,255,255,0.02);
+    }
+
+    .filter-btn:hover {
+        background: rgba(255,255,255,0.05);
+        color: white;
+    }
+
+    .filter-btn.active {
+        background: var(--accent-client);
+        color: white;
+        border-color: var(--accent-client);
+        box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+    }
+
+    /* Booking Cards (Same as Dashboard but focused) */
+    .booking-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .booking-card {
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        border-radius: 30px;
+        overflow: hidden;
+        transition: 0.4s;
+    }
+
+    .booking-card:hover {
+        border-color: rgba(59, 130, 246, 0.3);
+        transform: scale(1.01);
+    }
+
+    .booking-image {
+        position: relative;
+    }
+
+    .booking-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .status-badge {
+        position: absolute;
+        top: 1.5rem;
+        left: 1.5rem;
+        padding: 8px 18px;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .booking-info {
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .info-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+    }
+
+    .car-name {
+        font-size: 2rem;
+        font-weight: 800;
+        color: white;
+    }
+
+    .car-brand {
+        font-size: 0.9rem;
+        color: var(--accent-light);
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 2px;
+    }
+
+    .details-row {
+        display: flex;
+        gap: 3rem;
+        margin-bottom: 2.5rem;
+        color: var(--text-secondary);
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .action-row {
+        display: flex;
+        gap: 1.2rem;
+    }
+
+    .btn-action {
+        padding: 0.9rem 2rem;
+        border-radius: 14px;
+        font-weight: 800;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: 0.3s;
+    }
+
+    .btn-verify {
+        background: var(--accent-client);
+        color: white;
+    }
+
+    .btn-verify:hover {
+        filter: brightness(1.1);
+        transform: translateY(-3px);
+    }
+
+    .status-pending { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-validated { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .status-cancelled { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+    @media (max-width: 1024px) {
+        .booking-card { grid-template-columns: 1fr; }
+        .booking-image { height: 250px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bookings-container fade-in">
+    <header class="page-header">
+        <h1 class="page-title">Mes Locations</h1>
+        <p style="color: var(--text-secondary); font-size: 1.1rem;">Gérez vos réservations, consultez les factures et lancez vos diagnostics IA.</p>
+    </header>
+
+    <!-- Filters -->
+    <div class="filters-bar">
+        <a href="?status=" class="filter-btn {% if not current_status %}active{% endif %}">Toutes</a>
+        <a href="?status=pending" class="filter-btn {% if current_status == 'pending' %}active{% endif %}">En attente</a>
+        <a href="?status=validated" class="filter-btn {% if current_status == 'validated' %}active{% endif %}">Confirmées</a>
+        <a href="?status=cancelled" class="filter-btn {% if current_status == 'cancelled' %}active{% endif %}">Annulées</a>
+    </div>
+
+    <div class="booking-grid">
+        {% for booking in bookings %}
+        <div class="booking-card glass">
+            <div class="booking-image">
+                {% if booking.car.image %}
+                <img src="{{ booking.car.image.url }}" alt="{{ booking.car.model_name }}">
+                {% endif %}
+                <div class="status-badge status-{{ booking.status }}">
+                    {{ booking.get_status_display }}
+                </div>
+            </div>
+            <div class="booking-info">
+                <div class="info-header">
+                    <div>
+                        <div class="car-brand">{{ booking.car.brand }}</div>
+                        <h2 class="car-name">{{ booking.car.model_name }}</h2>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.4rem;">Référence</div>
+                        <div style="font-weight: 800; color: white;">#BK-{{ booking.id }}</div>
+                    </div>
+                </div>
+
+                <div class="details-row">
+                    <div class="detail-item">
+                        <span style="font-size: 1.2rem;">📅</span>
+                        <div>
+                            <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; opacity: 0.6;">Date de début</div>
+                            <div style="font-weight: 700; color: white;">{{ booking.start_date|date:"d F Y" }}</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span style="font-size: 1.2rem;">⌛</span>
+                        <div>
+                            <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; opacity: 0.6;">Durée</div>
+                            <div style="font-weight: 700; color: white;">{{ booking.duration_days }} Jours</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <a href="{% url 'inspections:car_analyze' car_id=booking.car.id %}" class="btn-action btn-verify">
+                        Scanner Véhicule <span>⚡</span>
+                    </a>
+                    <a href="{% url 'inspections:contact' %}" class="btn-action glass" style="border-color: rgba(255,255,255,0.1); color: white;">
+                        Signaler un problème
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="glass" style="padding: 6rem; text-align: center; border: 2px dashed rgba(255,255,255,0.05);">
+            <div style="font-size: 4rem; opacity: 0.2; margin-bottom: 2rem;">🚗</div>
+            <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem;">Aucune location trouvée</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 3rem;">L'aventure commence ici. Louez votre première voiture d'exception.</p>
+            <a href="{% url 'inspections:car_fleet' %}" class="btn-action btn-verify">Découvrir la Flotte</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

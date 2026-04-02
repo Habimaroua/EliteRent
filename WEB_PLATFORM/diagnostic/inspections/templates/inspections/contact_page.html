@@ -1,0 +1,81 @@
+{% extends "inspections/public_base.html" %}
+
+{% block content %}
+<div style="padding: 4rem 0;">
+    <header style="text-align: center; margin-bottom: 6rem;">
+        <h1 style="font-size: 3.5rem; font-weight: 800; margin-bottom: 1.5rem; color: white;">Contactez <span style="color: var(--accent-color);">Elite</span></h1>
+        <p style="color: var(--text-secondary); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+            Une question ? Une demande spécifique ? Nos experts sont à votre écoute pour une expérience sur-mesure.
+        </p>
+    </header>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 4rem; align-items: start;">
+        
+        <!-- Colonne Gauche : Formulaire -->
+        <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 40px; padding: 4rem; box-shadow: 0 30px 60px rgba(0,0,0,0.3);">
+            <h2 style="font-size: 2rem; font-weight: 700; color: white; margin-bottom: 2.5rem;">Envoyez-nous un message</h2>
+            <form style="display: flex; flex-direction: column; gap: 1.8rem;">
+                <!-- Nom -->
+                <div style="text-align: left;">
+                    <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.8rem; letter-spacing: 1px;">Nom complet</label>
+                    <input type="text" placeholder="Ex: Jean Dupont" style="width: 100%; padding: 1.2rem; border-radius: 15px; background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.08); color: white; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='var(--accent-color)'; this.style.background='rgba(59, 130, 246, 0.05)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.background='rgba(255,255,255,0.03)'">
+                </div>
+
+                <!-- Email -->
+                <div style="text-align: left;">
+                    <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.8rem; letter-spacing: 1px;">Email Professionnel</label>
+                    <input type="email" placeholder="contact@example.com" style="width: 100%; padding: 1.2rem; border-radius: 15px; background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.08); color: white; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='var(--accent-color)'; this.style.background='rgba(59, 130, 246, 0.05)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.background='rgba(255,255,255,0.03)'">
+                </div>
+
+                <!-- Message -->
+                <div style="text-align: left;">
+                    <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.8rem; letter-spacing: 1px;">Votre Message</label>
+                    <textarea rows="5" placeholder="Votre message ici..." style="width: 100%; padding: 1.2rem; border-radius: 15px; background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.08); color: white; outline: none; transition: 0.3s; resize: none;" onfocus="this.style.borderColor='var(--accent-color)'; this.style.background='rgba(59, 130, 246, 0.05)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.background='rgba(255,255,255,0.03)'"></textarea>
+                </div>
+
+                <button type="submit" class="btn" style="padding: 1.2rem; font-size: 1.2rem; border-radius: 15px; width: 100%; margin-top: 1rem; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);">Envoyer ma demande</button>
+            </form>
+        </div>
+
+        <!-- Colonne Droite : Infos & Carte -->
+        <div style="display: flex; flex-direction: column; gap: 3rem;">
+            
+            <!-- Carte Virtuelle (Design Style) -->
+            <div style="background: #161a22; border: 1px solid rgba(255,255,255,0.05); border-radius: 40px; padding: 3rem; text-align: left;">
+                <h3 style="font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 2rem;">Information de l'Élite</h3>
+                
+                <div style="display: flex; flex-direction: column; gap: 1.8rem; color: var(--text-secondary);">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span style="font-size: 1.5rem;">📍</span>
+                        <span>Aéroport d'Alger - Terminal International</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span style="font-size: 1.5rem;">📞</span>
+                        <span>+213 560 65 93 09</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span style="font-size: 1.5rem;">✉️</span>
+                        <span>contact@eliterent.ai</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span style="font-size: 1.5rem;">🏢</span>
+                        <span>Siège Social : Quartier d'Affaires, Bab Ezzouar, Alger</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div style="padding: 2rem 3rem; background: rgba(255,255,255,0.02); border-radius: 40px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                <h4 style="margin-bottom: 1.5rem; font-weight: 700;">Suivez l'Innovation</h4>
+                <div style="display: flex; justify-content: space-around; font-size: 2rem;">
+                    <a href="#" style="text-decoration: none; transition: 0.3s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">📸</a>
+                    <a href="#" style="text-decoration: none; transition: 0.3s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">📱</a>
+                    <a href="#" style="text-decoration: none; transition: 0.3s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">🔗</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

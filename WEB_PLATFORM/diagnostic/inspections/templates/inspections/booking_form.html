@@ -1,0 +1,264 @@
+{% extends "inspections/client_base.html" %}
+
+{% block extra_css %}
+<style>
+    .booking-container {
+        max-width: 1000px;
+        margin: 4rem auto;
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(25px);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 40px;
+        display: flex;
+        overflow: hidden;
+        box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    }
+
+    .booking-info {
+        flex: 1;
+        padding: 4rem;
+        background: rgba(59, 130, 246, 0.03);
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .booking-form {
+        flex: 1.5;
+        padding: 4rem;
+    }
+
+    .form-group {
+        margin-bottom: 2rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.8rem;
+        font-size: 0.8rem;
+        font-weight: 800;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+    .form-control {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 12px !important;
+        padding: 1.2rem !important;
+        color: white !important;
+        font-size: 1rem;
+        transition: 0.3s;
+    }
+
+    .form-control:focus {
+        background: rgba(59, 130, 246, 0.05) !important;
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;
+        outline: none;
+    }
+
+    .premium-option-card {
+        background: rgba(255, 255, 255, 0.01);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .premium-option-card:hover {
+        background: rgba(59, 130, 246, 0.03);
+        border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .premium-option-card label {
+        flex: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .premium-checkbox {
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        appearance: none;
+        background: rgba(255,255,255,0.05);
+        border: 2px solid rgba(255,255,255,0.1);
+        cursor: pointer;
+        position: relative;
+        transition: 0.2s;
+    }
+
+    .premium-checkbox:checked {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+    }
+
+    .premium-checkbox:checked::after {
+        content: "✔";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 12px;
+    }
+
+    .btn-submit {
+        background: var(--btn-premium);
+        color: white;
+        padding: 1.5rem 3rem;
+        border-radius: 20px;
+        font-weight: 800;
+        font-size: 1.2rem;
+        border: none;
+        cursor: pointer;
+        transition: 0.4s;
+        width: 100%;
+        margin-top: 3rem;
+        box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-5px);
+        filter: brightness(1.2);
+        box-shadow: 0 20px 50px rgba(59, 130, 246, 0.4);
+    }
+
+    .car-preview {
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="booking-container">
+    <!-- Left Side: Car Info -->
+    <div class="booking-info">
+        <div style="margin-bottom: 3rem;">
+            <p style="color: var(--accent-color); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;">VOTRE CHOIX</p>
+            <h1 style="font-size: 2.5rem; font-weight: 800; color: white;">{{ car.brand }} <span style="font-weight: 300; opacity: 0.7;">{{ car.model_name }}</span></h1>
+        </div>
+
+        <div class="car-preview">
+            {% if car.image %}
+            <img src="{{ car.image.url }}" style="width: 100%; height: 250px; object-fit: cover;">
+            {% else %}
+            <div style="width: 100%; height: 250px; background: #0c0e12; display: flex; align-items: center; justify-content: center; font-size: 4rem;">🏎️</div>
+            {% endif %}
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 2rem;">
+            <div style="background: rgba(255,255,255,0.02); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                <p style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 800; margin-bottom: 0.5rem;">Prix par jour (Voiture seule)</p>
+                <p style="color: white; font-size: 1.8rem; font-weight: 800;">{{ car.price_per_day }}€ <span style="font-size: 0.9rem; opacity: 0.5;">/ jour</span></p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; opacity: 0.8;">
+            La voiture est vérifiée pour votre sécurité avant le départ. Un contrôle automatique est fait dès votre réservation.
+        </div>
+    </div>
+
+    <!-- Right Side: Booking Form -->
+    <div class="booking-form">
+        <h2 style="font-size: 2rem; font-weight: 800; color: white; margin-bottom: 1rem;">Réserver ma <span style="color: var(--accent-color);">Voiture</span></h2>
+        <p style="color: var(--text-secondary); margin-bottom: 3rem; font-size: 0.95rem;">Remplissez le formulaire ci-dessous. Nous vous répondrons très vite pour confirmer.</p>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Personal Info Section -->
+            <div style="margin-bottom: 4rem;">
+                <h3 style="color: white; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2rem; border-left: 3px solid var(--accent-color); padding-left: 1rem;">1. Vos Infos</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">Votre Nom complet</label>
+                    {{ form.customer_name }}
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label class="form-label">Numéro de téléphone</label>
+                        {{ form.phone_number }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nombre de jours</label>
+                        {{ form.duration_days }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Jour de départ</label>
+                    {{ form.start_date }}
+                </div>
+            </div>
+
+            <!-- Options Section -->
+            <div style="margin-bottom: 4rem;">
+                <h3 style="color: white; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2rem; border-left: 3px solid #10b981; padding-left: 1rem;">2. Options en plus</h3>
+                
+                <div class="premium-option-card">
+                    <label for="{{ form.has_chauffeur.id_for_label }}">
+                        <span style="font-size: 1.5rem;">🕶️</span>
+                        <div>
+                            <div style="color: white; font-weight: 700;">Chauffeur</div>
+                            <div style="color: var(--text-secondary); font-size: 0.75rem;">Service de luxe • +150€/jour</div>
+                        </div>
+                    </label>
+                    {{ form.has_chauffeur }}
+                </div>
+
+                <div class="premium-option-card">
+                    <label for="{{ form.has_insurance.id_for_label }}">
+                        <span style="font-size: 1.5rem;">🛡️</span>
+                        <div>
+                            <div style="color: white; font-weight: 700;">Assurance</div>
+                            <div style="color: var(--text-secondary); font-size: 0.75rem;">Protection totale • Zéro franchise • +50€/jour</div>
+                        </div>
+                    </label>
+                    {{ form.has_insurance }}
+                </div>
+
+                <div class="premium-option-card">
+                    <label for="{{ form.has_gps.id_for_label }}">
+                        <span style="font-size: 1.5rem;">🌐</span>
+                        <div>
+                            <div style="color: white; font-weight: 700;">GPS & Wi-Fi</div>
+                            <div style="color: var(--text-secondary); font-size: 0.75rem;">Accès internet • Navigation HD • +20€/jour</div>
+                        </div>
+                    </label>
+                    {{ form.has_gps }}
+                </div>
+            </div>
+
+            <!-- ID Document Section -->
+            <div style="margin-bottom: 4rem;">
+                <h3 style="color: white; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2rem; border-left: 3px solid #f59e0b; padding-left: 1rem;">3. Pièce d'Identité</h3>
+                <div class="form-group">
+                    <label class="form-label">Photo de votre carte d'identité</label>
+                    {{ form.id_card_photo }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                Réserver maintenant
+            </button>
+            
+            <p style="text-align: center; margin-top: 2rem; font-size: 0.8rem; color: var(--text-secondary); opacity: 0.5;">
+                Votre réservation est en sécurité.
+            </p>
+        </form>
+    </div>
+</div>
+{% endblock %}

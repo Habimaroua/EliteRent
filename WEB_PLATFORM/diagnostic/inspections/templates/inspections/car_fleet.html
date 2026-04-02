@@ -1,0 +1,142 @@
+{% extends "inspections/public_base.html" %}
+
+{% block extra_css %}
+<style>
+    .status-excellent { color: #10b981 !important; }
+    .status-other { color: #ffffff !important; }
+    .status-other-text { color: #f59e0b !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="padding: 6rem 5% 4rem; text-align: center;">
+    <h1 style="font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1.5px;">
+        Découvrez notre <span style="color: var(--accent-color); -webkit-text-fill-color: var(--accent-color);">Flotte Exclusive</span>
+    </h1>
+    <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; opacity: 0.7;">
+        Choisissez le prestige. Chaque véhicule est rigoureusement inspecté par notre intelligence artificielle avant chaque trajet.
+    </p>
+</div>
+
+<!-- Dashboard de Réservation (Compact One-Line Design) -->
+<div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(40px); border-radius: 40px; padding: 2.5rem 3rem; box-shadow: 0 40px 100px rgba(0,0,0,0.6); margin: -2rem auto 8rem; position: relative; z-index: 10; width: 95%; max-width: 1400px; color: #0c0e12; border: 1px solid rgba(255,255,255,0.7);">
+    <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; justify-content: center;">
+        
+        <!-- Retrait et retour -->
+        <div style="flex: 1.5; min-width: 250px;">
+            <label style="display: block; font-size: 0.7rem; font-weight: 900; margin-bottom: 0.6rem; color: #64748b; text-transform: uppercase; letter-spacing: 2px;">Lieu de Prise en Charge</label>
+            <div style="position: relative;">
+                <input id="locationInput" type="text" placeholder="Ex: Alger - Aéroport..." style="width: 100%; padding: 1.1rem 1.2rem 1.1rem 3.2rem; border: 1.5px solid rgba(0,0,0,0.08); border-radius: 16px; font-size: 0.95rem; background: white; outline: none; transition: 0.3s; font-weight: 600;" onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 4px rgba(59, 130, 246, 0.1)'" onblur="this.style.borderColor='rgba(0,0,0,0.08)'; this.style.boxShadow='none'">
+                <span style="position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); font-size: 1.2rem; opacity: 0.5;">📍</span>
+            </div>
+        </div>
+
+        <!-- Date de départ -->
+        <div style="flex: 1; min-width: 200px;">
+            <label style="display: block; font-size: 0.7rem; font-weight: 900; margin-bottom: 0.6rem; color: #64748b; text-transform: uppercase; letter-spacing: 2px;">Début du Trajet</label>
+            <div style="display: flex; gap: 0.6rem;">
+                <input id="dateStart" type="date" style="flex: 1.8; padding: 1.1rem; border: 1.5px solid rgba(0,0,0,0.08); border-radius: 16px; font-size: 0.95rem; background: white; outline: none; font-weight: 600;">
+                <select style="flex: 1; padding: 1.1rem; border: 1.5px solid rgba(0,0,0,0.08); border-radius: 16px; font-size: 0.9rem; background: white; outline: none; cursor: pointer; font-weight: 600;">
+                    <option>10:00</option><option>11:00</option><option>14:00</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Date de retour -->
+        <div style="flex: 1; min-width: 200px;">
+            <label style="display: block; font-size: 0.7rem; font-weight: 900; margin-bottom: 0.6rem; color: #64748b; text-transform: uppercase; letter-spacing: 2px;">Fin du Trajet</label>
+            <div style="display: flex; gap: 0.6rem;">
+                <input id="dateEnd" type="date" style="flex: 1.8; padding: 1.1rem; border: 1.5px solid rgba(0,0,0,0.08); border-radius: 16px; font-size: 0.95rem; background: white; outline: none; font-weight: 600;">
+                <select style="flex: 1; padding: 1.1rem; border: 1.5px solid rgba(0,0,0,0.08); border-radius: 16px; font-size: 0.9rem; background: white; outline: none; cursor: pointer; font-weight: 600;">
+                    <option>10:00</option><option>11:00</option><option>14:00</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Action -->
+        <div style="padding-top: 1.4rem;">
+            <button onclick="validateSearch()" class="btn" style="height: 65px; padding: 0 3.5rem; border-radius: 20px; font-size: 1.1rem; background: #0c0e12; color: white; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: none; cursor: pointer; box-shadow: 0 15px 35px rgba(0,0,0,0.4); font-weight: 700;" onmouseover="this.style.transform='scale(1.05)'; this.style.background='#1e293b'" onmouseout="this.style.transform='scale(1)'; this.style.background='#0c0e12'">
+                Filtrer la Recherche
+            </button>
+            <div id="errorMessage" style="position: absolute; bottom: -35px; left: 0; right: 0; color: #ef4444; font-size: 0.85rem; font-weight: 800; text-align: center; opacity: 0; transition: 0.3s; pointer-events: none;">
+                ⚠️ Veuillez renseigner tous les champs pour continuer.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="flotte" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 4rem; padding: 0 5% 10rem;">
+    {% for car in cars %}
+    <div style="background: #161a22; border-radius: 35px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); cursor: pointer; position: relative; display: flex; flex-direction: column;" 
+         onmouseover="this.style.transform='translateY(-15px)'; this.style.boxShadow='0 30px 60px rgba(0,0,0,0.5)'; this.style.borderColor='rgba(59, 130, 246, 0.4)'" 
+         onmouseout="this.style.transform='none'; this.style.boxShadow='none'; this.style.borderColor='rgba(255,255,255,0.05)'">
+        
+        <!-- Image de la voiture -->
+        {% if car.image %}
+        <div style="height: 280px; background-image: url('{{ car.image.url }}'); background-size: cover; background-position: center; border-bottom: 1px solid rgba(255,255,255,0.03);"></div>
+        {% else %}
+        <div style="height: 280px; background: linear-gradient(45deg, #1e293b, #0c0e12); display: flex; align-items: center; justify-content: center;">
+            <span style="color: rgba(255,255,255,0.05); font-size: 6rem;">🏎️</span>
+        </div>
+        {% endif %}
+        
+        <div style="padding: 2.5rem; flex: 1; display: flex; flex-direction: column;">
+            <!-- Header : Marque + Statut -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                <h3 style="margin: 0; font-size: 1.8rem; font-weight: 800; color: white; letter-spacing: -0.5px;">{{ car.brand }} <span style="font-weight: 400; opacity: 0.7;">{{ car.model_name }}</span></h3>
+            </div>
+            
+            <div style="display: flex; gap: 0.8rem; margin-bottom: 1.5rem; align-items: center;">
+                <span style="font-size: 0.75rem; font-weight: 800; background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 6px; color: var(--text-secondary);">{{ car.year }}</span>
+                <span style="width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.2);"></span>
+                <span class="{% if car.status == 'excellent' %}status-excellent{% else %}status-other-text{% endif %}" style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">
+                    {{ car.get_status_display }}
+                </span>
+            </div>
+            
+            <!-- Description -->
+            <p style="color: #94a3b8; font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem; opacity: 0.8;">
+                {{ car.description|truncatewords:15 }}
+            </p>
+            
+            <div style="margin-top: auto;">
+                <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem;">
+                
+                <!-- Footer : Prix + Bouton -->
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 2.2rem; font-weight: 800; color: white;">{{ car.price_per_day }}€</div>
+                        <div style="color: #64748b; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Tarif Jour</div>
+                    </div>
+                    <a href="{% url 'inspections:book_car' car.pk %}" class="btn" style="padding: 1.2rem 2.8rem; font-size: 1rem; border-radius: 20px; font-weight: 800; text-decoration: none; background: var(--accent-color); color: white; transition: 0.3s; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);" onmouseover="this.style.filter='brightness(1.1)'; this.style.transform='scale(1.03)'" onmouseout="this.style.filter='none'; this.style.transform='none'">
+                        Réserver
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div style="grid-column: 1/-1; text-align: center; padding: 8rem; background: rgba(255,255,255,0.01); border-radius: 35px; border: 1px dashed rgba(255,255,255,0.1);">
+        <div style="font-size: 4rem; margin-bottom: 2rem; opacity: 0.2;">🛸</div>
+        <p style="color: #94a3b8; font-size: 1.4rem; font-weight: 600;">Notre flotte est actuellement en mission.</p>
+        <p style="color: #64748b; margin-top: 0.5rem;">Revenez très bientôt pour de nouvelles disponibilités de luxe.</p>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    function validateSearch() {
+        const location = document.getElementById('locationInput').value;
+        const start = document.getElementById('dateStart').value;
+        const end = document.getElementById('dateEnd').value;
+        const error = document.getElementById('errorMessage');
+
+        if (!location || !start || !end) {
+            error.style.opacity = '1';
+            setTimeout(() => { error.style.opacity = '0'; }, 3000);
+        } else {
+            document.getElementById('flotte').scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+</script>
+{% endblock %}

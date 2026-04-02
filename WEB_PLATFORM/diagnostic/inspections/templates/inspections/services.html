@@ -1,0 +1,252 @@
+{% extends "inspections/public_base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    :root {
+        --accent-glow: rgba(59, 130, 246, 0.4);
+    }
+
+    .hero-glow {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 500px;
+        background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15), transparent 70%);
+        z-index: -1;
+    }
+
+    .service-card-premium {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(25px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 40px;
+        overflow: hidden;
+        transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .service-card-premium:hover {
+        transform: translateY(-15px);
+        background: rgba(255, 255, 255, 0.04);
+        border-color: var(--accent-color);
+        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6), 0 0 40px rgba(59, 130, 246, 0.1);
+    }
+
+    .service-img-wrap {
+        width: 100%;
+        height: 240px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .service-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1s ease;
+    }
+
+    .service-card-premium:hover .service-img-wrap img {
+        transform: scale(1.1);
+    }
+
+    .badge-premium {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: rgba(12, 14, 18, 0.8);
+        backdrop-filter: blur(10px);
+        padding: 0.5rem 1.2rem;
+        border-radius: 50px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--accent-color);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .feature-icon-box {
+        width: 70px;
+        height: 70px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: 0.4s;
+    }
+
+    .feature-card:hover .feature-icon-box {
+        background: var(--accent-color);
+        color: white;
+        transform: rotate(-10deg) scale(1.1);
+        box-shadow: 0 10px 30px var(--accent-glow);
+    }
+
+    .btn-main {
+        padding: 1.2rem 3rem;
+        border-radius: 18px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: 0.4s;
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .btn-primary-elite {
+        background: var(--accent-color);
+        color: white;
+        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-primary-elite:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 25px 50px rgba(59, 130, 246, 0.4);
+        filter: brightness(1.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="position: relative; overflow: hidden; padding: 0 8%;">
+    <div class="hero-glow"></div>
+
+    <!-- Hero Header -->
+    <header style="padding: 10rem 0 8rem; text-align: center;">
+        <div style="display: inline-flex; align-items: center; gap: 0.8rem; background: rgba(59, 130, 246, 0.1); padding: 0.6rem 1.5rem; border-radius: 100px; margin-bottom: 2.5rem; border: 1px solid rgba(59, 130, 246, 0.2);">
+            <span style="width: 8px; height: 8px; background: var(--accent-color); border-radius: 50%; box-shadow: 0 0 10px var(--accent-color);"></span>
+            <span style="font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; color: var(--accent-color); text-transform: uppercase;">Excellence & Innovation</span>
+        </div>
+        <h1 style="font-size: 5rem; font-weight: 900; line-height: 1; letter-spacing: -3px; margin: 0 0 2rem;">
+            Luxe, Mobilité & <span style="background: linear-gradient(to right, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Intelligence</span>
+        </h1>
+        <p style="font-size: 1.4rem; color: var(--text-secondary); max-width: 750px; margin: 0 auto; line-height: 1.8; opacity: 0.9;">
+            EliteRent-AI redéfinit les standards de la location haut de gamme en intégrant le diagnostic par vision par ordinateur pour une expérience sans compromis.
+        </p>
+    </header>
+
+    <!-- Services Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 3rem; margin-bottom: 12rem;">
+        
+        <!-- Service 1: AI Diagnostic -->
+        <div class="service-card-premium">
+            <div class="service-img-wrap">
+                <img src="/static/inspections/images/services/service_ai.png" alt="Diagnostic IA">
+                <div class="badge-premium">Exclusivité AI</div>
+            </div>
+            <div style="padding: 3rem;">
+                <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">Diagnostic IA Intégré</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 2rem;">
+                    Sécurisez votre location avec notre technologie YOLOv8. Un scan complet en 30 secondes pour certifier l'état du véhicule et protéger votre dépôt.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 600;">
+                        <span style="color: var(--accent-color);">✓</span> Précision Millimétrique
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 600;">
+                        <span style="color: var(--accent-color);">✓</span> Rapport PDF Instantané
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 2: Luxe & Prestige -->
+        <div class="service-card-premium">
+            <div class="service-img-wrap">
+                <img src="/static/inspections/images/services/service_airport.png" alt="Aéroport">
+                <div class="badge-premium">VIP Delivery</div>
+            </div>
+            <div style="padding: 3rem;">
+                <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">Service Aéroport</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 2rem;">
+                    Votre véhicule vous attend dès votre arrivée aux aéroports d'Alger, Oran ou Constantine. Remise des clés prioritaire et parking premium inclus.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 600;">
+                        <span style="color: var(--accent-color);">✓</span> Meet & Greet Personnel
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 600;">
+                        <span style="color: var(--accent-color);">✓</span> Transferts Bagages VIP
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 3: Chauffeur -->
+        <div class="service-card-premium">
+            <div class="service-img-wrap">
+                <img src="/static/inspections/images/services/service_chauffeur.png" alt="Chauffeur">
+                <div class="badge-premium">Professional</div>
+            </div>
+            <div style="padding: 3rem;">
+                <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">Chauffeur Privé</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 2rem;">
+                    Conciliez travail et confort. Nos chauffeurs multilingues assurent vos déplacements avec discrétion et professionnalisme total.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 600;">
+                        <span style="color: var(--accent-color);">✓</span> Navigation Expérientielle
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 600;">
+                        <span style="color: var(--accent-color);">✓</span> Disponibilité Horaire Flexible
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Engagement Section -->
+    <div style="margin-bottom: 15rem;">
+        <h2 style="font-size: 3rem; font-weight: 900; text-align: center; margin-bottom: 6rem; letter-spacing: -1.5px;">Pourquoi choisir <span style="color: var(--accent-color);">EliteRent-AI</span> ?</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 4rem;">
+            <div class="feature-card">
+                <div class="feature-icon-box">🛡️</div>
+                <h4 style="font-weight: 800; margin-bottom: 1rem; font-size: 1.2rem;">Sûreté Maximale</h4>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Toute notre flotte est soumise à des contrôles IA réguliers pour garantir votre sécurité.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-box">💎</div>
+                <h4 style="font-weight: 800; margin-bottom: 1rem; font-size: 1.2rem;">Transparence Totale</h4>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Rapports d'états horodatés et archivés. Zéro litige, 100% de confiance.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-box">🕒</div>
+                <h4 style="font-weight: 800; margin-bottom: 1rem; font-size: 1.2rem;">24/7 Assistance</h4>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Un support client dédié et une assistance routière disponible à chaque instant.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-box">🌟</div>
+                <h4 style="font-weight: 800; margin-bottom: 1rem; font-size: 1.2rem;">Parc d'Exception</h4>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Une sélection triée sur le volet des véhicules les plus récents et performants.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Final -->
+    <div style="background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(12, 14, 18, 0.6)); border: 1px solid rgba(255,255,255,0.05); border-radius: 50px; padding: 6rem; text-align: center; margin-bottom: 10rem;">
+        <h2 style="font-size: 3.5rem; font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -2px;">Prêt à vivre l'exception ?</h2>
+        <p style="color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 4.5rem; max-width: 600px; margin: 0 auto 4.5rem;">Rejoignez le premier service de location intelligent et profitez d'une mobilité certifiée par IA.</p>
+        <div style="display: flex; justify-content: center; gap: 2rem;">
+            <a href="{% url 'inspections:car_fleet' %}" class="btn-main btn-primary-elite">
+                <span>🚘</span> Explorer la Flotte
+            </a>
+            <a href="{% url 'inspections:innovation' %}" class="btn-main" style="border: 1px solid rgba(255,255,255,0.1); color: white;">
+                <span>💡</span> Comment ça marche ?
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

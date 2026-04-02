@@ -1,0 +1,143 @@
+{% extends "inspections/admin_base.html" %}
+
+{% block extra_css %}
+<style>
+    .user-container {
+        padding: 2rem 0;
+    }
+
+    .user-card {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(25px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 30px;
+        padding: 3rem;
+    }
+
+    .user-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 1rem;
+    }
+
+    .user-table th {
+        text-align: left;
+        padding: 1rem 2rem;
+        color: var(--text-secondary);
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .user-row {
+        background: rgba(255, 255, 255, 0.01);
+        transition: 0.3s;
+    }
+
+    .user-row td {
+        padding: 1.5rem 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .user-row td:first-child { border-left: 1px solid rgba(255, 255, 255, 0.03); border-radius: 20px 0 0 20px; }
+    .user-row td:last-child { border-right: 1px solid rgba(255, 255, 255, 0.03); border-radius: 0 20px 20px 0; }
+
+    .user-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 800;
+        font-size: 1rem;
+    }
+    
+    .user-avatar.avatar-admin { background: #ef4444; }
+
+    .role-badge {
+        padding: 0.4rem 1rem;
+        border-radius: 100px;
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .role-admin { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+    .role-client { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="user-container fade-in">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem;">
+        <div>
+            <h1 style="font-size: 3rem; font-weight: 800; letter-spacing: -1.5px; color: white;">Tous nos <span style="color: var(--accent-admin);">Clients</span></h1>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Gérez ici les comptes et les accès de vos clients.</p>
+        </div>
+        <form method="GET" style="position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
+            <div style="position: relative;">
+                <select name="role" onchange="this.form.submit()" 
+                    style="appearance: none; -webkit-appearance: none; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1rem 3rem 1rem 1.5rem; color: white; font-family: 'Outfit'; font-weight: 700; cursor: pointer; backdrop-filter: blur(10px); min-width: 240px; transition: 0.3s;">
+                    <option value="" style="background: #161a22; color: white;">Tous les Rôles</option>
+                    <option value="client" {% if current_role == 'client' %}selected{% endif %} style="background: #161a22; color: white;">Clients Uniquement</option>
+                    <option value="admin" {% if current_role == 'admin' %}selected{% endif %} style="background: #161a22; color: white;">Administrateurs Uniquement</option>
+                </select>
+                <div style="position: absolute; right: 1.2rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-secondary); font-size: 0.8rem;">▼</div>
+            </div>
+            {% if current_role %}
+            <a href="{% url 'inspections:user_management' %}" style="font-size: 0.75rem; color: #ef4444; text-decoration: none; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; background: rgba(239, 68, 68, 0.05); padding: 4px 12px; border-radius: 8px;">× Effacer le filtre</a>
+            {% endif %}
+        </form>
+    </div>
+
+    <div class="user-card">
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Utilisateur</th>
+                    <th>Email</th>
+                    <th>Type</th>
+                    <th>Date d'arrivée</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for profile in profiles %}
+                <tr class="user-row">
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 1.2rem;">
+                            <div class="user-avatar {% if profile.role == 'admin' %}avatar-admin{% endif %}">
+                                {{ profile.user.username|first|upper }}
+                            </div>
+                            <div>
+                                <div style="color: white; font-weight: 700;">{{ profile.user.username }}</div>
+                                <div style="color: var(--text-secondary); font-size: 0.8rem;">ID: #{{ profile.user.id }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="color: white; font-weight: 600;">{{ profile.user.email }}</td>
+                    <td>
+                        <span class="role-badge {% if profile.role == 'admin' %}role-admin{% else %}role-client{% endif %}">
+                            {{ profile.get_role_display }}
+                        </span>
+                    </td>
+                    <td style="color: var(--text-secondary); font-size: 0.85rem;">{{ profile.user.date_joined|date:"d M Y" }}</td>
+                    <td>
+                        <a href="{% url 'admin:auth_user_change' profile.user.id %}" style="color: var(--text-secondary); font-weight: 600; text-decoration: none; font-size: 0.85rem;">Modifier →</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" style="text-align: center; padding: 5rem; color: var(--text-secondary);">Aucun utilisateur trouvé.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

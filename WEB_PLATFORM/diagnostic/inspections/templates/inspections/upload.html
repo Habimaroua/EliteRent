@@ -1,0 +1,113 @@
+{% extends base_template|default:"inspections/public_base.html" %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 4rem auto; padding: 0 1rem;">
+    <div class="glass" style="padding: 4rem; border-radius: 40px; text-align: center; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.02); backdrop-filter: blur(20px);">
+        
+        {% if car %}
+        <div style="display: inline-flex; align-items: center; gap: 0.8rem; background: rgba(59, 130, 246, 0.1); padding: 0.5rem 1rem; border-radius: 30px; margin-bottom: 1.5rem;">
+            <span style="color: var(--accent-color); font-size: 0.9rem; font-weight: 600;">Diagnostic pour : {{ car.brand }} {{ car.model_name }}</span>
+        </div>
+        {% endif %}
+
+        <h1 style="margin-bottom: 1rem;">Nouveau Diagnostic IA</h1>
+        <p style="color: var(--text-secondary); margin-bottom: 3rem;">
+            Notre intelligence artificielle va scanner l'image pour détecter d'éventuels dommages (rayures, bosses) sur la carrosserie.
+        </p>
+
+        <form method="post" enctype="multipart/form-data" id="upload-form">
+            {% csrf_token %}
+            
+            <!-- Type & Mileage Selection -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; text-align: left;">
+                <div class="glass" style="padding: 1.5rem; border-radius: 20px;">
+                    <label style="display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1rem; letter-spacing: 1px;">Type d'Inspection</label>
+                    <div style="display: flex; gap: 0.5rem; background: rgba(0,0,0,0.2); padding: 0.4rem; border-radius: 12px;">
+                        <label style="flex: 1; cursor: pointer;">
+                            <input type="radio" name="inspection_type" value="pickup" checked style="display: none;" onchange="this.parentNode.style.background='var(--accent-client)'; this.parentNode.nextElementSibling.style.background='transparent';">
+                            <div style="background: var(--accent-client); padding: 0.6rem; border-radius: 10px; text-align: center; font-weight: 700; font-size: 0.85rem; transition: 0.3s;">Départ</div>
+                        </label>
+                        <label style="flex: 1; cursor: pointer;">
+                            <input type="radio" name="inspection_type" value="return" style="display: none;" onchange="this.parentNode.style.background='var(--accent-client)'; this.parentNode.previousElementSibling.style.background='transparent';">
+                            <div style="padding: 0.6rem; border-radius: 10px; text-align: center; font-weight: 700; font-size: 0.85rem; transition: 0.3s;">Retour</div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="glass" style="padding: 1.5rem; border-radius: 20px;">
+                    <label style="display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1rem; letter-spacing: 1px;">Kilométrage Compteur</label>
+                    <input type="number" name="mileage" placeholder="Ex: 45200" style="width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 0.8rem; border-radius: 12px; color: white; font-weight: 700; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='var(--accent-client)'">
+                </div>
+            </div>
+
+            <!-- Manual Checklist -->
+            <div class="glass" style="padding: 2rem; border-radius: 20px; margin-bottom: 3rem; text-align: left;">
+                <label style="display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1.5rem; letter-spacing: 1px;">Checklist de Sécurité Manuel</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;">
+                    <label style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+                        <input type="checkbox" name="pneus" checked class="custom-check">
+                        <span style="font-size: 0.9rem; font-weight: 600;">🛞 Pneus OK</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+                        <input type="checkbox" name="feux" checked class="custom-check">
+                        <span style="font-size: 0.9rem; font-weight: 600;">💡 Feux OK</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+                        <input type="checkbox" name="proprete" checked class="custom-check">
+                        <span style="font-size: 0.9rem; font-weight: 600;">✨ Propre</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Image Upload -->
+            <label for="image-upload" style="display: block; border: 2px dashed rgba(255,255,255,0.1); padding: 5rem 2rem; border-radius: 30px; cursor: pointer; transition: all 0.3s; background: rgba(255,255,255,0.02);" onmouseover="this.style.borderColor='var(--accent-client)'; this.style.background='rgba(59, 130, 246, 0.05)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.background='rgba(255,255,255,0.02)';">
+                <input type="file" name="image" id="image-upload" accept="image/*" style="display: none;" onchange="updateFileLabel(this)">
+                
+                <div style="font-size: 4rem; margin-bottom: 1.5rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));">📸</div>
+                <p id="file-chosen" style="margin: 0; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px;">Sélectionner la photo du véhicule</p>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.8rem;">Analyse IA instantanée après envoi</p>
+            </label>
+            
+            <div style="margin-top: 3rem;">
+                <button type="submit" id="submit-btn" class="btn" style="padding: 1.2rem 5rem; border-radius: 20px; font-weight: 800; font-size: 1.1rem; box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3); display: none;">
+                    Lancer l'Analyse IA ⚡
+                </button>
+            </div>
+        </form>
+
+        <script>
+            function updateFileLabel(input) {
+                if (input.files && input.files[0]) {
+                    document.getElementById('file-chosen').textContent = input.files[0].name;
+                    document.getElementById('file-chosen').style.color = 'var(--accent-client)';
+                    document.getElementById('submit-btn').style.display = 'inline-block';
+                }
+            }
+        </script>
+
+        <style>
+            .custom-check {
+                width: 20px;
+                height: 20px;
+                accent-color: var(--accent-client);
+            }
+        </style>
+
+        <div id="loader" style="display: none; margin-top: 2rem;">
+            <div style="width: 40px; height: 40px; border: 4px solid var(--accent-glow); border-top: 4px solid var(--accent-color); border-radius: 50%; margin: 0 auto; animation: spin 1s linear infinite;"></div>
+            <p style="color: var(--text-secondary); margin-top: 1rem;">Analyse IA en cours, veuillez patienter...</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>
+
+<script>
+    document.getElementById('upload-form').onsubmit = function() {
+        document.getElementById('upload-form').style.display = 'none';
+        document.getElementById('loader').style.display = 'block';
+    };
+</script>
+{% endblock %}
