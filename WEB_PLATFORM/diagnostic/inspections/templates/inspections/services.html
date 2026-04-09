@@ -1,0 +1,295 @@
+{% extends "inspections/public_base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    :root {
+        --accent-glow: rgba(212, 0, 42, 0.3);
+    }
+
+    .hero-glow {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 600px;
+        background: radial-gradient(circle at 50% 0%, rgba(212, 0, 42, 0.12), transparent 70%);
+        z-index: -1;
+    }
+
+    .service-card-premium {
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.06);
+        border-radius: 4px; /* Minimalistic luxury corners - Avis Style */
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.2, 0, 0, 1);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+    }
+
+    .service-card-premium:hover {
+        transform: translateY(-10px);
+        border-color: var(--accent-color);
+        box-shadow: 0 30px 60px rgba(212, 0, 42, 0.08); /* Red tinged shadow */
+    }
+
+    .service-img-wrap {
+        width: 100%;
+        height: 260px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .service-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1.2s ease;
+    }
+
+    .service-card-premium:hover .service-img-wrap img {
+        transform: scale(1.05);
+    }
+
+    .badge-premium {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: rgba(212, 0, 42, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 0.5rem 1.2rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #ffffff;
+        box-shadow: 0 4px 15px rgba(212, 0, 42, 0.3);
+    }
+
+    .feature-icon-box {
+        width: 80px;
+        height: 80px;
+        background: #f8f8f8;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: 0.4s cubic-bezier(0.2, 0, 0, 1);
+        color: var(--accent-color);
+    }
+
+    .feature-card:hover .feature-icon-box {
+        background: var(--accent-color);
+        color: #ffffff;
+        transform: scale(1.1);
+        box-shadow: 0 15px 35px var(--accent-glow);
+        border-color: transparent;
+    }
+
+    .btn-main {
+        padding: 1.2rem 3rem;
+        border-radius: 4px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: 0.4s;
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Transparent Black Feature Cards */
+    .feature-card-dark {
+        background: rgba(0, 0, 0, 0.04);
+        padding: 3rem;
+        border-left: 4px solid var(--accent-color);
+        transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+        border-top: 1px solid rgba(0,0,0,0.03);
+        border-right: 1px solid rgba(0,0,0,0.03);
+        border-bottom: 1px solid rgba(0,0,0,0.03);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border-radius: 4px;
+    }
+
+    .feature-card-dark:hover {
+        background: #111111 !important;
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .feature-card-dark h3, .feature-card-dark p, .feature-card-dark .icon-wrap {
+        transition: color 0.4s ease;
+    }
+
+    .feature-card-dark:hover h3 {
+        color: #ffffff !important;
+    }
+
+    .feature-card-dark:hover p {
+        color: #aaaaaa !important;
+    }
+
+    .feature-card-dark:hover .icon-wrap {
+        color: var(--accent-color) !important;
+        transform: scale(1.1);
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="hero-glow" style="background: radial-gradient(circle at 10% 20%, rgba(212,0,42,0.15), transparent 60%); z-index: 1;"></div>
+
+    <!-- Hero Header -->
+    <header style="padding: 12rem 0 16rem; text-align: center; background: var(--dark-red); color: #ffffff; clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); margin-bottom: -10rem; position: relative; z-index: 2;">
+        <div style="display: inline-flex; align-items: center; gap: 0.8rem; background: rgba(255, 255, 255, 0.1); padding: 0.6rem 2rem; border-radius: 4px; margin-bottom: 2.5rem; border: 1px solid rgba(255, 255, 255, 0.2);">
+            <span style="width: 8px; height: 8px; background: #ffffff; border-radius: 50%; box-shadow: 0 0 12px #ffffff;"></span>
+            <span style="font-size: 0.8rem; font-weight: 900; letter-spacing: 3px; color: #ffffff; text-transform: uppercase;">Standard Elite-Avis Excellence</span>
+        </div>
+        <h1 style="font-size: 5.5rem; font-weight: 900; line-height: 1; letter-spacing: -3px; margin: 0 0 2rem; text-transform: uppercase; color: #ffffff;">
+            Le Luxe <span style="color: #ffffff; opacity: 0.8;">Redéfini</span>
+        </h1>
+        <p style="font-size: 1.4rem; color: #f2f2f2; max-width: 750px; margin: 0 auto; line-height: 1.8; font-weight: 500;">
+            EliteRent-AI fusionne l'héritage automobile avec l'Intelligence Artificielle pour une sécurité et un prestige sans compromis.
+        </p>
+    </header>
+
+    <!-- Services Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 3rem; margin-bottom: 12rem; margin-top: -12rem; position: relative; z-index: 10; padding: 0 4%;">
+        
+        <!-- Service 1: AI Diagnostic -->
+        <div class="service-card-premium">
+            <div class="service-img-wrap">
+                <img src="/static/inspections/images/services/service_ai.png" alt="Diagnostic IA">
+                <div class="badge-premium">Exclusivité AI</div>
+            </div>
+            <div style="padding: 3rem;">
+                <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">Diagnostic IA Intégré</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 2rem;">
+                    Sécurisez votre location avec notre technologie YOLOv8. Un scan complet en 30 secondes pour certifier l'état du véhicule et protéger votre dépôt.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 600;">
+                        <span style="color: var(--accent-color);">✓</span> Précision Millimétrique
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 600;">
+                        <span style="color: var(--accent-color);">✓</span> Rapport PDF Instantané
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 2: Luxe & Prestige -->
+        <div class="service-card-premium">
+            <div class="service-img-wrap">
+                <img src="/static/inspections/images/services/service_airport.png" alt="Aéroport">
+                <div class="badge-premium">VIP Delivery</div>
+            </div>
+            <div style="padding: 3rem;">
+                <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">Service Aéroport</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 2rem;">
+                    Votre véhicule vous attend à notre agence de Boumerdès. Remise des clés prioritaire et parking premium inclus.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 600;">
+                        <span style="color: var(--accent-color);">✓</span> Meet & Greet Personnel
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 600;">
+                        <span style="color: var(--accent-color);">✓</span> Transferts Bagages VIP
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 3: Chauffeur -->
+        <div class="service-card-premium">
+            <div class="service-img-wrap">
+                <img src="/static/inspections/images/services/service_chauffeur.png" alt="Chauffeur">
+                <div class="badge-premium">Professional</div>
+            </div>
+            <div style="padding: 3rem;">
+                <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">Chauffeur Privé</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 2rem;">
+                    Conciliez travail et confort. Nos chauffeurs multilingues assurent vos déplacements avec discrétion et professionnalisme total.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 600;">
+                        <span style="color: var(--accent-color);">✓</span> Navigation Expérientielle
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; font-weight: 600;">
+                        <span style="color: var(--accent-color);">✓</span> Disponibilité Horaire Flexible
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Engagement Section -->
+    <div style="margin-bottom: 12rem; background: #ffffff; padding: 8rem 0; position: relative;">
+        <h2 style="font-size: 3.5rem; font-weight: 900; text-align: center; margin-bottom: 6rem; letter-spacing: -2px; text-transform: uppercase;">Pourquoi l'expérience <span style="color: var(--accent-color);">Elite</span> ?</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; align-items: stretch;">
+            <!-- Atout 1 -->
+            <div class="feature-card-dark">
+                <div class="icon-wrap" style="margin-bottom: 1.5rem; color: var(--accent-color);">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3 style="font-size: 1.4rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; color: var(--text-primary);">Sûreté Certifiée</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1.1rem; margin: 0; flex-grow: 1;">Chaque véhicule subit un scan complet YOLOv8 pour certifier un état irréprochable.</p>
+            </div>
+            <!-- Atout 2 -->
+            <div class="feature-card-dark">
+                <div class="icon-wrap" style="margin-bottom: 1.5rem; color: var(--accent-color);">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+                </div>
+                <h3 style="font-size: 1.4rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; color: var(--text-primary);">Transparence IA</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1.1rem; margin: 0; flex-grow: 1;">Rapports d'états automatisés et archivés. Zéro litige, 100% de clarté.</p>
+            </div>
+            <!-- Atout 3 -->
+            <div class="feature-card-dark">
+                <div class="icon-wrap" style="margin-bottom: 1.5rem; color: var(--accent-color);">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <h3 style="font-size: 1.4rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; color: var(--text-primary);">Service 24/7</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1.1rem; margin: 0; flex-grow: 1;">Un support client dédié et une assistance routière disponible en temps réel.</p>
+            </div>
+            <!-- Atout 4 -->
+            <div class="feature-card-dark">
+                <div class="icon-wrap" style="margin-bottom: 1.5rem; color: var(--accent-color);">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                </div>
+                <h3 style="font-size: 1.4rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; color: var(--text-primary);">Flotte Premium</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1.1rem; margin: 0; flex-grow: 1;">Une sélection exclusive des modèles les plus récents et performants.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CTA Final -->
+    <div style="background: linear-gradient(135deg, #111111 0%, #222222 100%); border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; padding: 7rem 4rem; text-align: center; margin-bottom: 10rem; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; right: 0; width: 300px; height: 300px; background: radial-gradient(circle, rgba(212,0,42,0.1), transparent 70%);"></div>
+        <h2 style="font-size: 4rem; font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -2px; color: #ffffff; text-transform: uppercase;">Prêt à conduire le futur ?</h2>
+        <p style="color: #cccccc; font-size: 1.4rem; margin-bottom: 4.5rem; max-width: 700px; margin: 0 auto 4.5rem; font-weight: 500;">Rejoignez l'élite et profitez d'une mobilité intelligente, sécurisée et prestigieuse.</p>
+        <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+            <a href="{% url 'inspections:car_fleet' %}" class="btn-primary-elite" style="padding: 1.2rem 3.5rem;">
+                Explorer la Flotte
+            </a>
+            <a href="{% url 'inspections:contact' %}" class="btn-login" style="padding: 1.2rem 3.5rem; color: #ffffff !important; border-color: rgba(255,255,255,0.3) !important;">
+                Nous Contacter
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

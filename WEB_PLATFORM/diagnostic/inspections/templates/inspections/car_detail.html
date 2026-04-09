@@ -1,0 +1,86 @@
+{% extends "inspections/client_base.html" %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; gap: 3rem;">
+    <!-- Section Car details -->
+    <div style="display: flex; gap: 2rem; background: var(--card-bg); padding: 3rem; border-radius: 20px; border: 1px solid rgba(0,0,0,0.08);">
+        <div style="flex: 1;">
+            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.5rem;">
+                <h1 style="margin: 0; font-size: 2.5rem; font-weight: 700;">{{ car.brand }} {{ car.model_name }}</h1>
+                <span class="badge {% if car.status == 'excellent' %}badge-success{% elif car.status == 'damaged' %}badge-danger{% else %}badge-warning{% endif %}">
+                    {{ car.get_status_display }}
+                </span>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem;">{{ car.year }} • {{ car.license_plate }} • <span style="color: var(--accent-color); font-weight: 600;">{{ car.price_per_day }} DA / jour</span></p>
+            
+            <h3 style="color: var(--text-primary); margin-bottom: 0.8rem;">Description du véhicule</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 2.5rem; line-height: 1.8;">{{ car.description }}</p>
+            
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                <a href="{% url 'inspections:book_car' car.pk %}" class="btn" style="padding: 1rem 3rem;">Réserver maintenant</a>
+                
+                {% if user.profile.role == 'admin' %}
+                <div style="display: flex; gap: 1rem; border-left: 1px solid rgba(0,0,0,0.08); padding-left: 1.5rem; margin-left: 0.5rem;">
+                    <a href="{% url 'inspections:car_analyze' car.pk %}?type=return" class="btn btn-outline" style="border-color: var(--warning); color: var(--warning);">Restituer (Retour)</a>
+                    <a href="{% url 'inspections:compare_inspections' car.pk %}" class="btn btn-outline" style="border-color: var(--accent-color); color: var(--accent-color);">Comparer</a>
+                    <a href="{% url 'inspections:car_analyze' car.pk %}" class="btn btn-outline" style="border-color: rgba(255,255,255,0.1); color: white;">Diagnostic Admin</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% if car.image %}
+        <div style="flex: 1; border-radius: 15px; overflow: hidden; height: 400px; background-image: url('{{ car.image.url }}'); background-size: cover; background-position: center;"></div>
+        {% else %}
+        <div style="flex: 1; border-radius: 15px; background: #ffffff; display: flex; align-items: center; justify-content: center;">
+            <span style="color: rgba(255,255,255,0.05); font-size: 6rem;">🚗</span>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Section Historique d'inspection -->
+    <div>
+        <h2 style="margin-bottom: 1.5rem;">Historique santé du véhicule</h2>
+        <div style="background: var(--card-bg); border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,0,0,0.08);">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead style="background: #ffffff; text-align: left;">
+                    <tr>
+                        <th style="padding: 1.2rem 2rem; color: var(--text-secondary); font-weight: 500;">Diagnostic ID</th>
+                        <th style="padding: 1.2rem 2rem; color: var(--text-secondary); font-weight: 500;">Date de vérification</th>
+                        <th style="padding: 1.2rem 2rem; color: var(--text-secondary); font-weight: 500;">Résultat Carrosserie</th>
+                        <th style="padding: 1.2rem 2rem; color: var(--text-secondary); font-weight: 500;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inspection in recent_inspections %}
+                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.08);">
+                        <td style="padding: 1.2rem 2rem; font-weight: 600;">#{{ inspection.pk }}</td>
+                        <td style="padding: 1.2rem 2rem;">{{ inspection.created_at|date:"d M Y, H:i" }}</td>
+                        <td style="padding: 1.2rem 2rem;">
+                            {% if inspection.detections_count == 0 %}
+                                <span style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--success);">
+                                    <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--success);"></div>
+                                    Aucun dommage détecté
+                                </span>
+                            {% else %}
+                                <span style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--danger);">
+                                    <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--danger);"></div>
+                                    {{ inspection.detections_count }} dommages détectés
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td style="padding: 1.2rem 2rem; text-align: right;">
+                            <a href="{% url 'report_detail' inspection.pk %}" style="color: var(--accent-color); text-decoration: none; font-weight: 600;">Voir le rapport &rarr;</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" style="padding: 4rem; text-align: center; color: var(--text-secondary);">Aucune inspection réalisée pour le moment.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

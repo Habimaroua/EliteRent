@@ -1,0 +1,105 @@
+{% extends base_template %}
+
+{% block content %}
+<div class="fade-in" style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 3rem; padding: 2rem 0;">
+    
+    <!-- Hero Section -->
+    <div style="text-align: center;">
+        <h1 style="font-size: 3rem; font-weight: 800; margin: 0; letter-spacing: -2px;">Invitez vos proches, <span style="color: var(--accent-client);">Gagnez ensemble</span></h1>
+        <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 1.2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Partagez l'expérience EliteRent-AI avec vos amis et débloquez des réductions exclusives sur vos prochaines locations.
+        </p>
+    </div>
+
+    <!-- Referral Card -->
+    <div class="glass" style="padding: 4rem; border-radius: 40px; text-align: center; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: var(--accent-client); filter: blur(100px); opacity: 0.2; z-index: 1;"></div>
+        
+        <div style="position: relative; z-index: 2;">
+            <div style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--accent-client); letter-spacing: 3px; margin-bottom: 2rem;">Votre Code Privilège</div>
+            
+            <div id="referral-code" style="display: inline-block; background: rgba(0,0,0,0.3); padding: 1.5rem 4rem; border-radius: 20px; border: 2px dashed var(--accent-client); font-size: 2.5rem; font-weight: 900; letter-spacing: 5px; color: white; margin-bottom: 2rem; cursor: pointer; transition: 0.3s;" onclick="copyCode()">
+                {{ referral_code }}
+            </div>
+            
+            <p id="copy-status" style="color: var(--accent-client); font-size: 0.9rem; font-weight: 700; height: 20px; margin-bottom: 2rem; opacity: 0; transition: 0.3s;">Code copié !</p>
+
+            <button class="btn" style="padding: 1.2rem 4rem; border-radius: 20px; font-weight: 800; font-size: 1.1rem; box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);" onclick="copyCode()">
+                Copier le lien de parrainage
+            </button>
+        </div>
+    </div>
+
+    <!-- How it works -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
+        <div class="glass" style="padding: 2rem; border-radius: 24px; text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">📢</div>
+            <h4 style="font-weight: 800; margin-bottom: 0.5rem;">1. Partagez</h4>
+            <p style="font-size: 0.85rem; color: var(--text-secondary);">Envoyez votre code unique à vos amis et collègues.</p>
+        </div>
+        <div class="glass" style="padding: 2rem; border-radius: 24px; text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔑</div>
+            <h4 style="font-weight: 800; margin-bottom: 0.5rem;">2. Ils s'inscrivent</h4>
+            <p style="font-size: 0.85rem; color: var(--text-secondary);">Vos amis bénéficient de -10% sur leur premier scan IA.</p>
+        </div>
+        <div class="glass" style="padding: 2rem; border-radius: 24px; text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎁</div>
+            <h4 style="font-weight: 800; margin-bottom: 0.5rem;">3. Profitez</h4>
+            <p style="font-size: 0.85rem; color: var(--text-secondary);">Recevez un coupon de -15% après leur première location.</p>
+        </div>
+    </div>
+
+    <!-- Referral Stats (Simulated) -->
+    <div class="glass" style="padding: 3rem; border-radius: 30px;">
+        <h3 style="font-weight: 800; margin-bottom: 2rem;">Mes Gains de Parrainage</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
+            <div style="border-right: 1px solid rgba(0,0,0,0.08);">
+                <div style="font-size: 2rem; font-weight: 800;">0</div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Amis inscrits</div>
+            </div>
+            <div style="border-right: 1px solid rgba(0,0,0,0.08);">
+                <div style="font-size: 2rem; font-weight: 800;">0 DA</div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Économies cumulées</div>
+            </div>
+            <div>
+                <div style="font-size: 2rem; font-weight: 800;">Aucun</div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Coupon actif</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function copyCode() {
+        const code = document.getElementById('referral-code').innerText;
+        navigator.clipboard.writeText(window.location.origin + '/register/?ref=' + code).then(() => {
+            const status = document.getElementById('copy-status');
+            status.style.opacity = '1';
+            setTimeout(() => {
+                status.style.opacity = '0';
+            }, 2000);
+            
+            document.getElementById('referral-code').style.background = 'rgba(59, 130, 246, 0.2)';
+            setTimeout(() => {
+                document.getElementById('referral-code').style.background = 'rgba(0,0,0,0.3)';
+            }, 500);
+        });
+    }
+</script>
+
+<style>
+    .btn {
+        background: var(--accent-client);
+        color: var(--text-primary);
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .btn:hover {
+        background: var(--accent-light);
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+    }
+</style>
+{% endblock %}

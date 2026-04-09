@@ -1,0 +1,222 @@
+{% extends "inspections/client_base.html" %}
+
+{% block extra_css %}
+<style>
+    .reports-container {
+        padding: 0 0 10rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .hero-section-elite {
+        padding: 8rem 5% 12rem;
+        background: var(--dark-red);
+        color: #ffffff;
+        clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+        margin-bottom: -6rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-title-elite {
+        font-size: 4rem;
+        font-weight: 900;
+        letter-spacing: -2px;
+        line-height: 1;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+    }
+
+    /* Registry Stats Bar */
+    .registry-stats-elite {
+        display: flex;
+        gap: 3rem;
+        margin-bottom: 6rem;
+        padding: 0 5%;
+        position: relative;
+        z-index: 10;
+    }
+
+    .stat-card-elite {
+        background: #ffffff;
+        padding: 2.5rem 3rem;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.06);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    /* Search & Filter elite */
+    .registry-filters-elite {
+        display: grid;
+        grid-template-columns: 1fr 300px 200px;
+        gap: 1.5rem;
+        margin-bottom: 4rem;
+        padding: 0 5%;
+    }
+
+    .filter-input-elite {
+        width: 100%;
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.08);
+        padding: 1.2rem 1.5rem;
+        border-radius: 4px;
+        color: var(--text-primary);
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .filter-input-elite:focus {
+        border-color: var(--accent-client);
+        box-shadow: 0 10px 30px rgba(212,0,42,0.05);
+    }
+
+    /* Report Card Grid */
+    .reports-grid-elite {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 3rem;
+        padding: 0 5%;
+    }
+
+    .report-card-elite {
+        background: #ffffff;
+        padding: 3rem;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.06);
+        transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .report-card-elite:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent-client);
+        box-shadow: 0 30px 70px rgba(0,0,0,0.08);
+    }
+
+    .score-badge-elite {
+        padding: 0.5rem 1.2rem;
+        border-radius: 2px;
+        font-size: 0.65rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+    .score-perfect { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .score-alert { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+
+    @media (max-width: 1024px) {
+        .registry-filters-elite { grid-template-columns: 1fr; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="reports-container fade-in">
+    <!-- Hero Header -->
+    <header class="hero-section-elite">
+        <h1 class="hero-title-elite">Dossiers <span style="color: rgba(255,255,255,0.4);">IA</span></h1>
+        <p style="font-size: 1.3rem; color: #f2f2f2; max-width: 600px; line-height: 1.6; font-weight: 500;">Archive complète de vos diagnostics de sécurité. Tous vos rapports sont certifiés par notre Intelligence Artificielle Elite-V8.</p>
+    </header>
+
+    <!-- Registry Stats -->
+    <div class="registry-stats-elite">
+        <div class="stat-card-elite">
+            <div style="color: var(--accent-client); opacity: 0.8;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+                <div style="font-size: 2.2rem; font-weight: 900; line-height: 1; color: var(--text-primary);">{{ total_scans }}</div>
+                <div style="font-size: 0.65rem; color: var(--text-secondary); font-weight: 900; text-transform: uppercase; letter-spacing: 2px;">Rapports Archivés</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters elite -->
+    <div class="registry-filters-elite">
+        <div style="position: relative;">
+            <input type="text" placeholder="RECHERCHER UN DOSSIER..." class="filter-input-elite" style="padding-left: 3.5rem;">
+            <div style="position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--accent-client); opacity: 0.5;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>
+            </div>
+        </div>
+        <select class="filter-input-elite">
+            <option>TOUTES LES VOITURES</option>
+            {% for car in cars_distinct %}
+                <option>{{ car.brand|upper }} {{ car.model_name|upper }}</option>
+            {% endfor %}
+        </select>
+        <button class="btn-register" style="padding: 0; border-radius: 4px !important; font-size: 0.75rem;">FILTRER</button>
+    </div>
+
+    <!-- Reports Grid -->
+    <div class="reports-grid-elite">
+        {% for inspection in inspections %}
+        <div class="report-card-elite">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <div style="font-size: 0.7rem; font-weight: 900; color: var(--accent-client); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem;">Dossier #{{ inspection.id }}</div>
+                    <h3 style="font-size: 2rem; font-weight: 900; margin: 0; color: var(--text-primary); letter-spacing: -1px;">{{ inspection.car.brand }} {{ inspection.car.model_name }}</h3>
+                </div>
+                <div style="color: var(--accent-client); opacity: 0.3;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1.2rem; padding: 1.5rem 0; border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.85rem; font-weight: 800; color: #444;">
+                    <div style="color: var(--accent-client);">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                    </div>
+                    <span>{{ inspection.created_at|date:"d F Y à H:i"|upper }}</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.85rem; font-weight: 800; color: #444;">
+                    <div style="color: var(--accent-client);">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                    </div>
+                    <span>PHASE: {{ inspection.get_inspection_type_display|upper }}</span>
+                </div>
+            </div>
+
+            <div style="background: #fafafa; padding: 1.5rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(0,0,0,0.03);">
+                <div>
+                    <div style="font-size: 0.6rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 900; letter-spacing: 2px;">Résultat IA</div>
+                    <div class="score-badge-elite {% if inspection.result_json.total_damages > 0 %}score-alert{% else %}score-perfect{% endif %}" style="margin-top: 0.5rem; display: inline-block;">
+                        {% if inspection.result_json.total_damages > 0 %}ANOMALIES DÉTECTÉES{% else %}SÉCURITÉ VALIDÉE{% endif %}
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 0.6rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 900; letter-spacing: 2px;">Alertes</div>
+                    <div style="font-size: 1.8rem; font-weight: 900; color: var(--text-primary); line-height: 1;">{{ inspection.result_json.total_damages|default:0 }}</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 80px; gap: 1rem;">
+                <a href="{% url 'inspections:report_detail' inspection.pk %}" class="btn-register" style="padding: 1.1rem; border-radius: 4px !important; font-size: 0.8rem; text-decoration: none; text-align: center;">VÉRIFIER LE DOSSIER</a>
+                <a href="javascript:window.print()" style="background: white; color: #111; padding: 1.1rem; border-radius: 4px; font-size: 0.75rem; text-align: center; text-decoration: none; border: 1px solid rgba(0,0,0,0.1); font-weight: 900;">PDF</a>
+            </div>
+        </div>
+        {% empty %}
+        <div style="grid-column: 1 / -1; padding: 8rem; text-align: center; background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px;">
+            <div style="font-size: 5rem; opacity: 0.05; margin-bottom: 2rem;">
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <h3 style="font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: var(--text-primary);">Aucun dossier IA</h3>
+            <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 1.1rem;">Vos rapports de sécurité apparaîtront ici après chaque scan.</p>
+            <a href="{% url 'inspections:upload_image' %}" class="btn-register" style="display: inline-block; padding: 1.5rem 5rem; margin-top: 3rem; border-radius: 4px !important; text-decoration: none;">DÉMARRER UN SCAN</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

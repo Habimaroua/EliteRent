@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{% static 'inspections/favicon_er.png' %}">
+    <title>Elite Cockpit - Management Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-admin: #f9f9f9;
+            --sidebar-admin: #ffffff;
+            --accent-admin: #d4002a;
+            --accent-soft: rgba(212, 0, 42, 0.05);
+            --text-primary: #111111;
+            --text-secondary: #666666;
+            --glass-border: rgba(0, 0, 0, 0.06);
+            --premium-gradient: linear-gradient(135deg, #d4002a 0%, #a00020 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-admin);
+            color: var(--text-primary);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .admin-logo, .nav-title-elite {
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.5px;
+        }
+
+        /* Sidebar Prestige */
+        .admin-sidebar {
+            width: 300px;
+            background: var(--sidebar-admin);
+            border-right: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .admin-main {
+            margin-left: 300px;
+            flex: 1;
+            width: calc(100% - 300px);
+        }
+
+        .admin-logo {
+            padding: 2.2rem 2.5rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-bottom: 1px solid var(--glass-border);
+            background: linear-gradient(to bottom, rgba(212,0,42,0.01), transparent);
+        }
+
+        .logo-sub {
+            font-size: 0.65rem;
+            color: var(--accent-admin);
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 2px;
+            opacity: 0.9;
+        }
+
+        .admin-nav {
+            padding: 2.5rem 1.5rem;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .nav-title-elite {
+            font-size: 0.65rem;
+            font-weight: 900;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 2.5rem 1.2rem 1rem;
+        }
+
+        .nav-title-elite:first-child { margin-top: 0; }
+
+        .admin-link {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1rem 1.5rem;
+            color: #555;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 0.4rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .admin-link svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        .admin-link:hover {
+            color: var(--accent-admin);
+            background: var(--accent-soft);
+        }
+
+        .admin-link:hover svg {
+            opacity: 1;
+            transform: translateX(3px);
+        }
+
+        .admin-link.active {
+            background: var(--accent-admin);
+            color: #ffffff;
+            box-shadow: 0 10px 20px rgba(212, 0, 42, 0.15);
+        }
+
+        .admin-link.active svg { opacity: 1; color: #ffffff; }
+
+        .admin-footer {
+            padding: 2.5rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* Buttons Prestige */
+        .btn-elite-logout {
+            width: 100%;
+            padding: 1.2rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            background: transparent;
+            color: #111;
+            font-weight: 900;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .btn-elite-logout:hover {
+            border-color: var(--accent-admin);
+            color: var(--accent-admin);
+            background: var(--accent-soft);
+        }
+
+        /* Universal Luxury Button style for subpages */
+        .btn-register, .btn-primary-elite, button[type="submit"] {
+            background: var(--premium-gradient) !important;
+            color: #ffffff !important;
+            padding: 1.2rem 3rem !important;
+            border-radius: 4px !important;
+            font-weight: 900 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1.5px !important;
+            border: none !important;
+            cursor: pointer !important;
+            transition: 0.4s !important;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(212, 0, 42, 0.2) !important;
+        }
+
+        .btn-register:hover, .btn-primary-elite:hover, button[type="submit"]:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 20px 40px rgba(212, 0, 42, 0.3) !important;
+        }
+
+        .btn-register::after, .btn-primary-elite::after, button[type="submit"]::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: prestige-shine 6s infinite;
+        }
+
+        @keyframes prestige-shine {
+            0% { left: -150%; }
+            20% { left: 250%; }
+            100% { left: 250%; }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <aside class="admin-sidebar">
+        <a href="{% url 'inspections:admin_dashboard' %}" class="admin-logo">
+            <span style="font-size: 1.6rem; font-weight: 900; color: #111; letter-spacing: -1.5px;">ELITE<span style="color:var(--accent-admin)">RENT</span></span>
+            <span class="logo-sub">Cockpit Studio</span>
+        </a>
+
+        <nav class="admin-nav">
+            <div class="nav-title-elite">Cockpit</div>
+            <a href="{% url 'inspections:admin_dashboard' %}" class="admin-link {% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Dashboard
+            </a>
+            <a href="{% url 'inspections:car_fleet' %}" class="admin-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v7"/><rect width="20" height="8" x="2" y="13" rx="2"/><path d="M7 17h.01"/><path d="M17 17h.01"/></svg>
+                Site Public
+            </a>
+
+            <div class="nav-title-elite">Opérations</div>
+            <a href="{% url 'inspections:car_management' %}" class="admin-link {% if 'car' in request.resolver_match.url_name %}active{% endif %}">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 11h18"/></svg>
+                Gestion Flotte
+            </a>
+            <a href="{% url 'inspections:booking_management' %}" class="admin-link {% if 'booking' in request.resolver_match.url_name %}active{% endif %}">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/></svg>
+                Les Locations
+            </a>
+
+            <div class="nav-title-elite">Intelligence IA</div>
+            <a href="{% url 'inspections:ia_monitor' %}" class="admin-link {% if 'ia' in request.resolver_match.url_name %}active{% endif %}">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+                Moniteur IA
+            </a>
+            <a href="{% url 'inspections:upload_image' %}" class="admin-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                Scan Manuel
+            </a>
+
+            <div class="nav-title-elite">Utilisateurs</div>
+            <a href="{% url 'inspections:user_management' %}" class="admin-link {% if 'user' in request.resolver_match.url_name %}active{% endif %}">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Dossiers Clients
+            </a>
+        </nav>
+
+        <div class="admin-footer">
+            <a href="{% url 'inspections:logout' %}" class="btn-elite-logout">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1=21 y1=12 x2=9 y2=12/></svg>
+                Déconnexion
+            </a>
+        </div>
+    </aside>
+
+    <main class="admin-main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Scroll Persistence Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sidebar = document.querySelector('.admin-nav');
+            if (sidebar) {
+                const scrollPos = localStorage.getItem('sidebarScrollAdmin');
+                if (scrollPos) sidebar.scrollTop = scrollPos;
+                sidebar.addEventListener('scroll', () => {
+                    localStorage.setItem('sidebarScrollAdmin', sidebar.scrollTop);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

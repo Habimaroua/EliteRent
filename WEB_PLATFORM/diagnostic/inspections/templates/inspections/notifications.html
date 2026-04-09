@@ -1,0 +1,129 @@
+{% extends "inspections/admin_base.html" %}
+
+{% block extra_css %}
+<style>
+    .notify-container {
+        padding: 0 0 10rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .hero-section-elite {
+        padding: 6rem 5% 10rem;
+        background: linear-gradient(135deg, #d4002a 0%, #111 100%);
+        color: #ffffff;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        margin-bottom: -5rem;
+        position: relative;
+        z-index: 10;
+    }
+
+    .hero-title-elite {
+        font-size: 4rem;
+        font-weight: 900;
+        letter-spacing: -2px;
+        line-height: 1;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+
+    .notify-board-elite {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        padding: 0 5%;
+        position: relative;
+        z-index: 20;
+    }
+
+    .protocol-card-elite {
+        background: #ffffff;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.06);
+        padding: 4rem;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.03);
+    }
+
+    .log-item-elite {
+        display: flex;
+        gap: 2rem;
+        padding: 1.5rem;
+        border-bottom: 1px solid #f5f5f5;
+        transition: 0.3s;
+    }
+
+    .log-item-elite:hover {
+        background: var(--accent-soft);
+    }
+
+    .log-icon-elite {
+        width: 44px;
+        height: 44px;
+        background: #fafafa;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(0,0,0,0.05);
+        color: var(--accent-admin);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="notify-container fade-in">
+    <!-- Hero Header -->
+    <header class="hero-section-elite">
+        <div>
+            <h1 class="hero-title-elite">System <span style="color: rgba(255,255,255,0.4);">Protocol</span></h1>
+            <p style="font-size: 1.2rem; color: #f2f2f2; max-width: 600px; line-height: 1.6; font-weight: 500;">
+                Registre d'activité en temps réel. Suivi des réservations et des diagnostics critiques pour le maintien du standard de luxe EliteRent.
+            </p>
+        </div>
+    </header>
+
+    <div class="notify-board-elite">
+        <!-- Booking Logs -->
+        <div class="protocol-card-elite">
+            <h3 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 3rem;">Flux de Réservations</h3>
+            <div style="display: grid;">
+                {% for booking in recent_bookings %}
+                <div class="log-item-elite">
+                    <div class="log-icon-elite">
+                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/></svg>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 900; color: #111;">{{ booking.customer_name|upper }}</div>
+                        <div style="font-size: 0.75rem; color: #666; font-weight: 600;">Location {{ booking.car.brand }} {{ booking.car.model_name }} • {{ booking.status|upper }}</div>
+                        <div style="font-size: 0.65rem; color: #999; font-weight: 800; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Enregistré le {{ booking.created_at|date:"d M H:i"|upper }}</div>
+                    </div>
+                </div>
+                {% empty %}
+                <p style="color: #999; font-weight: 900; text-transform: uppercase; padding: 4rem; text-align: center;">Aucun flux récent.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Diagnostic Logs -->
+        <div class="protocol-card-elite">
+            <h3 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 3rem;">Registre Diagnostic IA</h3>
+            <div style="display: grid;">
+                {% for scan in recent_inspections %}
+                <div class="log-item-elite">
+                    <div class="log-icon-elite" style="color: #10b981;">
+                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="m16.24 7.76 2.83-2.83"/></svg>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 900; color: #111;">SCAN #{{ scan.id }} · {{ scan.car.brand|upper }}</div>
+                        <div style="font-size: 0.75rem; color: #666; font-weight: 600;">Protocol de sécurité certifié • {{ scan.inspection_type|upper }}</div>
+                        <div style="font-size: 0.65rem; color: #999; font-weight: 800; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">{{ scan.created_at|date:"d M H:i"|upper }}</div>
+                    </div>
+                </div>
+                {% empty %}
+                <p style="color: #999; font-weight: 900; text-transform: uppercase; padding: 4rem; text-align: center;">Silence radio IA.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

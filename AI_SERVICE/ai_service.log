@@ -1,0 +1,249 @@
+2026-04-09 13:36:31,912 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:36:31,944 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:36:32,114 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:36:32,159 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:37:31,076 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:40:28,129 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:40:28,142 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:40:28,155 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:40:28,194 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:40:28,200 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:42:24,456 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:42:38,653 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:42:38,654 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:42:38,654 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 13:42:38,654 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:42:38,654 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 13:42:38,654 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 13:42:38,654 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:42:38,654 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:42:38,654 - DEBUG - Calling on_part_data with data[129:32369]
+2026-04-09 13:42:38,654 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:42:38,655 - DEBUG - Calling on_end with no data
+2026-04-09 13:42:38,656 - DEBUG - --- Nouvelle requête reçue: ww.jpg ---
+2026-04-09 13:42:38,657 - DEBUG - DEBUG: Taille du fichier reçu = 32240 bytes
+2026-04-09 13:42:38,706 - DEBUG - DEBUG: Image ouverte avec succès. Taille = (768, 431)
+2026-04-09 13:42:38,706 - DEBUG - DEBUG: Utilisation du modèle best.pt
+2026-04-09 13:42:39,533 - DEBUG - DEBUG: Nombre de boîtes trouvées par YOLO = 1
+2026-04-09 13:42:39,587 - DEBUG - DEBUG: Analyse terminée. 1 détections, 1 dommages.
+2026-04-09 13:42:39,636 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:42:39,636 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:42:39,637 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 13:42:39,637 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:42:39,637 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 13:42:39,637 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 13:42:39,638 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:42:39,638 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:42:39,638 - DEBUG - Calling on_part_data with data[139:65280]
+2026-04-09 13:42:39,649 - DEBUG - Calling on_part_data with data[0:196485]
+2026-04-09 13:42:39,651 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 13:42:39,652 - DEBUG - Calling on_part_data with data[0:223758]
+2026-04-09 13:42:39,653 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:42:39,653 - DEBUG - Calling on_end with no data
+2026-04-09 13:42:39,654 - DEBUG - --- Nouvelle requête reçue: cars/porsche.png ---
+2026-04-09 13:42:39,655 - DEBUG - DEBUG: Taille du fichier reçu = 747528 bytes
+2026-04-09 13:42:39,692 - DEBUG - DEBUG: Image ouverte avec succès. Taille = (1024, 1024)
+2026-04-09 13:42:39,692 - DEBUG - DEBUG: Utilisation du modèle best.pt
+2026-04-09 13:42:40,032 - DEBUG - DEBUG: Nombre de boîtes trouvées par YOLO = 3
+2026-04-09 13:42:40,183 - DEBUG - DEBUG: Analyse terminée. 3 détections, 3 dommages.
+2026-04-09 13:51:40,578 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:53:43,917 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:53:43,918 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:53:43,918 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 13:53:43,918 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:53:43,919 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 13:53:43,919 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 13:53:43,919 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:53:43,919 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:53:43,919 - DEBUG - Calling on_part_data with data[129:20221]
+2026-04-09 13:53:43,919 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:53:43,919 - DEBUG - Calling on_end with no data
+2026-04-09 13:53:43,920 - DEBUG - --- Nouvelle requête reçue: f3.jpg ---
+2026-04-09 13:53:43,920 - DEBUG - DEBUG: Taille du fichier reçu = 20092 bytes
+2026-04-09 13:53:43,952 - DEBUG - DEBUG: Image ouverte avec succès. Taille = (328, 246)
+2026-04-09 13:53:43,952 - DEBUG - DEBUG: Utilisation du modèle best.pt
+2026-04-09 13:53:44,696 - WARNING - \u26a0\ufe0f Aucun objet trouvé par best.pt. Tentative avec fallback_model...
+2026-04-09 13:53:45,057 - DEBUG - DEBUG: Nombre de boîtes trouvées par YOLO = 18
+2026-04-09 13:53:45,112 - DEBUG - DEBUG: Analyse terminée. 18 détections, 0 dommages.
+2026-04-09 13:53:45,146 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:53:45,146 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:53:45,147 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 13:53:45,147 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:53:45,147 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 13:53:45,147 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 13:53:45,148 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:53:45,148 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:53:45,148 - DEBUG - Calling on_part_data with data[139:65280]
+2026-04-09 13:53:45,162 - DEBUG - Calling on_part_data with data[0:130990]
+2026-04-09 13:53:45,164 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 13:53:45,165 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 13:53:45,166 - DEBUG - Calling on_part_data with data[0:27109]
+2026-04-09 13:53:45,167 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:53:45,167 - DEBUG - Calling on_end with no data
+2026-04-09 13:53:45,167 - DEBUG - --- Nouvelle requête reçue: cars/porsche.png ---
+2026-04-09 13:53:45,168 - DEBUG - DEBUG: Taille du fichier reçu = 747528 bytes
+2026-04-09 13:53:45,204 - DEBUG - DEBUG: Image ouverte avec succès. Taille = (1024, 1024)
+2026-04-09 13:53:45,205 - DEBUG - DEBUG: Utilisation du modèle best.pt
+2026-04-09 13:53:45,539 - DEBUG - DEBUG: Nombre de boîtes trouvées par YOLO = 3
+2026-04-09 13:53:45,707 - DEBUG - DEBUG: Analyse terminée. 3 détections, 3 dommages.
+2026-04-09 13:55:21,138 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:56:23,890 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:56:44,350 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:56:44,351 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:56:44,351 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 13:56:44,351 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:56:44,351 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 13:56:44,351 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 13:56:44,352 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:56:44,352 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:56:44,352 - DEBUG - Calling on_part_data with data[129:20221]
+2026-04-09 13:56:44,352 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:56:44,352 - DEBUG - Calling on_end with no data
+2026-04-09 13:56:44,353 - DEBUG - --- Requête d'analyse reçue: f3.jpg ---
+2026-04-09 13:56:45,703 - DEBUG - DEBUG: Analyse terminée. 1 dommages identifiés.
+2026-04-09 13:56:45,754 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:56:45,755 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:56:45,755 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 13:56:45,755 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:56:45,756 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 13:56:45,756 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 13:56:45,756 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:56:45,756 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:56:45,757 - DEBUG - Calling on_part_data with data[139:261889]
+2026-04-09 13:56:45,759 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 13:56:45,760 - DEBUG - Calling on_part_data with data[0:223634]
+2026-04-09 13:56:45,760 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:56:45,760 - DEBUG - Calling on_end with no data
+2026-04-09 13:56:45,761 - DEBUG - --- Requête d'analyse reçue: cars/porsche.png ---
+2026-04-09 13:56:46,989 - DEBUG - DEBUG: Analyse terminée. 5 dommages identifiés.
+2026-04-09 13:57:48,169 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:57:48,169 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:57:48,169 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 13:57:48,169 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:57:48,169 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 13:57:48,169 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 13:57:48,169 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:57:48,170 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:57:48,170 - DEBUG - Calling on_part_data with data[129:8984]
+2026-04-09 13:57:48,170 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:57:48,170 - DEBUG - Calling on_end with no data
+2026-04-09 13:57:48,170 - DEBUG - --- Requête d'analyse reçue: f4.jpg ---
+2026-04-09 13:57:48,845 - DEBUG - DEBUG: Analyse terminée. 1 dommages identifiés.
+2026-04-09 13:57:48,894 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:57:48,894 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:57:48,894 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 13:57:48,895 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:57:48,895 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 13:57:48,895 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 13:57:48,895 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:57:48,895 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:57:48,896 - DEBUG - Calling on_part_data with data[139:65280]
+2026-04-09 13:57:48,915 - DEBUG - Calling on_part_data with data[0:130990]
+2026-04-09 13:57:48,918 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 13:57:48,920 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 13:57:48,921 - DEBUG - Calling on_part_data with data[0:27109]
+2026-04-09 13:57:48,921 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:57:48,921 - DEBUG - Calling on_end with no data
+2026-04-09 13:57:48,922 - DEBUG - --- Requête d'analyse reçue: cars/porsche.png ---
+2026-04-09 13:57:49,861 - DEBUG - DEBUG: Analyse terminée. 5 dommages identifiés.
+2026-04-09 14:00:50,502 - DEBUG - Calling on_part_begin with no data
+2026-04-09 14:00:50,502 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 14:00:50,502 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 14:00:50,502 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:00:50,503 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 14:00:50,503 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 14:00:50,503 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:00:50,503 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 14:00:50,503 - DEBUG - Calling on_part_data with data[129:262144]
+2026-04-09 14:00:50,504 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,505 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,507 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,508 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,530 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,532 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,534 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,535 - DEBUG - Calling on_part_data with data[0:187981]
+2026-04-09 14:00:50,535 - DEBUG - Calling on_part_end with no data
+2026-04-09 14:00:50,535 - DEBUG - Calling on_end with no data
+2026-04-09 14:00:50,538 - DEBUG - --- Requête d'analyse reçue: f5.jpg ---
+2026-04-09 14:00:53,598 - DEBUG - DEBUG: Analyse terminée. 1 dommages identifiés.
+2026-04-09 14:00:54,053 - DEBUG - Calling on_part_begin with no data
+2026-04-09 14:00:54,053 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 14:00:54,054 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 14:00:54,054 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:00:54,054 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 14:00:54,054 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 14:00:54,055 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:00:54,055 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 14:00:54,055 - DEBUG - Calling on_part_data with data[139:262144]
+2026-04-09 14:00:54,058 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:54,060 - DEBUG - Calling on_part_data with data[0:223379]
+2026-04-09 14:00:54,060 - DEBUG - Calling on_part_end with no data
+2026-04-09 14:00:54,061 - DEBUG - Calling on_end with no data
+2026-04-09 14:00:54,062 - DEBUG - --- Requête d'analyse reçue: cars/porsche.png ---
+2026-04-09 14:00:55,174 - DEBUG - DEBUG: Analyse terminée. 5 dommages identifiés.
+2026-04-09 14:03:19,135 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 14:04:10,419 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 14:04:15,911 - DEBUG - Calling on_part_begin with no data
+2026-04-09 14:04:15,912 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 14:04:15,912 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 14:04:15,912 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:04:15,912 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 14:04:15,912 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 14:04:15,912 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:04:15,912 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 14:04:15,913 - DEBUG - Calling on_part_data with data[129:130304]
+2026-04-09 14:04:15,921 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,925 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,926 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,929 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,951 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,954 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,956 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,959 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,961 - DEBUG - Calling on_part_data with data[0:57677]
+2026-04-09 14:04:15,961 - DEBUG - Calling on_part_end with no data
+2026-04-09 14:04:15,961 - DEBUG - Calling on_end with no data
+2026-04-09 14:04:15,964 - DEBUG - --- Requête d'analyse reçue: f5.jpg ---
+2026-04-09 14:04:23,882 - DEBUG - DEBUG: Analyse terminée. 13 dommages identifiés.
+2026-04-09 14:04:24,316 - DEBUG - Calling on_part_begin with no data
+2026-04-09 14:04:24,317 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 14:04:24,317 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 14:04:24,317 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:04:24,318 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 14:04:24,318 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 14:04:24,318 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:04:24,318 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 14:04:24,319 - DEBUG - Calling on_part_data with data[139:262144]
+2026-04-09 14:04:24,321 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:24,322 - DEBUG - Calling on_part_data with data[0:223379]
+2026-04-09 14:04:24,322 - DEBUG - Calling on_part_end with no data
+2026-04-09 14:04:24,323 - DEBUG - Calling on_end with no data
+2026-04-09 14:04:24,325 - DEBUG - --- Requête d'analyse reçue: cars/porsche.png ---
+2026-04-09 14:04:26,279 - DEBUG - DEBUG: Analyse terminée. 8 dommages identifiés.
+2026-04-09 14:07:19,126 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 14:07:29,991 - DEBUG - Calling on_part_begin with no data
+2026-04-09 14:07:29,992 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 14:07:29,992 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 14:07:29,992 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:07:29,992 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 14:07:29,993 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 14:07:29,993 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:07:29,993 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 14:07:29,993 - DEBUG - Calling on_part_data with data[129:130519]
+2026-04-09 14:07:30,004 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,005 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,007 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,008 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,029 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,032 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,033 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,035 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,036 - DEBUG - Calling on_part_data with data[0:57462]
+2026-04-09 14:07:30,037 - DEBUG - Calling on_part_end with no data
+2026-04-09 14:07:30,037 - DEBUG - Calling on_end with no data
+2026-04-09 14:07:30,039 - DEBUG - --- Requête d'analyse reçue: f5.jpg ---
+2026-04-09 14:07:34,181 - DEBUG - DEBUG: Analyse terminée. 4 dommages identifiés.
+2026-04-09 15:15:10,227 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 19:36:54,870 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 19:41:47,344 - DEBUG - Starting new HTTP connection (1): localhost:8500

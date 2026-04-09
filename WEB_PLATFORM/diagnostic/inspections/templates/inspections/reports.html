@@ -1,0 +1,154 @@
+{% extends "inspections/admin_base.html" %}
+
+{% block extra_css %}
+<style>
+    .reports-container {
+        padding: 0 0 10rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .hero-section-elite {
+        padding: 6rem 5% 10rem;
+        background: linear-gradient(135deg, #d4002a 0%, #111 100%);
+        color: #ffffff;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        margin-bottom: -5rem;
+        position: relative;
+        z-index: 10;
+    }
+
+    .hero-title-elite {
+        font-size: 4rem;
+        font-weight: 900;
+        letter-spacing: -2px;
+        line-height: 1;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+
+    .report-grid-elite {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 3rem;
+        padding: 0 5%;
+        position: relative;
+        z-index: 20;
+    }
+
+    .analysis-card-elite {
+        background: #ffffff;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.06);
+        padding: 3.5rem;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.03);
+    }
+
+    .popular-row-elite {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem;
+        border-bottom: 1px solid #f5f5f5;
+        transition: 0.3s;
+    }
+
+    .popular-row-elite:hover {
+        background: var(--accent-soft);
+    }
+
+    .meter-elite {
+        height: 6px;
+        background: #f0f0f0;
+        border-radius: 100px;
+        overflow: hidden;
+        margin-top: 1rem;
+    }
+
+    .meter-fill-elite {
+        height: 100%;
+        background: var(--accent-admin);
+        box-shadow: 0 0 10px rgba(212,0,42,0.3);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="reports-container fade-in">
+    <!-- Hero Header -->
+    <header class="hero-section-elite">
+        <div>
+            <h1 class="hero-title-elite">Business <span style="color: rgba(255,255,255,0.4);">Intelligence</span></h1>
+            <p style="font-size: 1.2rem; color: #f2f2f2; max-width: 600px; line-height: 1.6; font-weight: 500;">
+                Analyses détaillées de la performance de la flotte et du comportement client. Rapport stratégique pour l'optimisation du parc EliteRent.
+            </p>
+        </div>
+    </header>
+
+    <div class="report-grid-elite">
+        <!-- Main Stats -->
+        <div class="analysis-card-elite">
+            <h3 style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 3rem;">Performance par Modèle</h3>
+            <div style="display: grid; gap: 1rem;">
+                {% for car in popular_cars %}
+                <div class="popular-row-elite" style="border: 1px solid rgba(0,0,0,0.03); border-radius: 4px; margin-bottom: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 2rem;">
+                         <div style="width: 50px; height: 50px; background: #fafafa; border-radius: 2px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(0,0,0,0.05);">
+                            {% if car.image %}<img src="{{ car.image.url }}" style="width:100%; height:100%; object-fit:cover;">{% endif %}
+                         </div>
+                         <div>
+                            <div style="font-weight: 900; color: #111;">{{ car.brand|upper }} {{ car.model_name|upper }}</div>
+                            <div style="font-size: 0.7rem; font-weight: 800; color: #999;">{{ car.license_plate }}</div>
+                         </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: 900; color: var(--accent-admin);">{{ car.booking_count }} LOCATIONS</div>
+                        <div class="meter-elite" style="width: 150px;">
+                            <div class="meter-fill-elite" style="width: {% widthratio car.booking_count 10 100 %}%"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Sidebar Analytics -->
+        <div style="display: grid; gap: 3rem;">
+            <div class="analysis-card-elite">
+                <h3 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2.5rem;">Volume de Scans IA</h3>
+                <canvas id="aiStatsChart"></canvas>
+            </div>
+
+            <div class="analysis-card-elite" style="background: var(--accent-admin); color: #ffffff;">
+                <h3 style="font-size: 1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; color: rgba(255,255,255,0.6);">Ratio de Conversion</h3>
+                <div style="font-size: 3.5rem; font-weight: 900; letter-spacing: -2px;">94.2%</div>
+                <p style="font-size: 0.8rem; font-weight: 700; color: rgba(255,255,255,0.8); margin-top: 1rem; line-height: 1.5;">Taux d'acceptation des réservations après validation de l'identité par l'IA.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ctxAi = document.getElementById('aiStatsChart').getContext('2d');
+    
+    new Chart(ctxAi, {
+        type: 'bar',
+        data: {
+            labels: [{% for stat in ai_stats %}"{{ stat.inspection_type|upper }}"{% if not forloop.last %}, {% endif %}{% endfor %}],
+            datasets: [{
+                label: 'SCANS EFFECTUÉS',
+                data: [{% for stat in ai_stats %}{{ stat.count }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+                backgroundColor: '#d4002a',
+                borderRadius: 2
+            }]
+        },
+        options: {
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#999', font: { weight: '800' } } },
+                x: { grid: { display: false }, ticks: { color: '#999', font: { weight: '800' } } }
+            }
+        }
+    });
+</script>
+{% endblock %}

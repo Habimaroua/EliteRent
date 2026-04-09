@@ -1,0 +1,16 @@
+{% extends "inspections/client_base.html" %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 6rem auto; text-align: center;">
+    <div style="background: var(--card-bg); padding: 4rem; border-radius: 30px; border: 1px solid var(--accent-glow);">
+        <div style="font-size: 5rem; margin-bottom: 2rem;">🎉</div>
+        <h1 style="margin-bottom: 1rem;">Réservation Confirmée !</h1>
+        <p style="color: var(--text-secondary); margin-bottom: 3rem;">Votre demande de location pour la {{ car.brand }} {{ car.model_name }} a été enregistrée avec succès. Notre équipe vous contactera sous peu.</p>
+        
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+            <a href="{% url 'inspections:car_fleet' %}" class="btn">Retour à la flotte</a>
+            <a href="{% url 'inspections:car_detail' car.pk %}" class="btn btn-outline" style="color:white; border-color: rgba(255,255,255,0.1)">Voir le véhicule</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

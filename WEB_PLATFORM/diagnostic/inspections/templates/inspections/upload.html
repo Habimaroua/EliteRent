@@ -1,0 +1,223 @@
+{% extends base_template|default:"inspections/public_base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    .scanner-hero-elite {
+        padding: 8rem 5% 15rem;
+        background: linear-gradient(135deg, #d4002a 0%, #111 100%);
+        color: #ffffff;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        margin-bottom: -10rem;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+
+    .prestige-registry-card {
+        background: #ffffff;
+        border-radius: 4px;
+        padding: 4rem 5%;
+        box-shadow: 0 50px 120px rgba(0,0,0,0.12);
+        margin: 0 auto 10rem;
+        width: 90%;
+        max-width: 1100px;
+        position: relative;
+        z-index: 10;
+        border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    /* Condition Toggles Elite */
+    .condition-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    .condition-item-elite {
+        background: #fafafa;
+        border: 1px solid rgba(0,0,0,0.05);
+        padding: 2.5rem;
+        border-radius: 4px;
+        text-align: center;
+        transition: 0.3s;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .condition-item-elite:hover {
+        border-color: var(--accent-admin);
+        background: #ffffff;
+        transform: translateY(-5px);
+    }
+
+    .condition-checkbox {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .condition-check-icon {
+        width: 32px;
+        height: 32px;
+        color: #ddd;
+        margin-bottom: 1.5rem;
+        transition: 0.3s;
+    }
+
+    .condition-checkbox:checked + .condition-label .condition-check-icon {
+        color: #10b981;
+    }
+
+    .condition-label text {
+        display: block;
+        font-size: 0.65rem;
+        font-weight: 900;
+        color: #111;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    /* Prestige Input Group */
+    .registry-input-group {
+        margin-bottom: 4rem;
+        padding: 3rem;
+        background: #fafafa;
+        border-radius: 4px;
+        border-left: 4px solid var(--accent-admin);
+    }
+
+    .registry-label-elite {
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 900;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        margin-bottom: 1.5rem;
+    }
+
+    .registry-input-elite {
+        width: 100%;
+        padding: 1rem 0;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid #ddd;
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #111;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .registry-input-elite:focus {
+        border-bottom-color: var(--accent-admin);
+    }
+
+    /* AI Scanner Area */
+    .ai-scan-area {
+        border: 2px dashed rgba(212,0,42,0.15);
+        background: #fafafa;
+        padding: 4rem 2rem;
+        border-radius: 4px;
+        text-align: center;
+        transition: 0.4s;
+        cursor: pointer;
+        margin-top: 4rem;
+        display: block;
+    }
+
+    .ai-scan-area:hover {
+        background: rgba(212,0,42,0.02);
+        border-color: var(--accent-admin);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="scanner-hero-elite fade-in">
+    <div class="scanner-badge-elite">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        SÉCURITÉ ÉLITE CERTIFIÉE
+    </div>
+    <h1 style="font-size: 4.5rem; font-weight: 900; line-height: 1; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: -2px;">
+        Registre de <br> <span style="color: rgba(255,255,255,0.4);">Diagnostic IA</span>
+    </h1>
+    <p style="font-size: 1.4rem; opacity: 0.85; max-width: 700px; margin: 0 auto; line-height: 1.6; font-weight: 500;">
+        Vérification digitale exhaustive de l'état du véhicule pour {{ car.brand|upper }} {{ car.model_name|upper }}.
+    </p>
+</div>
+
+<div class="prestige-registry-card fade-in">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="inspection_type" value="{{ type }}">
+
+        <!-- Mileage Registry -->
+        <div class="registry-input-group">
+            <label class="registry-label-elite">Index Kilométrique Actuel</label>
+            <div style="display: flex; align-items: baseline; gap: 1.5rem;">
+                <input type="text" name="mileage" placeholder="000,000" class="registry-input-elite" required style="width: 250px;">
+                <span style="font-size: 1.2rem; font-weight: 900; color: #999;">KM</span>
+            </div>
+        </div>
+
+        <!-- Condition Registry (Manual Checks) -->
+        <h3 style="font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-admin); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem;">
+             <span style="width: 40px; height: 1px; background: var(--accent-admin);"></span>
+             PROTOCOLE MANUEL
+        </h3>
+
+        <div class="condition-grid">
+            <!-- Pneus -->
+            <label class="condition-item-elite">
+                <input type="checkbox" name="pneus" class="condition-checkbox">
+                <div class="condition-label">
+                    <svg class="condition-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="m19 19-3-3"/><path d="m5 5 3 3"/><path d="m16 8 3-3"/><path d="m8 16-3 3"/></svg>
+                    <text>Pneumatiques Certifiés</text>
+                </div>
+            </label>
+
+            <!-- Feux -->
+            <label class="condition-item-elite">
+                <input type="checkbox" name="feux" class="condition-checkbox">
+                <div class="condition-label">
+                    <svg class="condition-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="M20 12h2"/><path d="m19.07 4.93-1.41 1.41"/><circle cx="12" cy="12" r="4"/><path d="m4.93 19.07 1.41-1.41"/><path d="M12 22v-2"/><path d="m19.07 19.07-1.41-1.41"/><path d="M2 12h2"/></svg>
+                    <text>Système Optique OK</text>
+                </div>
+            </label>
+
+            <!-- Propreté -->
+            <label class="condition-item-elite">
+                <input type="checkbox" name="proprete" class="condition-checkbox">
+                <div class="condition-label">
+                    <svg class="condition-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c.5-.5 1.5-.5 2 0l1 1c.5.5 1.5.5 2 0l1-1c.5-.5 1.5-.5 2 0l1 1c.5.5 1.5.5 2 0l1-1c.5-.5 1.5-.5 2 0"/><path d="M3 10V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4"/><path d="M3 10c0 2 1.5 3 3.5 3h11c2 0 3.5-1 3.5-3"/></svg>
+                    <text>Prestige Intérieur</text>
+                </div>
+            </label>
+        </div>
+
+        <!-- AI Capture -->
+        <h3 style="font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-admin); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem; margin-top: 6rem;">
+             <span style="width: 40px; height: 1px; background: var(--accent-admin);"></span>
+             CAPTURE INTELLIGENTE
+        </h3>
+
+        <label for="id_image" class="ai-scan-area">
+            <input type="file" name="image" id="id_image" accept="image/*" style="display: none;" onchange="this.parentElement.style.borderColor='#10b981'; this.parentElement.style.background='rgba(16,185,129,0.02)'; document.getElementById('scan-status').textContent='PRÈS POUR ANALYSE ÉLITE : ' + this.files[0].name.toUpperCase()">
+            <div style="color: var(--accent-admin); margin-bottom: 2.5rem;">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+            </div>
+            <div id="scan-status" style="font-weight: 900; font-size: 1.4rem; color: #111;">ENVOYER LE VISUEL POUR SCAN IA</div>
+            <p style="color: #999; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-top: 1.2rem; letter-spacing: 3px;">Format JPEG/PNG certifié • Scan par Réseau Neuronal</p>
+        </label>
+
+        <!-- Final Action -->
+        <div style="margin-top: 8rem; text-align: center;">
+            <button type="submit" class="btn-primary-elite" style="padding: 1.8rem 6rem; font-size: 1rem; width: 100%;">LANCER LE PROTOCOLE DE VÉRIFICATION</button>
+            <p style="margin-top: 2rem; font-size: 0.75rem; color: #999; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">Elite Intelligence & Conciergerie • Protocol Securitas</p>
+        </div>
+    </form>
+</div>
+{% endblock %}

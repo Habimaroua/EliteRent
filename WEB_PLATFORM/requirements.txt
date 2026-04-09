@@ -1,0 +1,8 @@
+Django
+requests
+Pillow
+psycopg2-binary
+dj-database-url
+django-redis
+celery
+python-consul2
