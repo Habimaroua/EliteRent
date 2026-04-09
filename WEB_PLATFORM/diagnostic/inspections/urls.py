@@ -41,5 +41,6 @@ urlpatterns = [
     path("admin/users/", views.user_management, name="user_management"),
     path("admin/reports/", views.admin_reports, name="admin_reports"),
     path("admin/notifications/", views.admin_notifications, name="admin_notifications"),
+    path("admin/model-health/", views.model_health, name="model_health"),
     path("admin/settings/", views.admin_settings, name="admin_settings"),
 ]

@@ -247,3 +247,81 @@
 2026-04-09 15:15:10,227 - DEBUG - Starting new HTTP connection (1): localhost:8500
 2026-04-09 19:36:54,870 - DEBUG - Starting new HTTP connection (1): localhost:8500
 2026-04-09 19:41:47,344 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 21:24:27,901 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 21:24:43,504 - DEBUG - Calling on_part_begin with no data
+2026-04-09 21:24:43,504 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 21:24:43,505 - DEBUG - Calling on_header_value with data[57:124]
+2026-04-09 21:24:43,505 - DEBUG - Calling on_header_end with no data
+2026-04-09 21:24:43,505 - DEBUG - Calling on_header_field with data[126:138]
+2026-04-09 21:24:43,505 - DEBUG - Calling on_header_value with data[140:150]
+2026-04-09 21:24:43,505 - DEBUG - Calling on_header_end with no data
+2026-04-09 21:24:43,506 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 21:24:43,506 - DEBUG - Calling on_part_data with data[154:52208]
+2026-04-09 21:24:43,506 - DEBUG - Calling on_part_end with no data
+2026-04-09 21:24:43,506 - DEBUG - Calling on_end with no data
+2026-04-09 21:24:43,509 - DEBUG - --- Requête d'analyse reçue: pneu-creve-sur-une-voiture.avif ---
+2026-04-09 21:24:43,555 - DEBUG - Importing AvifImagePlugin
+2026-04-09 21:24:43,563 - DEBUG - Importing BlpImagePlugin
+2026-04-09 21:24:43,567 - DEBUG - Importing BmpImagePlugin
+2026-04-09 21:24:43,568 - DEBUG - Importing BufrStubImagePlugin
+2026-04-09 21:24:43,570 - DEBUG - Importing CurImagePlugin
+2026-04-09 21:24:43,572 - DEBUG - Importing DcxImagePlugin
+2026-04-09 21:24:43,576 - DEBUG - Importing DdsImagePlugin
+2026-04-09 21:24:43,587 - DEBUG - Importing EpsImagePlugin
+2026-04-09 21:24:43,591 - DEBUG - Importing FitsImagePlugin
+2026-04-09 21:24:43,594 - DEBUG - Importing FliImagePlugin
+2026-04-09 21:24:43,596 - DEBUG - Importing FpxImagePlugin
+2026-04-09 21:24:43,600 - DEBUG - Image: failed to import FpxImagePlugin: No module named 'olefile'
+2026-04-09 21:24:43,600 - DEBUG - Importing FtexImagePlugin
+2026-04-09 21:24:43,603 - DEBUG - Importing GbrImagePlugin
+2026-04-09 21:24:43,605 - DEBUG - Importing GifImagePlugin
+2026-04-09 21:24:43,605 - DEBUG - Importing GribStubImagePlugin
+2026-04-09 21:24:43,607 - DEBUG - Importing Hdf5StubImagePlugin
+2026-04-09 21:24:43,609 - DEBUG - Importing IcnsImagePlugin
+2026-04-09 21:24:43,618 - DEBUG - Importing IcoImagePlugin
+2026-04-09 21:24:43,622 - DEBUG - Importing ImImagePlugin
+2026-04-09 21:24:43,625 - DEBUG - Importing ImtImagePlugin
+2026-04-09 21:24:43,628 - DEBUG - Importing IptcImagePlugin
+2026-04-09 21:24:43,631 - DEBUG - Importing JpegImagePlugin
+2026-04-09 21:24:43,631 - DEBUG - Importing Jpeg2KImagePlugin
+2026-04-09 21:24:43,631 - DEBUG - Importing McIdasImagePlugin
+2026-04-09 21:24:43,634 - DEBUG - Importing MicImagePlugin
+2026-04-09 21:24:43,637 - DEBUG - Image: failed to import MicImagePlugin: No module named 'olefile'
+2026-04-09 21:24:43,637 - DEBUG - Importing MpegImagePlugin
+2026-04-09 21:24:43,639 - DEBUG - Importing MpoImagePlugin
+2026-04-09 21:24:43,646 - DEBUG - Importing MspImagePlugin
+2026-04-09 21:24:43,650 - DEBUG - Importing PalmImagePlugin
+2026-04-09 21:24:43,655 - DEBUG - Importing PcdImagePlugin
+2026-04-09 21:24:43,658 - DEBUG - Importing PcxImagePlugin
+2026-04-09 21:24:43,658 - DEBUG - Importing PdfImagePlugin
+2026-04-09 21:24:43,673 - DEBUG - Importing PixarImagePlugin
+2026-04-09 21:24:43,676 - DEBUG - Importing PngImagePlugin
+2026-04-09 21:24:43,676 - DEBUG - Importing PpmImagePlugin
+2026-04-09 21:24:43,676 - DEBUG - Importing PsdImagePlugin
+2026-04-09 21:24:43,678 - DEBUG - Importing QoiImagePlugin
+2026-04-09 21:24:43,682 - DEBUG - Importing SgiImagePlugin
+2026-04-09 21:24:43,685 - DEBUG - Importing SpiderImagePlugin
+2026-04-09 21:24:43,688 - DEBUG - Importing SunImagePlugin
+2026-04-09 21:24:43,690 - DEBUG - Importing TgaImagePlugin
+2026-04-09 21:24:43,693 - DEBUG - Importing TiffImagePlugin
+2026-04-09 21:24:43,693 - DEBUG - Importing WebPImagePlugin
+2026-04-09 21:24:43,700 - DEBUG - Importing WmfImagePlugin
+2026-04-09 21:24:43,704 - DEBUG - Importing XbmImagePlugin
+2026-04-09 21:24:43,708 - DEBUG - Importing XpmImagePlugin
+2026-04-09 21:24:43,711 - DEBUG - Importing XVThumbImagePlugin
+2026-04-09 21:24:45,552 - DEBUG - DEBUG: Analyse terminée. 2 dommages identifiés.
+2026-04-09 21:24:45,611 - DEBUG - Calling on_part_begin with no data
+2026-04-09 21:24:45,611 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 21:24:45,611 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 21:24:45,612 - DEBUG - Calling on_header_end with no data
+2026-04-09 21:24:45,612 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 21:24:45,612 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 21:24:45,612 - DEBUG - Calling on_header_end with no data
+2026-04-09 21:24:45,612 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 21:24:45,612 - DEBUG - Calling on_part_data with data[139:261889]
+2026-04-09 21:24:45,614 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 21:24:45,615 - DEBUG - Calling on_part_data with data[0:223634]
+2026-04-09 21:24:45,616 - DEBUG - Calling on_part_end with no data
+2026-04-09 21:24:45,616 - DEBUG - Calling on_end with no data
+2026-04-09 21:24:45,616 - DEBUG - --- Requête d'analyse reçue: cars/porsche.png ---
+2026-04-09 21:24:46,996 - DEBUG - DEBUG: Analyse terminée. 8 dommages identifiés.

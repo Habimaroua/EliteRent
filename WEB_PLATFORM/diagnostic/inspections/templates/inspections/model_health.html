@@ -1,0 +1,184 @@
+{% extends "inspections/admin_base.html" %}
+
+{% block extra_css %}
+<style>
+    .health-container {
+        padding: 6rem 5% 10rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .metrics-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        margin-bottom: 5rem;
+    }
+
+    .metric-card-elite {
+        background: #ffffff;
+        padding: 3rem;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.06);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .metric-value {
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: #111;
+        letter-spacing: -2px;
+        line-height: 1;
+    }
+
+    .metric-label {
+        font-size: 0.7rem;
+        font-weight: 900;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .chart-box-large {
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.06);
+        border-radius: 4px;
+        padding: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    .class-tag {
+        display: inline-block;
+        padding: 0.6rem 1.4rem;
+        background: rgba(212, 0, 42, 0.05);
+        color: var(--accent-admin);
+        border-radius: 2px;
+        font-weight: 800;
+        font-size: 0.75rem;
+        margin: 0.5rem;
+        border: 1px solid rgba(212, 0, 42, 0.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="health-container fade-in">
+    <!-- Header -->
+    <div style="margin-bottom: 6rem;">
+        <div style="font-size: 0.8rem; font-weight: 900; color: var(--accent-admin); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1.5rem;">AI DIAGNOSTIC ENGINE</div>
+        <h1 style="font-size: 4rem; font-weight: 900; letter-spacing: -2.5px; line-height: 0.9; margin-bottom: 2rem;">PERFORMANCE <span style="color: rgba(0,0,0,0.2);">INTELLIGENCE</span></h1>
+        <p style="font-size: 1.2rem; color: #666; max-width: 600px; font-weight: 500;">Rapport analytique de précision du moteur de vision par ordinateur YOLOv8-seg. Certifié pour la détection de structure et de dommages.</p>
+    </div>
+
+    <!-- Core Metrics -->
+    <div class="metrics-row">
+        <div class="metric-card-elite">
+            <span class="metric-label">Precision (P)</span>
+            <span class="metric-value">{{ metrics.precision|floatformat:3 }}</span>
+            <div style="height: 4px; width: 100%; background: #eee;"><div style="width: 91%; height: 100%; background: var(--accent-admin);"></div></div>
+        </div>
+        <div class="metric-card-elite">
+            <span class="metric-label">Recall (R)</span>
+            <span class="metric-value">{{ metrics.recall|floatformat:3 }}</span>
+            <div style="height: 4px; width: 100%; background: #eee;"><div style="width: 88%; height: 100%; background: #111;"></div></div>
+        </div>
+        <div class="metric-card-elite">
+            <span class="metric-label">mAP @ .5</span>
+            <span class="metric-value">{{ metrics.mAP_50|floatformat:3 }}</span>
+            <div style="height: 4px; width: 100%; background: #eee;"><div style="width: 94%; height: 100%; background: #10b981;"></div></div>
+        </div>
+        <div class="metric-card-elite">
+            <span class="metric-label">Fitness Score</span>
+            <span class="metric-value">{{ metrics.fitness|floatformat:3 }}</span>
+            <div style="height: 4px; width: 100%; background: #eee;"><div style="width: 81%; height: 100%; background: #f59e0b;"></div></div>
+        </div>
+    </div>
+
+    <!-- Accuracy Chart -->
+    <div class="chart-box-large">
+        <h3 style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4rem; display: flex; align-items: center; gap: 1rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+            Learning Curve (Precision Progression)
+        </h3>
+        <canvas id="accuracyChart" height="100"></canvas>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem;">
+        <!-- Training Summary -->
+        <div class="metric-card-elite" style="padding: 4rem;">
+            <h3 style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 3rem;">Training Specifications</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                <div>
+                    <label style="display: block; font-size: 0.6rem; font-weight: 900; color: #999; text-transform: uppercase; margin-bottom: 0.5rem;">Dernière session</label>
+                    <span style="font-size: 1.1rem; font-weight: 800; color: #111;">{{ metrics.last_trained }}</span>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.6rem; font-weight: 900; color: #999; text-transform: uppercase; margin-bottom: 0.5rem;">Dataset</label>
+                    <span style="font-size: 1.1rem; font-weight: 800; color: #111;">{{ metrics.dataset_size }}</span>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.6rem; font-weight: 900; color: #999; text-transform: uppercase; margin-bottom: 0.5rem;">Architecture</label>
+                    <span style="font-size: 1.1rem; font-weight: 800; color: #111;">YOLOv8-SEG Nano</span>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.6rem; font-weight: 900; color: #999; text-transform: uppercase; margin-bottom: 0.5rem;">Image Size (imgsz)</label>
+                    <span style="font-size: 1.1rem; font-weight: 800; color: #111;">1024 px</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 4rem; border-top: 1px solid #eee; padding-top: 3rem;">
+                <label style="display: block; font-size: 0.6rem; font-weight: 900; color: #999; text-transform: uppercase; margin-bottom: 1.5rem;">Classes Détectées (Segmentées)</label>
+                {% for cls in metrics.classes %}
+                <span class="class-tag">{{ cls|upper }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Health Note -->
+        <div style="background: #111; color: #fff; padding: 4rem; border-radius: 4px; display: flex; flex-direction: column; justify-content: center;">
+            <div style="color: var(--accent-admin); margin-bottom: 2rem;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3 style="font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 1.5rem;">Verdict de Stabilité</h3>
+            <p style="color: #999; font-size: 1.1rem; line-height: 1.6; font-weight: 500;">Le modèle présente une fitness globale de **{{ metrics.fitness|floatformat:2 }}**. La précision de détection des rayures est optimale sur fond clair.</p>
+            <div style="margin-top: 3rem; font-size: 0.75rem; font-weight: 900; color: var(--accent-admin); letter-spacing: 2px;">STATUS: OPTIMIZED FOR ELITE FLEET</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const history = {{ history_json|safe }};
+    const ctx = document.getElementById('accuracyChart').getContext('2d');
+    
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: history.labels.map(l => 'Epoch ' + l),
+            datasets: [{
+                label: 'mAP@0.5',
+                data: history.mAP,
+                borderColor: '#d4002a',
+                borderWidth: 5,
+                backgroundColor: 'rgba(212,0,42,0.05)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 6,
+                pointBackgroundColor: '#d4002a',
+                pointBorderWidth: 4,
+                pointBorderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: false, min: 0.2, grid: { color: 'rgba(0,0,0,0.03)' }, ticks: { font: { weight: '800' } } },
+                x: { grid: { display: false }, ticks: { font: { weight: '800' } } }
+            }
+        }
+    });
+</script>
+{% endblock %}
