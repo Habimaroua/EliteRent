@@ -325,3 +325,89 @@
 2026-04-09 21:24:45,616 - DEBUG - Calling on_end with no data
 2026-04-09 21:24:45,616 - DEBUG - --- Requête d'analyse reçue: cars/porsche.png ---
 2026-04-09 21:24:46,996 - DEBUG - DEBUG: Analyse terminée. 8 dommages identifiés.
+2026-04-14 20:46:40,580 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-14 20:47:53,138 - DEBUG - Calling on_part_begin with no data
+2026-04-14 20:47:53,139 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 20:47:53,139 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-14 20:47:53,139 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:47:53,139 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-14 20:47:53,139 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-14 20:47:53,139 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:47:53,140 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 20:47:53,140 - DEBUG - Calling on_part_data with data[129:8510]
+2026-04-14 20:47:53,140 - DEBUG - Calling on_part_end with no data
+2026-04-14 20:47:53,140 - DEBUG - Calling on_end with no data
+2026-04-14 20:47:53,142 - DEBUG - --- Requête d'analyse reçue: re.jpg ---
+2026-04-14 20:47:57,076 - DEBUG - DEBUG: Analyse terminée. 1 dommages identifiés.
+2026-04-14 20:48:51,349 - DEBUG - Calling on_part_begin with no data
+2026-04-14 20:48:51,350 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 20:48:51,350 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-14 20:48:51,350 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:48:51,350 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-14 20:48:51,350 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-14 20:48:51,350 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:48:51,350 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 20:48:51,351 - DEBUG - Calling on_part_data with data[139:8725]
+2026-04-14 20:48:51,351 - DEBUG - Calling on_part_end with no data
+2026-04-14 20:48:51,351 - DEBUG - Calling on_end with no data
+2026-04-14 20:48:51,351 - DEBUG - --- Requête d'analyse reçue: download (3).jpg ---
+2026-04-14 20:48:54,798 - DEBUG - DEBUG: Analyse terminée. 6 dommages identifiés.
+2026-04-14 20:49:43,729 - DEBUG - Calling on_part_begin with no data
+2026-04-14 20:49:43,729 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 20:49:43,730 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-14 20:49:43,730 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:49:43,730 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-14 20:49:43,730 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-14 20:49:43,730 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:49:43,731 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 20:49:43,731 - DEBUG - Calling on_part_data with data[139:12851]
+2026-04-14 20:49:43,731 - DEBUG - Calling on_part_end with no data
+2026-04-14 20:49:43,731 - DEBUG - Calling on_end with no data
+2026-04-14 20:49:43,732 - DEBUG - --- Requête d'analyse reçue: download (4).jpg ---
+2026-04-14 20:49:48,264 - DEBUG - DEBUG: Analyse terminée. 4 dommages identifiés.
+2026-04-14 20:58:47,769 - DEBUG - Calling on_part_begin with no data
+2026-04-14 20:58:47,769 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 20:58:47,769 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-14 20:58:47,770 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:58:47,770 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-14 20:58:47,770 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-14 20:58:47,770 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:58:47,770 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 20:58:47,771 - DEBUG - Calling on_part_data with data[139:12851]
+2026-04-14 20:58:47,771 - DEBUG - Calling on_part_end with no data
+2026-04-14 20:58:47,771 - DEBUG - Calling on_end with no data
+2026-04-14 20:58:47,772 - DEBUG - --- Requête d'analyse reçue: download (4).jpg ---
+2026-04-14 20:59:00,979 - DEBUG - DEBUG: Analyse terminée. 4 dommages identifiés.
+2026-04-14 20:59:09,349 - DEBUG - Calling on_part_begin with no data
+2026-04-14 20:59:09,350 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 20:59:09,350 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-14 20:59:09,350 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:59:09,350 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-14 20:59:09,350 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-14 20:59:09,351 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:59:09,351 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 20:59:09,352 - DEBUG - Calling on_part_data with data[139:12851]
+2026-04-14 20:59:09,352 - DEBUG - Calling on_part_end with no data
+2026-04-14 20:59:09,353 - DEBUG - Calling on_end with no data
+2026-04-14 20:59:09,354 - DEBUG - --- Requête d'analyse reçue: download (4).jpg ---
+2026-04-14 20:59:15,942 - DEBUG - DEBUG: Analyse terminée. 4 dommages identifiés.
+2026-04-14 21:08:52,688 - INFO - Modèle chargé : trained.pt
+2026-04-14 21:08:53,484 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-14 21:25:51,340 - INFO - Modèle chargé : trained.pt
+2026-04-14 21:25:52,283 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-14 21:26:20,202 - DEBUG - Calling on_part_begin with no data
+2026-04-14 21:26:20,203 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 21:26:20,203 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-14 21:26:20,203 - DEBUG - Calling on_header_end with no data
+2026-04-14 21:26:20,203 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-14 21:26:20,204 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-14 21:26:20,204 - DEBUG - Calling on_header_end with no data
+2026-04-14 21:26:20,204 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 21:26:20,204 - DEBUG - Calling on_part_data with data[139:12851]
+2026-04-14 21:26:20,205 - DEBUG - Calling on_part_end with no data
+2026-04-14 21:26:20,205 - DEBUG - Calling on_end with no data
+2026-04-14 21:26:20,208 - DEBUG - --- Requête d'analyse reçue: download (4).jpg ---
+2026-04-14 21:26:28,787 - DEBUG - DEBUG: Analyse terminée. 6 dommages identifiés.
+2026-04-14 21:28:48,465 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-14 22:22:22,464 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-14 22:22:31,347 - DEBUG - Starting new HTTP connection (1): localhost:8500
