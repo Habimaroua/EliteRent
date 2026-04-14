@@ -47,53 +47,65 @@ async def startup_event():
 def health_check():
     return {"status": "healthy"}
 
-# Utilise le modèle spécialisé s'il existe, sinon le modèle général
-MODEL_PATH = "best.pt" if os.path.exists("best.pt") else "yolov8n-seg.pt"
-model = YOLO(MODEL_PATH)
-# Modèle de secours toujours chargé
+# --- CONFIGURATION PRODUCTION ELITERENT-AI ---
+
+# Sélection automatique du meilleur modèle
+def get_active_model_path():
+    # Priorité : best.pt (votre favori), puis trained.pt, puis le modèle de base
+    for m in ["best.pt", "trained.pt", "yolov8n-seg.pt"]:
+        if os.path.exists(m):
+            logger.info(f"🚀 Modèle de production activé : {m}")
+            return m
+    return "yolov8n-seg.pt"
+
+ACTIVE_MODEL = get_active_model_path()
+model = YOLO(ACTIVE_MODEL)
 fallback_model = YOLO("yolov8n-seg.pt")
 
-# Cartographie précise pour le modèle entraîné (gaetano v4)
+# Traduction précise des classes détectées par best.pt
 DAMAGE_MAP = {
     "0": "Rayure (Scratch)",
     "1": "Bosse (Dent)",
     "2": "Fissure (Crack)",
-    "3": "Vitre/Phare Brisé",
     "4": "Dommage Structurel",
     "scratch": "Rayure",
     "dent": "Bosse",
     "crack": "Fissure",
-    "broken_glass": "Vitre Cassée"
+    "shattered_glass": "Vitre Cassée",
+    "broken_lamp": "Phare Endommagé",
+    "flat_tire": "Pneu Dégonflé"
 }
 
-INFO_CLASSES = {"car", "truck", "wheel", "door", "window", "voiture", "roue", "portière"}
+# Objets normaux à ignorer pour le comptage des dommages
+INFO_CLASSES = {
+    "car", "truck", "wheel", "door", "window", 
+    "voiture", "roue", "portière", "tire", "mirror", "glass"
+}
 
 @app.post("/analyze")
 async def analyze(image: UploadFile = File(...)):
-    logger.debug(f"--- Requête d'analyse reçue: {image.filename} ---")
+    logger.debug(f"--- ANALYSE EN COURS : {image.filename} ---")
     contents = await image.read()
     
-    if len(contents) == 0:
-        return JSONResponse(content={"status": "error", "message": "Image vide"})
+    if not contents:
+        return JSONResponse(content={"status": "error", "message": "Fichier vide"})
 
     try:
         img = Image.open(io.BytesIO(contents)).convert("RGB")
     except Exception as e:
-        return JSONResponse(content={"status": "error", "message": f"Erreur image: {e}"})
+        return JSONResponse(content={"status": "error", "message": f"Format image invalide: {e}"})
 
-    # 1. Analyse avec le modèle de DECOURS (YOLOv8 Générique) pour le contexte
-    # On l'utilise pour détecter les composants normaux (roues, carrosserie)
+    # 1. Analyse Contexte (Modèle général)
     general_results = fallback_model.predict(img, conf=0.25, imgsz=640)
     
-    # 2. Analyse avec VOTRE MODÈLE (best.pt) pour les DOMMAGES
-    # On utilise une résolution de 1024px ("Mode Loupe") pour les micro-détails
-    # On active 'augment=True' pour aider à détecter les objets minuscules
-    damage_results = model.predict(img, conf=0.05, imgsz=900, augment=True) 
+    # 2. Analyse Spécialisée (Modèle Production)
+    # On monte la résolution à 1024 pour la précision, confidence à 0.20 pour éviter les faux reflets
+    damage_results = model.predict(img, conf=0.20, imgsz=1024, augment=True) 
     
     detections = []
     total_damages = 0
     
-    # Priorité aux détections de VOTRE modèle (best.pt)
+    # Traitement des résultats du modèle spécialisé
     primary_result = damage_results[0]
     if primary_result.boxes is not None:
         for box in primary_result.boxes:
@@ -101,8 +113,7 @@ async def analyze(image: UploadFile = File(...)):
             cls_name = str(primary_result.names[cls_id]).lower()
             confidence = float(box.conf[0])
             
-            # Tout ce qui sort de best.pt est considéré comme un dommage potentiel
-            # sauf si c'est explicitement une classe d'objet connue
+            # Déterminer si c'est un dommage ou un élément de carrosserie
             is_damage = cls_name not in INFO_CLASSES
             
             if is_damage:
@@ -119,9 +130,8 @@ async def analyze(image: UploadFile = File(...)):
                 "is_damage": is_damage
             })
 
-    # Si votre modèle n'a rien vu, on ajoute les objets du modèle général pour l'affichage
+    # Si aucun dommage, on enrichit avec le modèle général pour l'affichage
     if total_damages == 0 and general_results[0].boxes is not None:
-        logger.warning("best.pt n'a rien détecté, utilisation du modèle général pour le rapport.")
         for box in general_results[0].boxes:
             cls_id = int(box.cls[0])
             cls_name = str(general_results[0].names[cls_id]).lower()
@@ -134,23 +144,18 @@ async def analyze(image: UploadFile = File(...)):
                     "is_damage": False
                 })
 
-    # Génération de l'image annotée : on fusionne visuellement les résultats
-    # On utilise plot() du modèle de dommages car c'est lui qui nous importe le plus
+    # Génération de l'image de sortie
     annotated = primary_result.plot(masks=True, boxes=True, conf=True)
-    
-    # Si le modèle de dommages est vide, on plot le modèle général
     if total_damages == 0:
         annotated = general_results[0].plot(masks=True, boxes=True)
 
     if annotated.shape[2] == 3:
-        annotated = annotated[:, :, ::-1] # BGR to RGB
+        annotated = annotated[:, :, ::-1] # BGR conversion
         
     annotated_pil = Image.fromarray(annotated)
     buf = io.BytesIO()
-    annotated_pil.save(buf, format="JPEG", quality=90)
+    annotated_pil.save(buf, format="JPEG", quality=85)
     img_b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
-
-    logger.debug(f"DEBUG: Analyse terminée. {total_damages} dommages identifiés.")
 
     return JSONResponse(content={
         "status": "success",
@@ -158,11 +163,14 @@ async def analyze(image: UploadFile = File(...)):
         "total_damages": total_damages,
         "damage_detected": total_damages > 0,
         "detections": detections,
-        "has_segmentation": primary_result.masks is not None or general_results[0].masks is not None,
         "annotated_image_base64": img_b64,
+        "model_version": ACTIVE_MODEL
     })
-
 
 @app.get("/health")
 async def health():
-    return {"status": "ok"}
+    return {
+        "status": "ready",
+        "model": ACTIVE_MODEL,
+        "precision_mode": "1024px High-Res"
+    }

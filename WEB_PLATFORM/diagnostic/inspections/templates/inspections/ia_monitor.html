@@ -97,6 +97,32 @@
         </div>
     </header>
 
+    <!-- Service Health Banner -->
+    <div style="padding: 0 5%; margin-bottom: 3rem;">
+        <div class="ia-card-elite" style="flex-direction: row; gap: 4rem; align-items: center; padding: 1.5rem 3rem;">
+            <div>
+                <div style="font-size: 0.6rem; font-weight: 900; color: #aaa; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem;">STATUT DU SERVICE</div>
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    {% if ai_status.status == 'ready' %}
+                    <div style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);"></div>
+                    <span style="font-weight: 900; color: #111; font-size: 0.9rem;">OPÉRATIONNEL</span>
+                    {% else %}
+                    <div style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);"></div>
+                    <span style="font-weight: 900; color: #111; font-size: 0.9rem;">DÉCONNECTÉ</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div>
+                <div style="font-size: 0.6rem; font-weight: 900; color: #aaa; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem;">MODÈLE ACTIF</div>
+                <div style="font-weight: 900; color: var(--accent-admin); font-size: 0.9rem;">{{ ai_status.model|upper }}</div>
+            </div>
+            <div>
+                <div style="font-size: 0.6rem; font-weight: 900; color: #aaa; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem;">MODE ANALYSE</div>
+                <div style="font-weight: 900; color: #111; font-size: 0.9rem;">{{ ai_status.precision_mode|upper|default:"STANDARD" }}</div>
+            </div>
+        </div>
+    </div>
+
     <!-- IA Scan Registry Grid -->
     <div class="ia-grid-elite">
         {% for report in latest_inspections %}

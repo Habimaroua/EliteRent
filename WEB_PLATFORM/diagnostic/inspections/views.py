@@ -554,9 +554,23 @@ def profile_view(request):
 
 @admin_required
 def ia_monitor(request):
-    """Moniteur global de tous les diagnostics IA de la flotte."""
+    """Moniteur de santé de l'IA EliteRent."""
     latest_inspections = Inspection.objects.all().order_by('-created_at')
-    return render(request, "inspections/ia_monitor.html", {"latest_inspections": latest_inspections})
+    
+    # Récupération des infos techniques du service IA
+    ai_status = {"status": "offline", "model": "Aucun"}
+    try:
+        ai_url = getattr(settings, 'AI_SERVICE_URL', "http://localhost:8000") + "/health"
+        response = requests.get(ai_url, timeout=2)
+        if response.status_code == 200:
+            ai_status = response.json()
+    except Exception:
+        pass
+
+    return render(request, "inspections/ia_monitor.html", {
+        "latest_inspections": latest_inspections,
+        "ai_status": ai_status
+    })
 
 @admin_required
 def user_management(request):
@@ -595,36 +609,6 @@ def admin_notifications(request):
     return render(request, "inspections/notifications.html", {
         "recent_bookings": recent_bookings,
         "recent_inspections": recent_inspections
-    })
-
-@admin_required
-def model_health(request):
-    """Centre d'analyse de la performance du modèle YOLOv8."""
-    # En production, ces données seraient extraites de runs/segment/train/results.csv
-    # Ici, nous fournissons un rapport de performance de haute qualité
-    metrics = {
-        "mAP_50": 0.942,
-        "mAP_50_95": 0.768,
-        "precision": 0.915,
-        "recall": 0.884,
-        "fitness": 0.812,
-        "epochs_completed": 50,
-        "last_trained": "8 Avril 2026",
-        "dataset_size": "2,450 images",
-        "classes": ["Rayure", "Bosse", "Fissure", "Éclat", "Enfoncement"]
-    }
-    
-    # Données pour les graphiques de progression
-    history = {
-        "labels": [i for i in range(1, 51, 5)],
-        "mAP": [0.35, 0.58, 0.72, 0.81, 0.86, 0.89, 0.91, 0.93, 0.94, 0.94],
-        "loss": [0.85, 0.62, 0.45, 0.38, 0.32, 0.28, 0.25, 0.23, 0.21, 0.20],
-    }
-    
-    import json
-    return render(request, "inspections/model_health.html", {
-        "metrics": metrics,
-        "history_json": json.dumps(history)
     })
 
 @admin_required
