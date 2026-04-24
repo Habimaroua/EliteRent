@@ -1,0 +1,8 @@
+{
+  "AI_SERVICE": "http://localhost:8000",
+  "LOCATION_SERVICE": "http://localhost:8001",
+  "DIAGNOSTIC_SERVICE": "http://localhost:8002",
+  "PAYMENT_SERVICE": "http://localhost:8003",
+  "REPORT_SERVICE": "http://localhost:8004",
+  "GATEWAY": "http://localhost:8080"
+}

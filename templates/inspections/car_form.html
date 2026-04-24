@@ -1,0 +1,178 @@
+{% extends "inspections/admin_base.html" %}
+
+{% block extra_css %}
+<style>
+    .form-container-elite {
+        padding: 0 0 10rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .hero-section-elite {
+        padding: 6rem 5% 10rem;
+        background: linear-gradient(135deg, #d4002a 0%, #111 100%);
+        color: #ffffff;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        margin-bottom: -5rem;
+        position: relative;
+        z-index: 10;
+    }
+
+    .hero-title-elite {
+        font-size: 4rem;
+        font-weight: 900;
+        letter-spacing: -2px;
+        line-height: 1;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+
+    .config-board-elite {
+        background: #ffffff;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.06);
+        padding: 4rem;
+        max-width: 900px;
+        margin: 0 5% 5rem;
+        position: relative;
+        z-index: 20;
+        box-shadow: 0 40px 100px rgba(0,0,0,0.05);
+    }
+
+    .prestige-label-elite {
+        display: block;
+        font-size: 0.65rem;
+        font-weight: 900;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        margin-bottom: 1.2rem;
+    }
+
+    .prestige-input-elite {
+        width: 100%;
+        padding: 1.2rem 0;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid #eeeeee;
+        color: var(--text-primary);
+        font-weight: 900;
+        font-size: 1.1rem;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .prestige-input-elite:focus {
+        border-bottom-color: var(--accent-admin);
+    }
+
+    .file-upload-elite {
+        display: block;
+        border: 2px dashed rgba(212,0,42,0.15);
+        background: #fafafa;
+        padding: 3rem;
+        border-radius: 4px;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 1.5rem;
+    }
+
+    .file-upload-elite:hover {
+        border-color: var(--accent-admin);
+        background: rgba(212,0,42,0.02);
+    }
+
+    .select-elite {
+        width: 100%;
+        padding: 1rem;
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 4px;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="form-container-elite fade-in">
+    <!-- Hero Header -->
+    <header class="hero-section-elite">
+        <div>
+            <h1 class="hero-title-elite">{{ title|upper }}</h1>
+            <p style="font-size: 1.2rem; color: #f2f2f2; max-width: 600px; line-height: 1.6; font-weight: 500;">
+                Configuration de l'actif automobile. Renseignez les spécifications techniques et visuelles du véhicule de prestige.
+            </p>
+        </div>
+    </header>
+
+    <div class="config-board-elite">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Basic Specs -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div>
+                    <label class="prestige-label-elite">Marque du Véhicule</label>
+                    <input type="text" name="brand" value="{{ car.brand|default:'' }}" required placeholder="Ex: Mercedes-Benz" class="prestige-input-elite">
+                </div>
+                <div>
+                    <label class="prestige-label-elite">Nom du Modèle</label>
+                    <input type="text" name="model_name" value="{{ car.model_name|default:'' }}" required placeholder="Ex: Classe G 63 AMG" class="prestige-input-elite">
+                </div>
+            </div>
+
+            <!-- Plate and Year -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div>
+                    <label class="prestige-label-elite">Immatriculation</label>
+                    <input type="text" name="license_plate" value="{{ car.license_plate|default:'' }}" required placeholder="XXXXX-XXX-XX" class="prestige-input-elite">
+                </div>
+                <div>
+                    <label class="prestige-label-elite">Année de Mise en Service</label>
+                    <input type="number" name="year" value="{{ car.year|default:'2024' }}" required class="prestige-input-elite">
+                </div>
+            </div>
+
+            <!-- Price and Status -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div>
+                    <label class="prestige-label-elite">Prix Journalier (DA)</label>
+                    <input type="number" name="price_per_day" value="{{ car.price_per_day|default:'0' }}" required class="prestige-input-elite">
+                </div>
+                <div>
+                    <label class="prestige-label-elite">Statut Actuel</label>
+                    <select name="status" class="select-elite">
+                        <option value="excellent" {% if car.status == 'excellent' %}selected{% endif %}>PRESTIGE (EXCELLENT)</option>
+                        <option value="good" {% if car.status == 'good' %}selected{% endif %}>TRÈS BON</option>
+                        <option value="damaged" {% if car.status == 'damaged' %}selected{% endif %}>DÉGÂTS DÉTECTÉS</option>
+                        <option value="maintenance" {% if car.status == 'maintenance' %}selected{% endif %}>CONTRÔLE / MAINTENANCE</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Image Upload -->
+            <div style="margin-bottom: 4rem;">
+                <label class="prestige-label-elite">Visuel du Véhicule</label>
+                <label for="car_image" class="file-upload-elite">
+                    <input type="file" name="image" id="car_image" accept="image/*" style="display: none;" onchange="document.getElementById('file-status').textContent = 'VISUEL PRÊT : ' + this.files[0].name.toUpperCase()">
+                    <div style="color: var(--accent-admin); margin-bottom: 1.5rem;">
+                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                    </div>
+                    <div id="file-status" style="font-weight: 900; font-size: 1.1rem; color: #111;">UPLOADER LE VISUEL PRESTIGE</div>
+                    <p style="color: #999; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-top: 0.8rem; letter-spacing: 2px;">Format JPG/PNG • Haubte Résolution</p>
+                </label>
+            </div>
+
+            <!-- Actions -->
+            <div style="display: flex; gap: 2rem; margin-top: 6rem;">
+                <button type="submit" class="btn-register" style="flex: 1; padding: 1.5rem;">ENREGISTRER L'ACTIFS AUTOMOBILE</button>
+                <a href="{% url 'inspections:car_management' %}" style="flex: 0 0 250px; text-align: center; color: #999; font-weight: 900; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; justify-content: center; border: 1px solid transparent; transition: 0.3s;" onmouseover="this.style.color='#111'; this.style.borderColor='rgba(0,0,0,0.1)'" onmouseout="this.style.color='#999'; this.style.borderColor='transparent'">ANNULER</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

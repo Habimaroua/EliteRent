@@ -1,0 +1,187 @@
+{% extends "inspections/client_base.html" %}
+
+{% block extra_css %}
+<style>
+    .profile-container {
+        padding: 0 0 10rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .hero-section-elite {
+        padding: 8rem 5% 12rem;
+        background: var(--dark-red);
+        color: #ffffff;
+        clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+        margin-bottom: -6rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-title-elite {
+        font-size: 4rem;
+        font-weight: 900;
+        letter-spacing: -2px;
+        line-height: 1;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+    }
+
+    .profile-card-elite {
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.06);
+        border-radius: 4px;
+        padding: 6rem;
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 10;
+        box-shadow: 0 40px 100px rgba(0,0,0,0.05);
+    }
+
+    .profile-card-elite::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle at top right, rgba(212,0,42,0.03), transparent 70%);
+        pointer-events: none;
+    }
+
+    .profile-header-elite {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+        margin-bottom: 5rem;
+    }
+
+    .large-avatar-elite {
+        width: 140px;
+        height: 140px;
+        border-radius: 4px;
+        background: var(--premium-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: #ffffff;
+        box-shadow: 0 20px 40px rgba(212,0,42,0.25);
+    }
+
+    .info-grid-elite {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+        margin-bottom: 5rem;
+    }
+
+    .info-item-elite {
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .info-label-elite {
+        font-size: 0.7rem;
+        font-weight: 900;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 0.8rem;
+    }
+
+    .info-value-elite {
+        font-size: 1.3rem;
+        font-weight: 900;
+        color: var(--text-primary);
+        letter-spacing: -0.5px;
+    }
+
+    .security-vault-elite {
+        background: #fafafa;
+        padding: 4rem;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.04);
+        margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .profile-header-elite { flex-direction: column; text-align: center; gap: 2rem; }
+        .info-grid-elite { grid-template-columns: 1fr; }
+        .profile-card-elite { padding: 3rem; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="profile-container fade-in">
+    <!-- Hero Header -->
+    <header class="hero-section-elite">
+        <h1 class="hero-title-elite">Profil <span style="color: rgba(255,255,255,0.4);">Prestige</span></h1>
+        <p style="font-size: 1.3rem; color: #f2f2f2; max-width: 600px; line-height: 1.6; font-weight: 500;">Gérez vos informations personnelles et sécurisez vos accès à l'Espace Privilège EliteRent.</p>
+    </header>
+
+    <div class="profile-card-elite">
+        <!-- Identity Section -->
+        <div class="profile-header-elite">
+            <div class="large-avatar-elite">{{ user.username|first|upper }}</div>
+            <div>
+                <h2 style="font-size: 3rem; font-weight: 900; color: #111; letter-spacing: -2px; margin: 0;">{{ user.username }}</h2>
+                <div style="display: flex; gap: 1rem; align-items: center; margin-top: 1rem;">
+                    <div class="role-badge-elite">MEMBRE CERTIFIÉ</div>
+                    <div style="font-size: 0.85rem; font-weight: 800; color: #10b981; display: flex; align-items: center; gap: 0.4rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        ID VÉRIFIÉ
+                    </div>
+                </div>
+                <p style="color: var(--text-secondary); margin-top: 1.5rem; font-weight: 800; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1.5px;">Membre depuis: {{ user.date_joined|date:"F Y"|upper }}</p>
+            </div>
+        </div>
+
+        <!-- Details Grid -->
+        <div class="info-grid-elite">
+            <div class="info-item-elite">
+                <div class="info-label-elite">Identifiant</div>
+                <div class="info-value-elite">@{{ user.username }}</div>
+            </div>
+            <div class="info-item-elite">
+                <div class="info-label-elite">Adresse E-mail</div>
+                <div class="info-value-elite" style="text-transform: lowercase;">{{ user.email }}</div>
+            </div>
+            <div class="info-item-elite">
+                <div class="info-label-elite">Niveau Privilège</div>
+                <div class="info-value-elite" style="color: var(--accent-client);">{{ user.profile.get_role_display|upper }}</div>
+            </div>
+            <div class="info-item-elite">
+                <div class="info-label-elite">Région de Service</div>
+                <div class="info-value-elite">BOUMERDÈS, ALGÉRIE</div>
+            </div>
+        </div>
+
+        <!-- Security Vault -->
+        <div class="security-vault-elite">
+            <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="color: var(--accent-client);">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3 style="font-size: 1.5rem; font-weight: 900; margin: 0; color: #111; letter-spacing: -0.5px;">COFFRE-FORT SÉCURITÉ</h3>
+            </div>
+            
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 3rem; line-height: 1.6; font-weight: 500;">
+                Vos données sont protégées par notre protocole de chiffrement. Pour toute modification de vos informations personnelles ou de votre mot de passe, veuillez utiliser les options ci-dessous.
+            </p>
+
+            <div style="display: flex; gap: 2rem;">
+                <a href="#" class="btn-register" style="padding: 1.2rem 3.5rem; border-radius: 4px !important; text-decoration: none; font-size: 0.85rem;">CHANGER MES INFOS</a>
+                <a href="{% url 'inspections:logout' %}" class="btn-logout-elite" style="padding: 1.2rem 3.5rem; text-decoration: none;">DÉCONNEXION</a>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 5rem; text-align: center; color: var(--text-secondary); font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5;">
+        Réf. Client Elite: #ELT-{{ user.id }}-{{ user.date_joined|date:"Y" }}
+    </div>
+</div>
+{% endblock %}

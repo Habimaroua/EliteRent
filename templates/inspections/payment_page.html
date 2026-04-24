@@ -1,0 +1,67 @@
+{% extends "inspections/client_base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-dark text-white p-4 text-center">
+                    <h3 class="mb-0"><i class="fas fa-credit-card me-2"></i>Paiement de la Réservation</h3>
+                </div>
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <h4 class="text-muted">Total à payer</h4>
+                        <h1 class="display-4 fw-bold text-primary">{{ amount }} DA</h1>
+                    </div>
+                    
+                    <div class="alert alert-info rounded-3">
+                        <small><i class="fas fa-info-circle me-1"></i> Réservation #{{ booking.id }} pour <strong>{{ booking.car.brand }} {{ booking.car.model_name }}</strong></small>
+                    </div>
+
+                    <form id="payment-form" method="POST" action="{% url 'inspections:process_payment_gate' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                        <input type="hidden" name="amount" value="{{ amount }}">
+                        
+                        <div class="mb-3">
+                            <label class="form-label text-uppercase small fw-bold">Numéro de carte</label>
+                            <input type="text" class="form-control form-control-lg bg-light" placeholder="0000 0000 0000 0000" required>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-uppercase small fw-bold">Expiration</label>
+                                <input type="text" class="form-control form-control-lg bg-light" placeholder="MM/YY" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-uppercase small fw-bold">CVV</label>
+                                <input type="password" class="form-control form-control-lg bg-light" placeholder="***" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100 mt-4 py-3 rounded-3 shadow-sm">
+                            <span class="fw-bold text-uppercase">Confirmer le Paiement</span>
+                        </button>
+                    </form>
+                </div>
+                <div class="card-footer bg-light p-3 text-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" height="20" class="me-3 opacity-50">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" height="20" class="opacity-50">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control-lg {
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+    .form-control-lg:focus {
+        border-color: var(--bs-primary);
+        box-shadow: none;
+        background: white !important;
+    }
+</style>
+{% endblock %}

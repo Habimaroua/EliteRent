@@ -1,0 +1,269 @@
+{% extends "inspections/public_base.html" %}
+
+{% block extra_css %}
+<style>
+    /* Arrière-plan avec cercles de lumière */
+    .auth-container {
+        min-height: calc(100vh - 100px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        position: relative;
+        background: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.02) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 80%, rgba(30, 64, 175, 0.02) 0%, transparent 40%);
+    }
+
+    .glow-circle {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+        filter: blur(80px);
+        z-index: -1;
+        opacity: 0.3;
+        animation: float 20s infinite alternate ease-in-out;
+    }
+
+    @keyframes float {
+        0% { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(100px, 50px) scale(1.2); }
+    }
+
+    .auth-card {
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 40px;
+        padding: 4.5rem 4rem;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 20px 80px rgba(0,0,0,0.05);
+        position: relative;
+        overflow: hidden;
+        animation: card-appear 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        transition: box-shadow 0.4s ease-in-out;
+    }
+
+    .auth-card:hover {
+        box-shadow: 0 40px 100px var(--accent-glow);
+    }
+
+    @keyframes card-appear {
+        from { opacity: 0; transform: translateY(40px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 3.5rem;
+    }
+
+    .auth-logo {
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 0.8rem;
+        letter-spacing: -1px;
+    }
+
+    .auth-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin-top: 1rem;
+        letter-spacing: -1.5px;
+        animation: float-hero 5s ease-in-out infinite;
+    }
+
+    @keyframes float-hero {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .form-group-auth {
+        margin-bottom: 1.8rem;
+    }
+
+    .auth-label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 0.8rem;
+        display: block;
+    }
+
+    .auth-input-wrapper {
+        position: relative;
+    }
+
+    .auth-input {
+        width: 100%;
+        background: #ffffff !important;
+        border: 1.5px solid rgba(0,0,0,0.08) !important;
+        border-radius: 16px !important;
+        padding: 1.2rem 1.2rem 1.2rem 3.5rem !important;
+        color: var(--text-primary);
+        font-size: 1rem;
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .auth-input:focus {
+        background: #ffffff !important;
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.1) !important;
+        outline: none;
+    }
+
+    .auth-icon {
+        position: absolute;
+        left: 1.2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        stroke: var(--text-secondary);
+        transition: 0.3s;
+    }
+
+    .auth-input:focus + .auth-icon {
+        stroke: var(--accent-color);
+        transform: translateY(-50%) scale(1.15);
+    }
+
+    .btn-auth {
+        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        color: var(--text-primary);
+        padding: 1.2rem;
+        border-radius: 18px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 1rem;
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2);
+    }
+
+    .btn-auth:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
+        filter: brightness(1.2);
+    }
+
+    .toast-message {
+        padding: 1.2rem;
+        border-radius: 16px;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        animation: toast-in 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .toast-message.error {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+    }
+
+    .toast-message.success {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        color: #10b981;
+    }
+
+    .toast-message.info, .toast-message.warning {
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        color: var(--accent-color);
+    }
+
+    .toast-icon {
+        font-size: 1.2rem;
+    }
+
+    @keyframes toast-in {
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes shake {
+        10%, 90% { transform: translate(-1px, 0); }
+        20%, 80% { transform: translate(2px, 0); }
+        30%, 50%, 70% { transform: translate(-4px, 0); }
+        40%, 60% { transform: translate(4px, 0); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="glow-circle" style="top: 0; left: 0;"></div>
+    <div class="glow-circle" style="bottom: 0; right: 0; animation-delay: -5s;"></div>
+    
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-logo" style="color: var(--text-primary);">
+                ELITE<span style="color:var(--accent-color)">RENT</span>.AI
+            </div>
+            <div style="font-size: 0.6rem; color: var(--text-secondary); font-weight: 800; text-transform: uppercase; letter-spacing: 3px; opacity: 0.8;">Cercle Privé</div>
+            <h1 class="auth-title">Connexion</h1>
+        </div>
+
+        {% if messages %}
+            <div id="messages-container" style="margin-bottom: 2rem;">
+            {% for message in messages %}
+            <div class="toast-message {{ message.tags }}">
+                <span class="toast-icon">
+                    {% if 'success' in message.tags %}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>{% elif 'warning' in message.tags %}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>{% else %}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>{% endif %}
+                </span> 
+                {{ message }}
+            </div>
+            {% endfor %}
+            </div>
+            <script>
+                setTimeout(() => {
+                    const container = document.getElementById('messages-container');
+                    if (container) {
+                        container.style.transition = '0.5s';
+                        container.style.opacity = '0';
+                        setTimeout(() => container.remove(), 500);
+                    }
+                }, 5000);
+            </script>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group-auth">
+                <label class="auth-label">Adresse Email</label>
+                <div class="auth-input-wrapper">
+                    {{ form.email }}
+                    <svg class="auth-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </div>
+            </div>
+
+            <div class="form-group-auth">
+                <label class="auth-label">Mot de passe secret</label>
+                <div class="auth-input-wrapper">
+                    {{ form.password }}
+                    <svg class="auth-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-auth">Se connecter</button>
+        </form>
+
+        <div class="auth-footer">
+            Pas encore membre du cercle ? <a href="{% url 'inspections:register' %}">Rejoindre l'Elite</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

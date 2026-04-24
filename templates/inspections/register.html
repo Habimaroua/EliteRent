@@ -1,0 +1,324 @@
+{% extends "inspections/public_base.html" %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        min-height: calc(100vh - 100px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 2rem;
+    }
+
+    .auth-card {
+        background: #ffffff;
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 40px;
+        padding: 4.5rem 4rem;
+        width: 100%;
+        max-width: 550px;
+        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.08);
+        position: relative;
+        overflow: hidden;
+        animation: card-appear 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        transition: box-shadow 0.4s ease-in-out;
+    }
+
+    .auth-card:hover {
+        box-shadow: 0 40px 100px var(--accent-glow);
+    }
+
+    @keyframes card-appear {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .auth-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.1), transparent 300px);
+        pointer-events: none;
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 3.5rem;
+    }
+
+    .auth-logo {
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 0.8rem;
+        letter-spacing: -1px;
+    }
+
+    .auth-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin-top: 1.5rem;
+        animation: float-hero 5s ease-in-out infinite;
+    }
+
+    @keyframes float-hero {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .auth-subtitle {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+
+    .form-group-auth {
+        margin-bottom: 1.8rem;
+    }
+
+    .auth-label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 0.8rem;
+        padding-left: 0.5rem;
+    }
+
+    .auth-input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .auth-input {
+        width: 100%;
+        background: #ffffff !important;
+        border: 1px solid rgba(0,0,0,0.08) !important;
+        border-radius: 18px !important;
+        padding: 1.2rem 1.2rem 1.2rem 3.5rem !important;
+        color: var(--text-primary);
+        font-size: 1rem;
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .auth-input:focus {
+        background: #ffffff !important;
+        border-color: var(--accent-color) !important;
+        box-shadow: 0 0 25px rgba(59, 130, 246, 0.15) !important;
+        outline: none;
+        transform: scale(1.01);
+    }
+
+    .auth-icon {
+        position: absolute;
+        left: 1.2rem;
+        width: 18px;
+        height: 18px;
+        stroke: var(--text-secondary);
+        fill: none;
+        stroke-width: 2;
+        transition: 0.3s;
+    }
+
+    .auth-input:focus+.auth-icon {
+        stroke: var(--accent-color);
+        transform: scale(1.1);
+    }
+
+    .btn-auth {
+        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        color: var(--text-primary);
+        padding: 1.2rem;
+        border-radius: 20px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 1rem;
+        transition: 0.4s;
+        box-shadow: 0 15px 30px rgba(59, 130, 246, 0.25);
+    }
+
+    .btn-auth:hover {
+        transform: translateY(-5px);
+        filter: brightness(1.1);
+        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.35);
+    }
+
+    .help-text {
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.2);
+        margin-top: 0.6rem;
+        padding-left: 0.5rem;
+    }
+
+    .auth-footer {
+        margin-top: 3.5rem;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+    }
+
+    .auth-footer a {
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 700;
+        transition: 0.2s;
+    }
+
+    .auth-footer a:hover {
+        text-decoration: underline;
+    }
+
+    .toast-message {
+        padding: 1.2rem;
+        border-radius: 16px;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        animation: toast-in 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .toast-message.error {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+    }
+
+    .toast-message.success {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        color: #10b981;
+    }
+
+    .toast-message.info, .toast-message.warning {
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        color: var(--accent-color);
+    }
+
+    .toast-icon {
+        font-size: 1.2rem;
+    }
+
+    @keyframes toast-in {
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Fix pour l'autofill des navigateurs (évite le fond blanc/jaune sur les champs pré-remplis) */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 50px #ffffff inset !important;
+        -webkit-text-fill-color: var(--text-primary);
+        transition: background-color 5000s ease-in-out 0s;
+        border-radius: 18px !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-logo" style="color: var(--text-primary);">
+                ELITE<span style="color:var(--accent-color)">RENT</span>.AI
+            </div>
+            <div
+                style="font-size: 0.6rem; color: var(--text-secondary); font-weight: 800; text-transform: uppercase; letter-spacing: 3px; opacity: 0.8;">
+                Cercle Privilège</div>
+            <h1 class="auth-title">Register</h1>
+            <p class="auth-subtitle">Créez votre profil pour accéder à la collection de prestige.</p>
+        </div>
+
+        {% if messages %}
+            <div id="messages-container" style="margin-bottom: 2rem;">
+            {% for message in messages %}
+            <div class="toast-message {{ message.tags }}">
+                <span class="toast-icon">
+                    {% if 'success' in message.tags %}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>{% elif 'warning' in message.tags %}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>{% else %}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>{% endif %}
+                </span> 
+                {{ message }}
+            </div>
+            {% endfor %}
+            </div>
+            <script>
+                setTimeout(() => {
+                    const container = document.getElementById('messages-container');
+                    if (container) {
+                        container.style.transition = '0.5s';
+                        container.style.opacity = '0';
+                        setTimeout(() => container.remove(), 500);
+                    }
+                }, 5000);
+            </script>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="form-group-auth">
+                <label class="auth-label">{{ field.label }}</label>
+                <div class="auth-input-wrapper">
+                    {{ field }}
+                    {% if "username" in field.name %}
+                    <svg class="auth-icon" viewBox="0 0 24 24">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    {% elif "email" in field.name %}
+                    <svg class="auth-icon" viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    {% else %}
+                    <svg class="auth-icon" viewBox="0 0 24 24">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0110 0v4"></path>
+                    </svg>
+                    {% endif %}
+                </div>
+                {% if field.help_text %}
+                <div class="help-text">{{ field.help_text|safe }}</div>
+                {% endif %}
+                {% for error in field.errors %}
+                <div style="color: #ef4444; font-size: 0.75rem; margin-top: 0.5rem; font-weight: 600; padding-left: 0.5rem; display: flex; align-items: center; gap: 4px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                    {{ error }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn-auth">Devenir Membre Privilège</button>
+        </form>
+
+        <div class="auth-footer">
+            Déjà membre de la collection ? <a href="{% url 'inspections:login' %}">Identifiez-vous</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

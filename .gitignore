@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# Databases
+*.sqlite3
+db.sqlite3
+db_master.sqlite3
+
+# Media & Large Files
+media/
+AI_SERVICE/test/
+AI_SERVICE/train/
+AI_SERVICE/valid/
+AI_SERVICE/*.zip
+AI_SERVICE/*.pt
+AI_SERVICE/*.pth
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

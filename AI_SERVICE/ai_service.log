@@ -1,0 +1,701 @@
+2026-04-09 13:36:31,912 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:36:31,944 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:36:32,114 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:36:32,159 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:37:31,076 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:40:28,129 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:40:28,142 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:40:28,155 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:40:28,194 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:40:28,200 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:42:24,456 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:42:38,653 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:42:38,654 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:42:38,654 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 13:42:38,654 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:42:38,654 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 13:42:38,654 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 13:42:38,654 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:42:38,654 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:42:38,654 - DEBUG - Calling on_part_data with data[129:32369]
+2026-04-09 13:42:38,654 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:42:38,655 - DEBUG - Calling on_end with no data
+2026-04-09 13:42:38,656 - DEBUG - --- Nouvelle requête reçue: ww.jpg ---
+2026-04-09 13:42:38,657 - DEBUG - DEBUG: Taille du fichier reçu = 32240 bytes
+2026-04-09 13:42:38,706 - DEBUG - DEBUG: Image ouverte avec succès. Taille = (768, 431)
+2026-04-09 13:42:38,706 - DEBUG - DEBUG: Utilisation du modèle best.pt
+2026-04-09 13:42:39,533 - DEBUG - DEBUG: Nombre de boîtes trouvées par YOLO = 1
+2026-04-09 13:42:39,587 - DEBUG - DEBUG: Analyse terminée. 1 détections, 1 dommages.
+2026-04-09 13:42:39,636 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:42:39,636 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:42:39,637 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 13:42:39,637 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:42:39,637 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 13:42:39,637 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 13:42:39,638 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:42:39,638 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:42:39,638 - DEBUG - Calling on_part_data with data[139:65280]
+2026-04-09 13:42:39,649 - DEBUG - Calling on_part_data with data[0:196485]
+2026-04-09 13:42:39,651 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 13:42:39,652 - DEBUG - Calling on_part_data with data[0:223758]
+2026-04-09 13:42:39,653 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:42:39,653 - DEBUG - Calling on_end with no data
+2026-04-09 13:42:39,654 - DEBUG - --- Nouvelle requête reçue: cars/porsche.png ---
+2026-04-09 13:42:39,655 - DEBUG - DEBUG: Taille du fichier reçu = 747528 bytes
+2026-04-09 13:42:39,692 - DEBUG - DEBUG: Image ouverte avec succès. Taille = (1024, 1024)
+2026-04-09 13:42:39,692 - DEBUG - DEBUG: Utilisation du modèle best.pt
+2026-04-09 13:42:40,032 - DEBUG - DEBUG: Nombre de boîtes trouvées par YOLO = 3
+2026-04-09 13:42:40,183 - DEBUG - DEBUG: Analyse terminée. 3 détections, 3 dommages.
+2026-04-09 13:51:40,578 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:53:43,917 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:53:43,918 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:53:43,918 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 13:53:43,918 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:53:43,919 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 13:53:43,919 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 13:53:43,919 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:53:43,919 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:53:43,919 - DEBUG - Calling on_part_data with data[129:20221]
+2026-04-09 13:53:43,919 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:53:43,919 - DEBUG - Calling on_end with no data
+2026-04-09 13:53:43,920 - DEBUG - --- Nouvelle requête reçue: f3.jpg ---
+2026-04-09 13:53:43,920 - DEBUG - DEBUG: Taille du fichier reçu = 20092 bytes
+2026-04-09 13:53:43,952 - DEBUG - DEBUG: Image ouverte avec succès. Taille = (328, 246)
+2026-04-09 13:53:43,952 - DEBUG - DEBUG: Utilisation du modèle best.pt
+2026-04-09 13:53:44,696 - WARNING - \u26a0\ufe0f Aucun objet trouvé par best.pt. Tentative avec fallback_model...
+2026-04-09 13:53:45,057 - DEBUG - DEBUG: Nombre de boîtes trouvées par YOLO = 18
+2026-04-09 13:53:45,112 - DEBUG - DEBUG: Analyse terminée. 18 détections, 0 dommages.
+2026-04-09 13:53:45,146 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:53:45,146 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:53:45,147 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 13:53:45,147 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:53:45,147 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 13:53:45,147 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 13:53:45,148 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:53:45,148 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:53:45,148 - DEBUG - Calling on_part_data with data[139:65280]
+2026-04-09 13:53:45,162 - DEBUG - Calling on_part_data with data[0:130990]
+2026-04-09 13:53:45,164 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 13:53:45,165 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 13:53:45,166 - DEBUG - Calling on_part_data with data[0:27109]
+2026-04-09 13:53:45,167 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:53:45,167 - DEBUG - Calling on_end with no data
+2026-04-09 13:53:45,167 - DEBUG - --- Nouvelle requête reçue: cars/porsche.png ---
+2026-04-09 13:53:45,168 - DEBUG - DEBUG: Taille du fichier reçu = 747528 bytes
+2026-04-09 13:53:45,204 - DEBUG - DEBUG: Image ouverte avec succès. Taille = (1024, 1024)
+2026-04-09 13:53:45,205 - DEBUG - DEBUG: Utilisation du modèle best.pt
+2026-04-09 13:53:45,539 - DEBUG - DEBUG: Nombre de boîtes trouvées par YOLO = 3
+2026-04-09 13:53:45,707 - DEBUG - DEBUG: Analyse terminée. 3 détections, 3 dommages.
+2026-04-09 13:55:21,138 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:56:23,890 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 13:56:44,350 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:56:44,351 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:56:44,351 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 13:56:44,351 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:56:44,351 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 13:56:44,351 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 13:56:44,352 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:56:44,352 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:56:44,352 - DEBUG - Calling on_part_data with data[129:20221]
+2026-04-09 13:56:44,352 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:56:44,352 - DEBUG - Calling on_end with no data
+2026-04-09 13:56:44,353 - DEBUG - --- Requête d'analyse reçue: f3.jpg ---
+2026-04-09 13:56:45,703 - DEBUG - DEBUG: Analyse terminée. 1 dommages identifiés.
+2026-04-09 13:56:45,754 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:56:45,755 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:56:45,755 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 13:56:45,755 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:56:45,756 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 13:56:45,756 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 13:56:45,756 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:56:45,756 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:56:45,757 - DEBUG - Calling on_part_data with data[139:261889]
+2026-04-09 13:56:45,759 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 13:56:45,760 - DEBUG - Calling on_part_data with data[0:223634]
+2026-04-09 13:56:45,760 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:56:45,760 - DEBUG - Calling on_end with no data
+2026-04-09 13:56:45,761 - DEBUG - --- Requête d'analyse reçue: cars/porsche.png ---
+2026-04-09 13:56:46,989 - DEBUG - DEBUG: Analyse terminée. 5 dommages identifiés.
+2026-04-09 13:57:48,169 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:57:48,169 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:57:48,169 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 13:57:48,169 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:57:48,169 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 13:57:48,169 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 13:57:48,169 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:57:48,170 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:57:48,170 - DEBUG - Calling on_part_data with data[129:8984]
+2026-04-09 13:57:48,170 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:57:48,170 - DEBUG - Calling on_end with no data
+2026-04-09 13:57:48,170 - DEBUG - --- Requête d'analyse reçue: f4.jpg ---
+2026-04-09 13:57:48,845 - DEBUG - DEBUG: Analyse terminée. 1 dommages identifiés.
+2026-04-09 13:57:48,894 - DEBUG - Calling on_part_begin with no data
+2026-04-09 13:57:48,894 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 13:57:48,894 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 13:57:48,895 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:57:48,895 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 13:57:48,895 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 13:57:48,895 - DEBUG - Calling on_header_end with no data
+2026-04-09 13:57:48,895 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 13:57:48,896 - DEBUG - Calling on_part_data with data[139:65280]
+2026-04-09 13:57:48,915 - DEBUG - Calling on_part_data with data[0:130990]
+2026-04-09 13:57:48,918 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 13:57:48,920 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 13:57:48,921 - DEBUG - Calling on_part_data with data[0:27109]
+2026-04-09 13:57:48,921 - DEBUG - Calling on_part_end with no data
+2026-04-09 13:57:48,921 - DEBUG - Calling on_end with no data
+2026-04-09 13:57:48,922 - DEBUG - --- Requête d'analyse reçue: cars/porsche.png ---
+2026-04-09 13:57:49,861 - DEBUG - DEBUG: Analyse terminée. 5 dommages identifiés.
+2026-04-09 14:00:50,502 - DEBUG - Calling on_part_begin with no data
+2026-04-09 14:00:50,502 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 14:00:50,502 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 14:00:50,502 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:00:50,503 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 14:00:50,503 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 14:00:50,503 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:00:50,503 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 14:00:50,503 - DEBUG - Calling on_part_data with data[129:262144]
+2026-04-09 14:00:50,504 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,505 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,507 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,508 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,530 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,532 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,534 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:50,535 - DEBUG - Calling on_part_data with data[0:187981]
+2026-04-09 14:00:50,535 - DEBUG - Calling on_part_end with no data
+2026-04-09 14:00:50,535 - DEBUG - Calling on_end with no data
+2026-04-09 14:00:50,538 - DEBUG - --- Requête d'analyse reçue: f5.jpg ---
+2026-04-09 14:00:53,598 - DEBUG - DEBUG: Analyse terminée. 1 dommages identifiés.
+2026-04-09 14:00:54,053 - DEBUG - Calling on_part_begin with no data
+2026-04-09 14:00:54,053 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 14:00:54,054 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 14:00:54,054 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:00:54,054 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 14:00:54,054 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 14:00:54,055 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:00:54,055 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 14:00:54,055 - DEBUG - Calling on_part_data with data[139:262144]
+2026-04-09 14:00:54,058 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:00:54,060 - DEBUG - Calling on_part_data with data[0:223379]
+2026-04-09 14:00:54,060 - DEBUG - Calling on_part_end with no data
+2026-04-09 14:00:54,061 - DEBUG - Calling on_end with no data
+2026-04-09 14:00:54,062 - DEBUG - --- Requête d'analyse reçue: cars/porsche.png ---
+2026-04-09 14:00:55,174 - DEBUG - DEBUG: Analyse terminée. 5 dommages identifiés.
+2026-04-09 14:03:19,135 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 14:04:10,419 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 14:04:15,911 - DEBUG - Calling on_part_begin with no data
+2026-04-09 14:04:15,912 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 14:04:15,912 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 14:04:15,912 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:04:15,912 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 14:04:15,912 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 14:04:15,912 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:04:15,912 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 14:04:15,913 - DEBUG - Calling on_part_data with data[129:130304]
+2026-04-09 14:04:15,921 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,925 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,926 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,929 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,951 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,954 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,956 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,959 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:15,961 - DEBUG - Calling on_part_data with data[0:57677]
+2026-04-09 14:04:15,961 - DEBUG - Calling on_part_end with no data
+2026-04-09 14:04:15,961 - DEBUG - Calling on_end with no data
+2026-04-09 14:04:15,964 - DEBUG - --- Requête d'analyse reçue: f5.jpg ---
+2026-04-09 14:04:23,882 - DEBUG - DEBUG: Analyse terminée. 13 dommages identifiés.
+2026-04-09 14:04:24,316 - DEBUG - Calling on_part_begin with no data
+2026-04-09 14:04:24,317 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 14:04:24,317 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 14:04:24,317 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:04:24,318 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 14:04:24,318 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 14:04:24,318 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:04:24,318 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 14:04:24,319 - DEBUG - Calling on_part_data with data[139:262144]
+2026-04-09 14:04:24,321 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:04:24,322 - DEBUG - Calling on_part_data with data[0:223379]
+2026-04-09 14:04:24,322 - DEBUG - Calling on_part_end with no data
+2026-04-09 14:04:24,323 - DEBUG - Calling on_end with no data
+2026-04-09 14:04:24,325 - DEBUG - --- Requête d'analyse reçue: cars/porsche.png ---
+2026-04-09 14:04:26,279 - DEBUG - DEBUG: Analyse terminée. 8 dommages identifiés.
+2026-04-09 14:07:19,126 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 14:07:29,991 - DEBUG - Calling on_part_begin with no data
+2026-04-09 14:07:29,992 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 14:07:29,992 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-09 14:07:29,992 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:07:29,992 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-09 14:07:29,993 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-09 14:07:29,993 - DEBUG - Calling on_header_end with no data
+2026-04-09 14:07:29,993 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 14:07:29,993 - DEBUG - Calling on_part_data with data[129:130519]
+2026-04-09 14:07:30,004 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,005 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,007 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,008 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,029 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,032 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,033 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,035 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 14:07:30,036 - DEBUG - Calling on_part_data with data[0:57462]
+2026-04-09 14:07:30,037 - DEBUG - Calling on_part_end with no data
+2026-04-09 14:07:30,037 - DEBUG - Calling on_end with no data
+2026-04-09 14:07:30,039 - DEBUG - --- Requête d'analyse reçue: f5.jpg ---
+2026-04-09 14:07:34,181 - DEBUG - DEBUG: Analyse terminée. 4 dommages identifiés.
+2026-04-09 15:15:10,227 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 19:36:54,870 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 19:41:47,344 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 21:24:27,901 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-09 21:24:43,504 - DEBUG - Calling on_part_begin with no data
+2026-04-09 21:24:43,504 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 21:24:43,505 - DEBUG - Calling on_header_value with data[57:124]
+2026-04-09 21:24:43,505 - DEBUG - Calling on_header_end with no data
+2026-04-09 21:24:43,505 - DEBUG - Calling on_header_field with data[126:138]
+2026-04-09 21:24:43,505 - DEBUG - Calling on_header_value with data[140:150]
+2026-04-09 21:24:43,505 - DEBUG - Calling on_header_end with no data
+2026-04-09 21:24:43,506 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 21:24:43,506 - DEBUG - Calling on_part_data with data[154:52208]
+2026-04-09 21:24:43,506 - DEBUG - Calling on_part_end with no data
+2026-04-09 21:24:43,506 - DEBUG - Calling on_end with no data
+2026-04-09 21:24:43,509 - DEBUG - --- Requête d'analyse reçue: pneu-creve-sur-une-voiture.avif ---
+2026-04-09 21:24:43,555 - DEBUG - Importing AvifImagePlugin
+2026-04-09 21:24:43,563 - DEBUG - Importing BlpImagePlugin
+2026-04-09 21:24:43,567 - DEBUG - Importing BmpImagePlugin
+2026-04-09 21:24:43,568 - DEBUG - Importing BufrStubImagePlugin
+2026-04-09 21:24:43,570 - DEBUG - Importing CurImagePlugin
+2026-04-09 21:24:43,572 - DEBUG - Importing DcxImagePlugin
+2026-04-09 21:24:43,576 - DEBUG - Importing DdsImagePlugin
+2026-04-09 21:24:43,587 - DEBUG - Importing EpsImagePlugin
+2026-04-09 21:24:43,591 - DEBUG - Importing FitsImagePlugin
+2026-04-09 21:24:43,594 - DEBUG - Importing FliImagePlugin
+2026-04-09 21:24:43,596 - DEBUG - Importing FpxImagePlugin
+2026-04-09 21:24:43,600 - DEBUG - Image: failed to import FpxImagePlugin: No module named 'olefile'
+2026-04-09 21:24:43,600 - DEBUG - Importing FtexImagePlugin
+2026-04-09 21:24:43,603 - DEBUG - Importing GbrImagePlugin
+2026-04-09 21:24:43,605 - DEBUG - Importing GifImagePlugin
+2026-04-09 21:24:43,605 - DEBUG - Importing GribStubImagePlugin
+2026-04-09 21:24:43,607 - DEBUG - Importing Hdf5StubImagePlugin
+2026-04-09 21:24:43,609 - DEBUG - Importing IcnsImagePlugin
+2026-04-09 21:24:43,618 - DEBUG - Importing IcoImagePlugin
+2026-04-09 21:24:43,622 - DEBUG - Importing ImImagePlugin
+2026-04-09 21:24:43,625 - DEBUG - Importing ImtImagePlugin
+2026-04-09 21:24:43,628 - DEBUG - Importing IptcImagePlugin
+2026-04-09 21:24:43,631 - DEBUG - Importing JpegImagePlugin
+2026-04-09 21:24:43,631 - DEBUG - Importing Jpeg2KImagePlugin
+2026-04-09 21:24:43,631 - DEBUG - Importing McIdasImagePlugin
+2026-04-09 21:24:43,634 - DEBUG - Importing MicImagePlugin
+2026-04-09 21:24:43,637 - DEBUG - Image: failed to import MicImagePlugin: No module named 'olefile'
+2026-04-09 21:24:43,637 - DEBUG - Importing MpegImagePlugin
+2026-04-09 21:24:43,639 - DEBUG - Importing MpoImagePlugin
+2026-04-09 21:24:43,646 - DEBUG - Importing MspImagePlugin
+2026-04-09 21:24:43,650 - DEBUG - Importing PalmImagePlugin
+2026-04-09 21:24:43,655 - DEBUG - Importing PcdImagePlugin
+2026-04-09 21:24:43,658 - DEBUG - Importing PcxImagePlugin
+2026-04-09 21:24:43,658 - DEBUG - Importing PdfImagePlugin
+2026-04-09 21:24:43,673 - DEBUG - Importing PixarImagePlugin
+2026-04-09 21:24:43,676 - DEBUG - Importing PngImagePlugin
+2026-04-09 21:24:43,676 - DEBUG - Importing PpmImagePlugin
+2026-04-09 21:24:43,676 - DEBUG - Importing PsdImagePlugin
+2026-04-09 21:24:43,678 - DEBUG - Importing QoiImagePlugin
+2026-04-09 21:24:43,682 - DEBUG - Importing SgiImagePlugin
+2026-04-09 21:24:43,685 - DEBUG - Importing SpiderImagePlugin
+2026-04-09 21:24:43,688 - DEBUG - Importing SunImagePlugin
+2026-04-09 21:24:43,690 - DEBUG - Importing TgaImagePlugin
+2026-04-09 21:24:43,693 - DEBUG - Importing TiffImagePlugin
+2026-04-09 21:24:43,693 - DEBUG - Importing WebPImagePlugin
+2026-04-09 21:24:43,700 - DEBUG - Importing WmfImagePlugin
+2026-04-09 21:24:43,704 - DEBUG - Importing XbmImagePlugin
+2026-04-09 21:24:43,708 - DEBUG - Importing XpmImagePlugin
+2026-04-09 21:24:43,711 - DEBUG - Importing XVThumbImagePlugin
+2026-04-09 21:24:45,552 - DEBUG - DEBUG: Analyse terminée. 2 dommages identifiés.
+2026-04-09 21:24:45,611 - DEBUG - Calling on_part_begin with no data
+2026-04-09 21:24:45,611 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-09 21:24:45,611 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-09 21:24:45,612 - DEBUG - Calling on_header_end with no data
+2026-04-09 21:24:45,612 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-09 21:24:45,612 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-09 21:24:45,612 - DEBUG - Calling on_header_end with no data
+2026-04-09 21:24:45,612 - DEBUG - Calling on_headers_finished with no data
+2026-04-09 21:24:45,612 - DEBUG - Calling on_part_data with data[139:261889]
+2026-04-09 21:24:45,614 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-09 21:24:45,615 - DEBUG - Calling on_part_data with data[0:223634]
+2026-04-09 21:24:45,616 - DEBUG - Calling on_part_end with no data
+2026-04-09 21:24:45,616 - DEBUG - Calling on_end with no data
+2026-04-09 21:24:45,616 - DEBUG - --- Requête d'analyse reçue: cars/porsche.png ---
+2026-04-09 21:24:46,996 - DEBUG - DEBUG: Analyse terminée. 8 dommages identifiés.
+2026-04-14 20:46:40,580 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-14 20:47:53,138 - DEBUG - Calling on_part_begin with no data
+2026-04-14 20:47:53,139 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 20:47:53,139 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-14 20:47:53,139 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:47:53,139 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-14 20:47:53,139 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-14 20:47:53,139 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:47:53,140 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 20:47:53,140 - DEBUG - Calling on_part_data with data[129:8510]
+2026-04-14 20:47:53,140 - DEBUG - Calling on_part_end with no data
+2026-04-14 20:47:53,140 - DEBUG - Calling on_end with no data
+2026-04-14 20:47:53,142 - DEBUG - --- Requête d'analyse reçue: re.jpg ---
+2026-04-14 20:47:57,076 - DEBUG - DEBUG: Analyse terminée. 1 dommages identifiés.
+2026-04-14 20:48:51,349 - DEBUG - Calling on_part_begin with no data
+2026-04-14 20:48:51,350 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 20:48:51,350 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-14 20:48:51,350 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:48:51,350 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-14 20:48:51,350 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-14 20:48:51,350 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:48:51,350 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 20:48:51,351 - DEBUG - Calling on_part_data with data[139:8725]
+2026-04-14 20:48:51,351 - DEBUG - Calling on_part_end with no data
+2026-04-14 20:48:51,351 - DEBUG - Calling on_end with no data
+2026-04-14 20:48:51,351 - DEBUG - --- Requête d'analyse reçue: download (3).jpg ---
+2026-04-14 20:48:54,798 - DEBUG - DEBUG: Analyse terminée. 6 dommages identifiés.
+2026-04-14 20:49:43,729 - DEBUG - Calling on_part_begin with no data
+2026-04-14 20:49:43,729 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 20:49:43,730 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-14 20:49:43,730 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:49:43,730 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-14 20:49:43,730 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-14 20:49:43,730 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:49:43,731 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 20:49:43,731 - DEBUG - Calling on_part_data with data[139:12851]
+2026-04-14 20:49:43,731 - DEBUG - Calling on_part_end with no data
+2026-04-14 20:49:43,731 - DEBUG - Calling on_end with no data
+2026-04-14 20:49:43,732 - DEBUG - --- Requête d'analyse reçue: download (4).jpg ---
+2026-04-14 20:49:48,264 - DEBUG - DEBUG: Analyse terminée. 4 dommages identifiés.
+2026-04-14 20:58:47,769 - DEBUG - Calling on_part_begin with no data
+2026-04-14 20:58:47,769 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 20:58:47,769 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-14 20:58:47,770 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:58:47,770 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-14 20:58:47,770 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-14 20:58:47,770 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:58:47,770 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 20:58:47,771 - DEBUG - Calling on_part_data with data[139:12851]
+2026-04-14 20:58:47,771 - DEBUG - Calling on_part_end with no data
+2026-04-14 20:58:47,771 - DEBUG - Calling on_end with no data
+2026-04-14 20:58:47,772 - DEBUG - --- Requête d'analyse reçue: download (4).jpg ---
+2026-04-14 20:59:00,979 - DEBUG - DEBUG: Analyse terminée. 4 dommages identifiés.
+2026-04-14 20:59:09,349 - DEBUG - Calling on_part_begin with no data
+2026-04-14 20:59:09,350 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 20:59:09,350 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-14 20:59:09,350 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:59:09,350 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-14 20:59:09,350 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-14 20:59:09,351 - DEBUG - Calling on_header_end with no data
+2026-04-14 20:59:09,351 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 20:59:09,352 - DEBUG - Calling on_part_data with data[139:12851]
+2026-04-14 20:59:09,352 - DEBUG - Calling on_part_end with no data
+2026-04-14 20:59:09,353 - DEBUG - Calling on_end with no data
+2026-04-14 20:59:09,354 - DEBUG - --- Requête d'analyse reçue: download (4).jpg ---
+2026-04-14 20:59:15,942 - DEBUG - DEBUG: Analyse terminée. 4 dommages identifiés.
+2026-04-14 21:08:52,688 - INFO - Modèle chargé : trained.pt
+2026-04-14 21:08:53,484 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-14 21:25:51,340 - INFO - Modèle chargé : trained.pt
+2026-04-14 21:25:52,283 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-14 21:26:20,202 - DEBUG - Calling on_part_begin with no data
+2026-04-14 21:26:20,203 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 21:26:20,203 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-14 21:26:20,203 - DEBUG - Calling on_header_end with no data
+2026-04-14 21:26:20,203 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-14 21:26:20,204 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-14 21:26:20,204 - DEBUG - Calling on_header_end with no data
+2026-04-14 21:26:20,204 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 21:26:20,204 - DEBUG - Calling on_part_data with data[139:12851]
+2026-04-14 21:26:20,205 - DEBUG - Calling on_part_end with no data
+2026-04-14 21:26:20,205 - DEBUG - Calling on_end with no data
+2026-04-14 21:26:20,208 - DEBUG - --- Requête d'analyse reçue: download (4).jpg ---
+2026-04-14 21:26:28,787 - DEBUG - DEBUG: Analyse terminée. 6 dommages identifiés.
+2026-04-14 21:28:48,465 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-14 22:22:22,464 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-14 22:22:31,347 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-14 22:34:03,122 - INFO - \U0001f680 Modèle de production activé : best.pt
+2026-04-14 22:34:03,826 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-14 22:34:08,987 - DEBUG - Calling on_part_begin with no data
+2026-04-14 22:34:08,988 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 22:34:08,988 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-14 22:34:08,989 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:34:08,989 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-14 22:34:08,989 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-14 22:34:08,989 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:34:08,989 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 22:34:08,990 - DEBUG - Calling on_part_data with data[139:12851]
+2026-04-14 22:34:08,990 - DEBUG - Calling on_part_end with no data
+2026-04-14 22:34:08,990 - DEBUG - Calling on_end with no data
+2026-04-14 22:34:08,994 - DEBUG - --- ANALYSE EN COURS : download (4).jpg ---
+2026-04-14 22:34:35,404 - DEBUG - Calling on_part_begin with no data
+2026-04-14 22:34:35,405 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 22:34:35,405 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-14 22:34:35,405 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:34:35,405 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-14 22:34:35,406 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-14 22:34:35,406 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:34:35,406 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 22:34:35,406 - DEBUG - Calling on_part_data with data[129:8510]
+2026-04-14 22:34:35,406 - DEBUG - Calling on_part_end with no data
+2026-04-14 22:34:35,407 - DEBUG - Calling on_end with no data
+2026-04-14 22:34:35,407 - DEBUG - --- ANALYSE EN COURS : re.jpg ---
+2026-04-14 22:35:40,720 - DEBUG - Calling on_part_begin with no data
+2026-04-14 22:35:40,721 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 22:35:40,721 - DEBUG - Calling on_header_value with data[57:101]
+2026-04-14 22:35:40,721 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:35:40,722 - DEBUG - Calling on_header_field with data[103:115]
+2026-04-14 22:35:40,722 - DEBUG - Calling on_header_value with data[117:127]
+2026-04-14 22:35:40,722 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:35:40,723 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 22:35:40,723 - DEBUG - Calling on_part_data with data[131:6967]
+2026-04-14 22:35:40,723 - DEBUG - Calling on_part_end with no data
+2026-04-14 22:35:40,723 - DEBUG - Calling on_end with no data
+2026-04-14 22:35:40,724 - DEBUG - --- ANALYSE EN COURS : safe.jpg ---
+2026-04-14 22:37:10,572 - DEBUG - Calling on_part_begin with no data
+2026-04-14 22:37:10,573 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 22:37:10,573 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-14 22:37:10,573 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:37:10,574 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-14 22:37:10,574 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-14 22:37:10,574 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:37:10,574 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 22:37:10,574 - DEBUG - Calling on_part_data with data[129:11406]
+2026-04-14 22:37:10,575 - DEBUG - Calling on_part_end with no data
+2026-04-14 22:37:10,575 - DEBUG - Calling on_end with no data
+2026-04-14 22:37:10,575 - DEBUG - --- ANALYSE EN COURS : ds.jpg ---
+2026-04-14 22:38:34,919 - DEBUG - Calling on_part_begin with no data
+2026-04-14 22:38:34,920 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 22:38:34,920 - DEBUG - Calling on_header_value with data[57:109]
+2026-04-14 22:38:34,920 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:38:34,920 - DEBUG - Calling on_header_field with data[111:123]
+2026-04-14 22:38:34,920 - DEBUG - Calling on_header_value with data[125:135]
+2026-04-14 22:38:34,921 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:38:34,921 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 22:38:34,921 - DEBUG - Calling on_part_data with data[139:8725]
+2026-04-14 22:38:34,921 - DEBUG - Calling on_part_end with no data
+2026-04-14 22:38:34,921 - DEBUG - Calling on_end with no data
+2026-04-14 22:38:34,922 - DEBUG - --- ANALYSE EN COURS : download (3).jpg ---
+2026-04-14 22:39:07,041 - DEBUG - Calling on_part_begin with no data
+2026-04-14 22:39:07,041 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 22:39:07,042 - DEBUG - Calling on_header_value with data[57:124]
+2026-04-14 22:39:07,042 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:39:07,042 - DEBUG - Calling on_header_field with data[126:138]
+2026-04-14 22:39:07,042 - DEBUG - Calling on_header_value with data[140:150]
+2026-04-14 22:39:07,043 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:39:07,043 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 22:39:07,043 - DEBUG - Calling on_part_data with data[154:52208]
+2026-04-14 22:39:07,043 - DEBUG - Calling on_part_end with no data
+2026-04-14 22:39:07,044 - DEBUG - Calling on_end with no data
+2026-04-14 22:39:07,044 - DEBUG - --- ANALYSE EN COURS : pneu-creve-sur-une-voiture.avif ---
+2026-04-14 22:39:07,045 - DEBUG - Importing AvifImagePlugin
+2026-04-14 22:39:07,151 - DEBUG - Importing BlpImagePlugin
+2026-04-14 22:39:07,162 - DEBUG - Importing BmpImagePlugin
+2026-04-14 22:39:07,162 - DEBUG - Importing BufrStubImagePlugin
+2026-04-14 22:39:07,167 - DEBUG - Importing CurImagePlugin
+2026-04-14 22:39:07,173 - DEBUG - Importing DcxImagePlugin
+2026-04-14 22:39:07,188 - DEBUG - Importing DdsImagePlugin
+2026-04-14 22:39:07,202 - DEBUG - Importing EpsImagePlugin
+2026-04-14 22:39:07,205 - DEBUG - Importing FitsImagePlugin
+2026-04-14 22:39:07,208 - DEBUG - Importing FliImagePlugin
+2026-04-14 22:39:07,210 - DEBUG - Importing FpxImagePlugin
+2026-04-14 22:39:07,214 - DEBUG - Image: failed to import FpxImagePlugin: No module named 'olefile'
+2026-04-14 22:39:07,214 - DEBUG - Importing FtexImagePlugin
+2026-04-14 22:39:07,216 - DEBUG - Importing GbrImagePlugin
+2026-04-14 22:39:07,218 - DEBUG - Importing GifImagePlugin
+2026-04-14 22:39:07,219 - DEBUG - Importing GribStubImagePlugin
+2026-04-14 22:39:07,221 - DEBUG - Importing Hdf5StubImagePlugin
+2026-04-14 22:39:07,226 - DEBUG - Importing IcnsImagePlugin
+2026-04-14 22:39:07,239 - DEBUG - Importing IcoImagePlugin
+2026-04-14 22:39:07,246 - DEBUG - Importing ImImagePlugin
+2026-04-14 22:39:07,252 - DEBUG - Importing ImtImagePlugin
+2026-04-14 22:39:07,256 - DEBUG - Importing IptcImagePlugin
+2026-04-14 22:39:07,261 - DEBUG - Importing JpegImagePlugin
+2026-04-14 22:39:07,261 - DEBUG - Importing Jpeg2KImagePlugin
+2026-04-14 22:39:07,261 - DEBUG - Importing McIdasImagePlugin
+2026-04-14 22:39:07,265 - DEBUG - Importing MicImagePlugin
+2026-04-14 22:39:07,270 - DEBUG - Image: failed to import MicImagePlugin: No module named 'olefile'
+2026-04-14 22:39:07,271 - DEBUG - Importing MpegImagePlugin
+2026-04-14 22:39:07,276 - DEBUG - Importing MpoImagePlugin
+2026-04-14 22:39:07,294 - DEBUG - Importing MspImagePlugin
+2026-04-14 22:39:07,300 - DEBUG - Importing PalmImagePlugin
+2026-04-14 22:39:07,308 - DEBUG - Importing PcdImagePlugin
+2026-04-14 22:39:07,312 - DEBUG - Importing PcxImagePlugin
+2026-04-14 22:39:07,313 - DEBUG - Importing PdfImagePlugin
+2026-04-14 22:39:07,340 - DEBUG - Importing PixarImagePlugin
+2026-04-14 22:39:07,345 - DEBUG - Importing PngImagePlugin
+2026-04-14 22:39:07,346 - DEBUG - Importing PpmImagePlugin
+2026-04-14 22:39:07,346 - DEBUG - Importing PsdImagePlugin
+2026-04-14 22:39:07,351 - DEBUG - Importing QoiImagePlugin
+2026-04-14 22:39:07,356 - DEBUG - Importing SgiImagePlugin
+2026-04-14 22:39:07,361 - DEBUG - Importing SpiderImagePlugin
+2026-04-14 22:39:07,366 - DEBUG - Importing SunImagePlugin
+2026-04-14 22:39:07,370 - DEBUG - Importing TgaImagePlugin
+2026-04-14 22:39:07,375 - DEBUG - Importing TiffImagePlugin
+2026-04-14 22:39:07,375 - DEBUG - Importing WebPImagePlugin
+2026-04-14 22:39:07,450 - DEBUG - Importing WmfImagePlugin
+2026-04-14 22:39:07,455 - DEBUG - Importing XbmImagePlugin
+2026-04-14 22:39:07,461 - DEBUG - Importing XpmImagePlugin
+2026-04-14 22:39:07,466 - DEBUG - Importing XVThumbImagePlugin
+2026-04-14 22:39:56,451 - DEBUG - Calling on_part_begin with no data
+2026-04-14 22:39:56,452 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 22:39:56,452 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-14 22:39:56,452 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:39:56,452 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-14 22:39:56,453 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-14 22:39:56,453 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:39:56,453 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 22:39:56,453 - DEBUG - Calling on_part_data with data[129:9453]
+2026-04-14 22:39:56,454 - DEBUG - Calling on_part_end with no data
+2026-04-14 22:39:56,454 - DEBUG - Calling on_end with no data
+2026-04-14 22:39:56,454 - DEBUG - --- ANALYSE EN COURS : ff.jpg ---
+2026-04-14 22:40:35,533 - DEBUG - Calling on_part_begin with no data
+2026-04-14 22:40:35,533 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 22:40:35,533 - DEBUG - Calling on_header_value with data[57:100]
+2026-04-14 22:40:35,534 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:40:35,534 - DEBUG - Calling on_header_field with data[102:114]
+2026-04-14 22:40:35,534 - DEBUG - Calling on_header_value with data[116:126]
+2026-04-14 22:40:35,534 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:40:35,534 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 22:40:35,535 - DEBUG - Calling on_part_data with data[130:8116]
+2026-04-14 22:40:35,535 - DEBUG - Calling on_part_end with no data
+2026-04-14 22:40:35,535 - DEBUG - Calling on_end with no data
+2026-04-14 22:40:35,536 - DEBUG - --- ANALYSE EN COURS : ghj.jpg ---
+2026-04-14 22:41:50,027 - DEBUG - Calling on_part_begin with no data
+2026-04-14 22:41:50,027 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 22:41:50,027 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-14 22:41:50,027 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:41:50,028 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-14 22:41:50,028 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-14 22:41:50,028 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:41:50,028 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 22:41:50,029 - DEBUG - Calling on_part_data with data[129:103078]
+2026-04-14 22:41:50,029 - DEBUG - Calling on_part_end with no data
+2026-04-14 22:41:50,029 - DEBUG - Calling on_end with no data
+2026-04-14 22:41:50,029 - DEBUG - --- ANALYSE EN COURS : d.avif ---
+2026-04-14 22:42:34,076 - DEBUG - Calling on_part_begin with no data
+2026-04-14 22:42:34,076 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-14 22:42:34,076 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-14 22:42:34,077 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:42:34,077 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-14 22:42:34,077 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-14 22:42:34,077 - DEBUG - Calling on_header_end with no data
+2026-04-14 22:42:34,077 - DEBUG - Calling on_headers_finished with no data
+2026-04-14 22:42:34,078 - DEBUG - Calling on_part_data with data[129:262144]
+2026-04-14 22:42:34,079 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-14 22:42:34,080 - DEBUG - Calling on_part_data with data[0:262144]
+2026-04-14 22:42:34,082 - DEBUG - Calling on_part_data with data[0:254955]
+2026-04-14 22:42:34,082 - DEBUG - Calling on_part_end with no data
+2026-04-14 22:42:34,082 - DEBUG - Calling on_end with no data
+2026-04-14 22:42:34,083 - DEBUG - --- ANALYSE EN COURS : d.webp ---
+2026-04-21 23:16:49,534 - INFO - \U0001f680 Modèle de production activé : best.pt
+2026-04-21 23:16:49,722 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-21 23:18:44,293 - DEBUG - Calling on_part_begin with no data
+2026-04-21 23:18:44,294 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-21 23:18:44,294 - DEBUG - Calling on_header_value with data[57:98]
+2026-04-21 23:18:44,294 - DEBUG - Calling on_header_end with no data
+2026-04-21 23:18:44,295 - DEBUG - Calling on_header_field with data[100:112]
+2026-04-21 23:18:44,295 - DEBUG - Calling on_header_value with data[114:124]
+2026-04-21 23:18:44,295 - DEBUG - Calling on_header_end with no data
+2026-04-21 23:18:44,295 - DEBUG - Calling on_headers_finished with no data
+2026-04-21 23:18:44,296 - DEBUG - Calling on_part_data with data[128:11567]
+2026-04-21 23:18:44,296 - DEBUG - Calling on_part_end with no data
+2026-04-21 23:18:44,296 - DEBUG - Calling on_end with no data
+2026-04-21 23:18:44,300 - DEBUG - --- ANALYSE EN COURS : v.jpg ---
+2026-04-21 23:18:48,188 - DEBUG - Calling on_part_begin with no data
+2026-04-21 23:18:48,189 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-21 23:18:48,189 - DEBUG - Calling on_header_value with data[57:98]
+2026-04-21 23:18:48,189 - DEBUG - Calling on_header_end with no data
+2026-04-21 23:18:48,190 - DEBUG - Calling on_header_field with data[100:112]
+2026-04-21 23:18:48,190 - DEBUG - Calling on_header_value with data[114:124]
+2026-04-21 23:18:48,190 - DEBUG - Calling on_header_end with no data
+2026-04-21 23:18:48,190 - DEBUG - Calling on_headers_finished with no data
+2026-04-21 23:18:48,191 - DEBUG - Calling on_part_data with data[128:11567]
+2026-04-21 23:18:48,191 - DEBUG - Calling on_part_end with no data
+2026-04-21 23:18:48,192 - DEBUG - Calling on_end with no data
+2026-04-21 23:18:48,192 - DEBUG - --- ANALYSE EN COURS : v.jpg ---
+2026-04-21 23:19:32,300 - DEBUG - Calling on_part_begin with no data
+2026-04-21 23:19:32,300 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-21 23:19:32,300 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-21 23:19:32,301 - DEBUG - Calling on_header_end with no data
+2026-04-21 23:19:32,301 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-21 23:19:32,301 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-21 23:19:32,301 - DEBUG - Calling on_header_end with no data
+2026-04-21 23:19:32,302 - DEBUG - Calling on_headers_finished with no data
+2026-04-21 23:19:32,302 - DEBUG - Calling on_part_data with data[129:6880]
+2026-04-21 23:19:32,302 - DEBUG - Calling on_part_end with no data
+2026-04-21 23:19:32,302 - DEBUG - Calling on_end with no data
+2026-04-21 23:19:32,303 - DEBUG - --- ANALYSE EN COURS : vv.jpg ---
+2026-04-21 23:19:59,315 - DEBUG - Calling on_part_begin with no data
+2026-04-21 23:19:59,316 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-21 23:19:59,316 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-21 23:19:59,316 - DEBUG - Calling on_header_end with no data
+2026-04-21 23:19:59,317 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-21 23:19:59,317 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-21 23:19:59,317 - DEBUG - Calling on_header_end with no data
+2026-04-21 23:19:59,317 - DEBUG - Calling on_headers_finished with no data
+2026-04-21 23:19:59,317 - DEBUG - Calling on_part_data with data[129:13315]
+2026-04-21 23:19:59,318 - DEBUG - Calling on_part_end with no data
+2026-04-21 23:19:59,318 - DEBUG - Calling on_end with no data
+2026-04-21 23:19:59,318 - DEBUG - --- ANALYSE EN COURS : vi.jpg ---
+2026-04-21 23:20:37,779 - DEBUG - Calling on_part_begin with no data
+2026-04-21 23:20:37,780 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-21 23:20:37,780 - DEBUG - Calling on_header_value with data[57:100]
+2026-04-21 23:20:37,780 - DEBUG - Calling on_header_end with no data
+2026-04-21 23:20:37,781 - DEBUG - Calling on_header_field with data[102:114]
+2026-04-21 23:20:37,781 - DEBUG - Calling on_header_value with data[116:126]
+2026-04-21 23:20:37,781 - DEBUG - Calling on_header_end with no data
+2026-04-21 23:20:37,781 - DEBUG - Calling on_headers_finished with no data
+2026-04-21 23:20:37,782 - DEBUG - Calling on_part_data with data[130:6674]
+2026-04-21 23:20:37,782 - DEBUG - Calling on_part_end with no data
+2026-04-21 23:20:37,782 - DEBUG - Calling on_end with no data
+2026-04-21 23:20:37,782 - DEBUG - --- ANALYSE EN COURS : wiu.jpg ---
+2026-04-21 23:21:13,571 - DEBUG - Calling on_part_begin with no data
+2026-04-21 23:21:13,571 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-21 23:21:13,572 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-21 23:21:13,572 - DEBUG - Calling on_header_end with no data
+2026-04-21 23:21:13,572 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-21 23:21:13,572 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-21 23:21:13,572 - DEBUG - Calling on_header_end with no data
+2026-04-21 23:21:13,573 - DEBUG - Calling on_headers_finished with no data
+2026-04-21 23:21:13,573 - DEBUG - Calling on_part_data with data[129:11822]
+2026-04-21 23:21:13,573 - DEBUG - Calling on_part_end with no data
+2026-04-21 23:21:13,573 - DEBUG - Calling on_end with no data
+2026-04-21 23:21:13,574 - DEBUG - --- ANALYSE EN COURS : rr.jpg ---
+2026-04-22 20:54:22,338 - INFO - \U0001f680 Modèle de production activé : best.pt
+2026-04-22 20:54:22,882 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-22 20:55:26,230 - DEBUG - Calling on_part_begin with no data
+2026-04-22 20:55:26,231 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-22 20:55:26,231 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-22 20:55:26,231 - DEBUG - Calling on_header_end with no data
+2026-04-22 20:55:26,232 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-22 20:55:26,232 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-22 20:55:26,232 - DEBUG - Calling on_header_end with no data
+2026-04-22 20:55:26,232 - DEBUG - Calling on_headers_finished with no data
+2026-04-22 20:55:26,232 - DEBUG - Calling on_part_data with data[129:9453]
+2026-04-22 20:55:26,233 - DEBUG - Calling on_part_end with no data
+2026-04-22 20:55:26,233 - DEBUG - Calling on_end with no data
+2026-04-22 20:55:26,233 - DEBUG - --- ANALYSE EN COURS : ff.jpg ---
+2026-04-22 20:56:19,198 - DEBUG - Calling on_part_begin with no data
+2026-04-22 20:56:19,198 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-22 20:56:19,198 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-22 20:56:19,198 - DEBUG - Calling on_header_end with no data
+2026-04-22 20:56:19,198 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-22 20:56:19,199 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-22 20:56:19,199 - DEBUG - Calling on_header_end with no data
+2026-04-22 20:56:19,199 - DEBUG - Calling on_headers_finished with no data
+2026-04-22 20:56:19,199 - DEBUG - Calling on_part_data with data[129:8510]
+2026-04-22 20:56:19,199 - DEBUG - Calling on_part_end with no data
+2026-04-22 20:56:19,199 - DEBUG - Calling on_end with no data
+2026-04-22 20:56:19,200 - DEBUG - --- ANALYSE EN COURS : re.jpg ---
+2026-04-23 09:43:25,295 - INFO - \U0001f680 Modèle de production activé : best.pt
+2026-04-23 09:43:26,049 - DEBUG - Starting new HTTP connection (1): localhost:8500
+2026-04-23 09:44:09,745 - DEBUG - Calling on_part_begin with no data
+2026-04-23 09:44:09,745 - DEBUG - Calling on_header_field with data[36:55]
+2026-04-23 09:44:09,746 - DEBUG - Calling on_header_value with data[57:99]
+2026-04-23 09:44:09,746 - DEBUG - Calling on_header_end with no data
+2026-04-23 09:44:09,746 - DEBUG - Calling on_header_field with data[101:113]
+2026-04-23 09:44:09,746 - DEBUG - Calling on_header_value with data[115:125]
+2026-04-23 09:44:09,746 - DEBUG - Calling on_header_end with no data
+2026-04-23 09:44:09,746 - DEBUG - Calling on_headers_finished with no data
+2026-04-23 09:44:09,746 - DEBUG - Calling on_part_data with data[129:8510]
+2026-04-23 09:44:09,746 - DEBUG - Calling on_part_end with no data
+2026-04-23 09:44:09,746 - DEBUG - Calling on_end with no data
+2026-04-23 09:44:09,747 - DEBUG - --- ANALYSE EN COURS : re.jpg ---

@@ -1,0 +1,122 @@
+{% extends "inspections/admin_base.html" %}
+
+{% block extra_css %}
+<style>
+    .settings-container {
+        padding: 0 0 10rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .hero-section-elite {
+        padding: 6rem 5% 10rem;
+        background: linear-gradient(135deg, #d4002a 0%, #111 100%);
+        color: #ffffff;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        margin-bottom: -5rem;
+        position: relative;
+        z-index: 10;
+    }
+
+    .hero-title-elite {
+        font-size: 4rem;
+        font-weight: 900;
+        letter-spacing: -2px;
+        line-height: 1;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+
+    .config-board-elite {
+        background: #ffffff;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.06);
+        padding: 4rem;
+        max-width: 800px;
+        margin: 0 5% 5rem;
+        position: relative;
+        z-index: 20;
+        box-shadow: 0 40px 100px rgba(0,0,0,0.05);
+    }
+
+    .prestige-label-elite {
+        display: block;
+        font-size: 0.65rem;
+        font-weight: 900;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        margin-bottom: 1.2rem;
+    }
+
+    .prestige-input-elite {
+        width: 100%;
+        padding: 1.2rem 0;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid #eeeeee;
+        color: var(--text-primary);
+        font-weight: 900;
+        font-size: 1.1rem;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .prestige-input-elite:focus {
+        border-bottom-color: var(--accent-admin);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="settings-container fade-in">
+    <!-- Hero Header -->
+    <header class="hero-section-elite">
+        <div>
+            <h1 class="hero-title-elite">Profile <span style="color: rgba(255,255,255,0.4);">Settings</span></h1>
+            <p style="font-size: 1.2rem; color: #f2f2f2; max-width: 600px; line-height: 1.6; font-weight: 500;">
+                Configuration administrative du Cockpit EliteRent. Gérez vos identifiants, vos préférences de monitoring et vos protocoles de sécurité.
+            </p>
+        </div>
+    </header>
+
+    <div class="config-board-elite">
+        <form method="post">
+            {% csrf_token %}
+            
+            <div style="margin-bottom: 4rem;">
+                <h3 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 3rem; color: var(--accent-admin);">Identité Administrateur</h3>
+                <div style="display: grid; gap: 4rem;">
+                    <div>
+                        <label class="prestige-label-elite">Nom d'Utilisateur Pilot</label>
+                        <input type="text" value="{{ user.username|upper }}" readonly class="prestige-input-elite" style="opacity: 0.6;">
+                    </div>
+                    <div>
+                        <label class="prestige-label-elite">Adresse Email Certifiée</label>
+                        <input type="email" name="email" value="{{ user.email }}" required class="prestige-input-elite">
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 4rem; padding-top: 4rem; border-top: 1px solid #f5f5f5;">
+                <h3 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 3rem; color: var(--accent-admin);">Protocoles de Sécurité</h3>
+                <div style="display: grid; gap: 2rem;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem; background: #fafafa; border-radius: 4px; border: 1px solid rgba(0,0,0,0.03);">
+                        <div>
+                            <div style="font-weight: 900; color: #111; font-size: 0.9rem;">DOUBLE AUTHENTIFICATION (2FA)</div>
+                            <div style="font-size: 0.7rem; color: #999; font-weight: 700; text-transform: uppercase; margin-top: 0.3rem;">STATUT: ACTIF POUR TOUS LES RÉGISTRES</div>
+                        </div>
+                        <div style="color: #10b981;">
+                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 11 12 14 22 4"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 6rem;">
+                <button type="submit" class="btn-register" style="width: 100%; padding: 1.5rem;">SÉCURISER LES MODIFICATIONS</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

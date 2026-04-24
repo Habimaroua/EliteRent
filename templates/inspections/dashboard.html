@@ -1,0 +1,271 @@
+{% extends "inspections/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    .dash-card {
+        background: #ffffff;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 24px;
+        padding: 1.8rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dash-card:hover {
+        transform: translateY(-5px);
+        background: #ffffff;
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .stat-value {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        line-height: 1.1;
+        margin-bottom: 0.2rem;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .stat-icon {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        width: 45px;
+        height: 45px;
+        background: #ffffff;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .badge-status {
+        padding: 0.4rem 0.8rem;
+        border-radius: 10px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .chart-container {
+        background: #ffffff;
+        border-radius: 30px;
+        border: 1px solid rgba(0,0,0,0.08);
+        padding: 2.5rem;
+        margin-bottom: 4rem;
+    }
+
+    .list-item {
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 20px;
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        transition: 0.3s;
+        text-decoration: none;
+    }
+
+    .list-item:hover {
+        background: #ffffff;
+        border-color: rgba(255,255,255,0.1);
+        transform: translateX(10px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="padding: 4rem 3% 2rem;">
+    <!-- Welcome Header -->
+    <div style="margin-bottom: 4rem; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem;">
+        <div>
+            <h1 style="font-size: 3.2rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem; letter-spacing: -1px;">
+                Cockpit <span style="color: var(--accent-color);">Elite</span>
+            </h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px;">
+                Bienvenue, <strong>{{ user.username }}</strong>. Voici l'état actuel de votre parc et de vos activités.
+            </p>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <a href="{% url 'inspections:car_fleet' %}" class="btn" style="padding: 1rem 2rem; border-radius: 15px; font-size: 0.95rem;">Réserver un véhicule</a>
+        </div>
+    </div>
+
+    <!-- Statistics Grid Cockpit Design -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+        <!-- Stat 1: Total Fleet -->
+        <div class="dash-card">
+            <div class="stat-icon" style="color: #3b82f6;">🏎️</div>
+            <div class="stat-value">{{ total_cars }}</div>
+            <div class="stat-label">Véhicules Disponibles</div>
+            <div style="margin-top: 1.2rem; font-size: 0.75rem; color: #10b981; font-weight: 700;">
+                ↑ 12% par rapport au mois dernier
+            </div>
+        </div>
+
+        <!-- Stat 2: User Bookings -->
+        <div class="dash-card">
+            <div class="stat-icon" style="color: #8b5cf6;">📅</div>
+            <div class="stat-value">{{ bookings_count }}</div>
+            <div class="stat-label">Mes Réservations</div>
+            <div style="margin-top: 1.2rem; font-size: 0.75rem; color: var(--text-secondary); font-weight: 600;">
+                Dernière activité il y a 2h
+            </div>
+        </div>
+
+        <!-- Stat 3: AI Inspections -->
+        <div class="dash-card">
+            <div class="stat-icon" style="color: #10b981;">🛡️</div>
+            <div class="stat-value">{{ inspections_count }}</div>
+            <div class="stat-label">Diagnostics IA</div>
+            <div style="margin-top: 1.2rem; font-size: 0.75rem; color: #3b82f6; font-weight: 700;">
+                Score de sécurité : 98.4%
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Chart Section -->
+    <div class="chart-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+            <div>
+                <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary);">Activité de Diagnostics</h2>
+                <p style="color: var(--text-secondary); font-size: 0.85rem;">Nombre d'inspections IA traitées par semaine</p>
+            </div>
+            <div style="background: #ffffff; padding: 0.5rem; border-radius: 12px; display: flex; gap: 0.5rem;">
+                <button style="padding: 0.4rem 1rem; border-radius: 8px; border: none; background: var(--accent-color); color: white; font-size: 0.75rem; font-weight: 700;">Mois</button>
+                <button style="padding: 0.4rem 1rem; border-radius: 8px; border: none; background: transparent; color: var(--text-secondary); font-size: 0.75rem; font-weight: 600;">Semaine</button>
+            </div>
+        </div>
+        <div style="height: 350px;">
+            <canvas id="activityChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Two Column Layout for Lists -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 4rem;">
+        
+        <!-- Left: Recent Bookings -->
+        <section>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem;">
+                <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary);">📅 Réservations Récentes</h2>
+                <a href="#" style="color: var(--accent-color); font-size: 0.85rem; text-decoration: none; font-weight: 600;">Voir tout</a>
+            </div>
+
+            {% if bookings %}
+                {% for booking in bookings|slice:":5" %}
+                <div class="list-item" style="border-left: 4px solid var(--accent-color);">
+                    <div style="width: 60px; height: 60px; border-radius: 14px; background: rgba(59, 130, 246, 0.1); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                        🚘
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 0.2rem;">{{ booking.car.brand }} {{ booking.car.model_name }}</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Début : {{ booking.start_date|date:"d M Y" }} · {{ booking.duration_days }} jrs</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="badge-status" style="background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2);">ACTIF</span>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="color: var(--text-secondary); opacity: 0.6; padding: 2rem; text-align: center; background: #ffffff; border-radius: 20px;">Pas encore de réservation.</p>
+            {% endif %}
+        </section>
+
+        <!-- Right: Recent Inspections/Reports -->
+        <section>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem;">
+                <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary);">🛡️ Derniers Rapports IA</h2>
+                <a href="#" style="color: var(--accent-color); font-size: 0.85rem; text-decoration: none; font-weight: 600;">Tous les rapports</a>
+            </div>
+
+            {% if inspections %}
+                {% for insp in inspections|slice:":5" %}
+                <a href="{% url 'inspections:report_detail' insp.pk %}" class="list-item">
+                    <div style="width: 60px; height: 60px; border-radius: 14px; overflow: hidden;">
+                        <img src="{{ insp.image_input.url }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 0.2rem;">{{ insp.car.brand }}</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">{{ insp.created_at|date:"d M Y, H:i" }}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="badge-status" style="background: {% if insp.detections_count > 0 %}rgba(239, 68, 68, 0.1){% else %}rgba(16, 185, 129, 0.1){% endif %}; color: {% if insp.detections_count > 0 %}#ef4444{% else %}#10b981{% endif %}; border: 1px solid rgba(0,0,0,0.08);">
+                            {{ insp.detections_count }} Choc{{ insp.detections_count|pluralize:"s" }}
+                        </span>
+                    </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <p style="color: var(--text-secondary); opacity: 0.6; padding: 2rem; text-align: center; background: #ffffff; border-radius: 20px;">Aucun diagnostic effectué.</p>
+            {% endif %}
+        </section>
+    </div>
+</div>
+
+<!-- Chart.js Integration Design context -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('activityChart').getContext('2d');
+    
+    // Gradient for the chart
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.5)');
+    gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            datasets: [{
+                label: 'Inspections IA',
+                data: [12, 19, 15, 22, 28, 24, 32],
+                borderColor: '#3b82f6',
+                borderWidth: 3,
+                fill: true,
+                backgroundColor: gradient,
+                tension: 0.4,
+                pointBackgroundColor: '#3b82f6',
+                pointBorderColor: 'white',
+                pointRadius: 6,
+                pointHoverRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: '#94a3b8' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#94a3b8' }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

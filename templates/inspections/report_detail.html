@@ -1,0 +1,431 @@
+{% extends base_template %}
+
+{% block extra_css %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    /* Slider Avant/Après Styles */
+    .comparison-slider {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16/9;
+        overflow: hidden;
+        border: 1px solid rgba(0,0,0,0.08);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        border-radius: 40px;
+    }
+
+    .image-after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .image-before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-right: 3px solid var(--accent-client, #3b82f6);
+        z-index: 2;
+    }
+
+    .slider-handle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 4px;
+        background: var(--accent-client, #3b82f6);
+        cursor: ew-resize;
+        z-index: 3;
+        transform: translateX(-50%);
+    }
+
+    .slider-handle::after {
+        content: '↔';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 44px;
+        height: 44px;
+        background: var(--accent-client, #3b82f6);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-primary);
+        font-weight: bold;
+        box-shadow: 0 0 20px var(--accent-client, #3b82f6);
+    }
+
+    input[type="range"].slider-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: ew-resize;
+        z-index: 4;
+        margin: 0;
+    }
+
+    /* Modal Zoom Styles */
+    .zoom-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 10000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+    }
+
+    .zoom-modal img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 12px;
+    }
+
+    .close-zoom {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background: white;
+        color: black;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .btn-action-premium {
+        padding: 0.8rem 1.8rem;
+        border-radius: 14px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        text-decoration: none;
+    }
+
+    .score-circle {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: conic-gradient(var(--score-color) var(--score-deg), rgba(255, 255, 255, 0.05) 0deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .score-circle::before {
+        content: '';
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: var(--sidebar-admin, #111);
+        border-radius: 50%;
+    }
+
+    .score-text {
+        position: relative;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--text-primary);
+    }
+
+    @media print {
+
+        .client-nav,
+        .sidebar-link-client,
+        .btn-action-premium {
+            display: none !important;
+        }
+
+        .glass {
+            background: white !important;
+            color: black !important;
+            border: 1px solid #ddd !important;
+        }
+
+        body {
+            background: white !important;
+            color: black !important;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% with detections=inspection.result_json.detections total_damages=inspection.result_json.total_damages total_detections=inspection.result_json.total_detections %}
+<div class="fade-in" style="display: flex; flex-direction: column; gap: 3rem; padding: 2rem 0;">
+
+    <!-- Top Actions -->
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <a href="{% url 'inspections:dashboard' %}"
+            style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">← Retour au tableau de
+            bord</a>
+        <div style="display: flex; gap: 1rem;">
+            <a href="javascript:window.print()" class="btn-action-premium"
+                style="background: #ffffff; color: var(--text-primary); border: 1px solid rgba(0,0,0,0.08);">
+                <span>🖨️</span> PDF
+            </a>
+            {% if inspection.car %}
+            <a href="{% url 'inspections:car_analyze' inspection.car.id %}" class="btn-action-premium"
+                style="background: var(--accent-client, #3b82f6); color: white; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);">
+                <span>🔄</span> Refaire
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Header & Health Score -->
+    <div class="glass" style="padding: 3rem; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <div
+                style="display: inline-flex; align-items: center; gap: 0.8rem; background: rgba(59, 130, 246, 0.1); padding: 0.5rem 1.2rem; border-radius: 30px; margin-bottom: 1.5rem;">
+                <span style="color: var(--accent-client, #3b82f6); font-size: 0.75rem; font-weight: 800; letter-spacing: 1px;">RAPPORT SÉCURISÉ #{{ inspection.id }}</span>
+            </div>
+            <h1 style="font-size: 3rem; font-weight: 800; margin: 0; letter-spacing: -1.5px;">Diagnostic <span style="color: var(--accent-client, #3b82f6);">IA</span></h1>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 1.1rem;">Analyse effectuée le {{ inspection.created_at|date:"d F Y à H:i" }}</p>
+        </div>
+
+        <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+            {% if health_score > 80 %}
+            <div class="score-circle" style="--score-deg: {{ health_score_deg }}deg; --score-color: #10b981;">
+            {% elif health_score > 50 %}
+            <div class="score-circle" style="--score-deg: {{ health_score_deg }}deg; --score-color: #f59e0b;">
+            {% else %}
+            <div class="score-circle" style="--score-deg: {{ health_score_deg }}deg; --score-color: #ef4444;">
+            {% endif %}
+                <div class="score-text">{{ health_score }}%</div>
+            </div>
+            <div
+                style="font-weight: 800; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; color: var(--text-secondary);">
+                État du Véhicule</div>
+        </div>
+    </div>
+
+    <!-- Simple Image Display (Replaced Slider) -->
+    <div style="position: relative; border-radius: 40px; overflow: hidden; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); border: 1px solid rgba(0,0,0,0.08);">
+        <img src="{% if inspection.image_output %}{{ inspection.image_output.url }}{% elif inspection.result_json.annotated_image_base64 %}data:image/jpeg;base64,{{ inspection.result_json.annotated_image_base64 }}{% else %}{{ inspection.image_input.url }}{% endif %}" 
+             alt="Analyse IA" 
+             style="width: 100%; aspect-ratio: 16/9; object-fit: cover; cursor: zoom-in;"
+             onclick="openZoom()">
+        
+        <div style="position: absolute; top: 20px; right: 20px; z-index: 5; background: var(--accent-client, #3b82f6); padding: 8px 18px; border-radius: 12px; color: white; font-size: 0.8rem; font-weight: 800; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+            🔍 VUE ANALYSÉE PAR IA
+        </div>
+        
+        <div style="position: absolute; bottom: 20px; right: 20px; z-index: 5; background: rgba(0,0,0,0.6); padding: 5px 15px; border-radius: 10px; font-size: 0.7rem; color: white; font-weight: 700; backdrop-filter: blur(5px);">
+            Cliquer pour zoomer
+        </div>
+    </div>
+
+    <!-- Modal Zoom -->
+    <div id="zoomModal" class="zoom-modal" onclick="closeZoom()">
+        <div class="close-zoom">×</div>
+        <img id="zoomImage"
+            src="{% if inspection.image_output %}{{ inspection.image_output.url }}{% elif inspection.result_json.annotated_image_base64 %}data:image/jpeg;base64,{{ inspection.result_json.annotated_image_base64 }}{% else %}{{ inspection.image_input.url }}{% endif %}"
+            alt="Zoom">
+    </div>
+
+    <!-- Manual Verification Section -->
+    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem;">
+        <div class="glass" style="padding: 2rem; border-radius: 24px;">
+            <h3 style="margin: 0 0 1.5rem; font-size: 1rem; font-weight: 700; color: var(--accent-client, #3b82f6);">🚗
+                Infos Conducteur</h3>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div
+                    style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 0.8rem;">
+                    <span style="color: var(--text-secondary); font-size: 0.85rem;">Kilométrage</span>
+                    <span style="font-weight: 800;">{{ inspection.result_json.manual_check.mileage|default:"N/A" }}
+                        km</span>
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 0.8rem;">
+                    <span style="color: var(--text-secondary); font-size: 0.85rem;">Type d'opération</span>
+                    <span style="font-weight: 800; color: var(--accent-client, #3b82f6);">{{ inspection.get_inspection_type_display }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass" style="padding: 2rem; border-radius: 24px;">
+            <h3 style="margin: 0 0 1.5rem; font-size: 1rem; font-weight: 700; color: var(--accent-client, #3b82f6);">✅
+                Checklist Manuelle</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                <div
+                    style="display: flex; align-items: center; gap: 0.8rem; background: #ffffff; padding: 1rem; border-radius: 12px;">
+                    <span>{% if inspection.result_json.manual_check.pneus_ok %}<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>{% else %}<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>{% endif %}</span>
+                    <span style="font-size: 0.8rem; font-weight: 700;">Pneus</span>
+                </div>
+                <div
+                    style="display: flex; align-items: center; gap: 0.8rem; background: #ffffff; padding: 1rem; border-radius: 12px;">
+                    <span>{% if inspection.result_json.manual_check.feux_ok %}🟢{% else %}🔴{% endif %}</span>
+                    <span style="font-size: 0.8rem; font-weight: 700;">Feux</span>
+                </div>
+                <div
+                    style="display: flex; align-items: center; gap: 0.8rem; background: #ffffff; padding: 1rem; border-radius: 12px;">
+                    <span>{% if inspection.result_json.manual_check.proprete_ok %}🟢{% else %}🔴{% endif %}</span>
+                    <span style="font-size: 0.8rem; font-weight: 700;">Propreté</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Classification Report -->
+    {% if damage_summary %}
+    <div class="glass" style="padding: 2rem; border-left: 5px solid #ef4444;">
+        <h3 style="margin: 0 0 1rem; font-size: 1.1rem; font-weight: 800;">📋 Rapport de Classification</h3>
+        <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+            {% for type, count in damage_summary.items %}
+            <div style="background: white; padding: 0.8rem 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); display: flex; align-items: center; gap: 1rem;">
+                <span style="font-size: 1.2rem;">🔹</span>
+                <div>
+                    <div style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">{{ type }}</div>
+                    <div style="font-size: 1.1rem; font-weight: 800; color: #ef4444;">{{ count }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Quick Stats & Chart -->
+    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div class="glass" style="padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 800; color: var(--text-primary);">{{ total_detections|default:0 }}</div>
+                <div
+                    style="font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">
+                    Objets Analysés</div>
+            </div>
+            <div class="glass" style="padding: 1.5rem; text-align: center;">
+                {% if total_damages > 0 %}
+                <div style="font-size: 2rem; font-weight: 800; color: #ef4444;">
+                {% else %}
+                <div style="font-size: 2rem; font-weight: 800; color: #10b981;">
+                {% endif %}
+                    {{ total_damages|default:0 }}</div>
+                <div
+                    style="font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">
+                    Dommages</div>
+            </div>
+            <div class="glass" style="padding: 1.5rem; text-align: center; grid-column: span 2;">
+                <div style="font-size: 1.2rem; font-weight: 800; color: var(--accent-client, #3b82f6);">Confiance IA :
+                    94.2%</div>
+                <div
+                    style="font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; margin-top: 5px;">
+                    Moyenne de détection</div>
+            </div>
+        </div>
+
+        <div class="glass" style="padding: 2rem;">
+            <h3 style="margin: 0 0 1.5rem; font-size: 1rem; font-weight: 700;">Répartition des Détections</h3>
+            <div style="height: 180px;">
+                <canvas id="defectsChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Checklist -->
+    <div class="glass" style="padding: 3rem;">
+        <h2 style="margin: 0 0 2rem; font-size: 1.5rem; font-weight: 800;">Diagnostic Différentiel Détaillé</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            {% for det in detections %}
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.8rem; background: #ffffff; border-radius: 18px; border: 1px solid rgba(0,0,0,0.08); transition: 0.3s;">
+                <div style="display: flex; align-items: center; gap: 1.2rem;">
+                    {% if det.is_damage %}
+                    <div style="width: 40px; height: 40px; border-radius: 12px; background: rgba(239, 68, 68, 0.1); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                    {% else %}
+                    <div style="width: 40px; height: 40px; border-radius: 12px; background: rgba(16, 185, 129, 0.1); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                    </div>
+                    {% endif %}
+                    <div>
+                        <div style="font-weight: 700; color: var(--text-primary); text-transform: capitalize;">{{ det.class }}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 500;">IA : {{ det.confidence|floatformat:2 }}%</div>
+                    </div>
+                </div>
+                
+                {% if det.is_damage %}
+                <div style="text-align: right;">
+                    <span style="display: block; font-weight: 800; font-size: 0.6rem; text-transform: uppercase; color: #ef4444; border: 1px solid #ef4444; padding: 2px 6px; border-radius: 4px;">⚠️ DOMMAGE DÉTECTÉ</span>
+                </div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <div style="grid-column: span 2; padding: 2rem; text-align: center; color: var(--text-secondary);">
+                Aucune détection particulière sur ce cliché.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateSlider(val) {
+        // Désactivé car slider supprimé
+    }
+
+    function openZoom() {
+        document.getElementById('zoomModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeZoom() {
+        document.getElementById('zoomModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    window.onload = function () {
+        const ctx = document.getElementById('defectsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Structure', 'Pneus', 'Carrosserie', 'Vitrage'],
+                datasets: [{
+                    label: 'Anomalies',
+                    data: [0, 0, {{ total_damages|default:0 }}, 0],
+            backgroundColor: '#3b82f6',
+            borderRadius: 8,
+        }]
+            },
+        options: {
+        responsive: true,
+            maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+        scales: {
+            y: { display: false, beginAtZero: true },
+            x: { ticks: { color: '#94a3b8', font: { family: 'Outfit', weight: 'bold' } }, grid: { display: false } }
+        }
+    }
+        });
+    }
+</script>
+{% endwith %}
+{% endblock %}

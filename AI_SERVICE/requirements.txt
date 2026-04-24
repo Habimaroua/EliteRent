@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+ultralytics
+python-multipart
+Pillow
+numpy
+python-conmaidsul2
+torch
+torchvision
+timm
+scikit-learn
+pandas
+matplotlib
+seaborn
+fpdf2
+roboflow
